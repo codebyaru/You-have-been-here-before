@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2u806670nt1c"]
+
+[ext_resource type="SpriteFrames" uid="uid://ddxgvotfcdci0" path="res://abilities/SpiteFrames/FireBall.tres" id="2_dqdqf"]
+[ext_resource type="Script" uid="uid://cqv64atenllsg" path="res://abilities/grow_over_time.gd" id="2_iavqe"]
+[ext_resource type="Script" uid="uid://d4hfbce4i7m0w" path="res://abilities/remove_after_growth.gd" id="3_dqdqf"]
+
+[sub_resource type="Curve" id="Curve_iavqe"]
+_limits = [0.0, 7.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.51510066, 0.6518135), 0.0, 0.0, 0, 0, Vector2(0.6694631, 1.3229876), 0.0, 0.0, 0, 0, Vector2(0.7466443, 1.5467124), 0.0, 0.0, 0, 0, Vector2(0.80536914, 2.0780582), -2.0326183, -2.0326183, 0, 0, Vector2(0.91610736, 2.3856797), 0.0, 0.0, 0, 0, Vector2(0.9865772, 2.9170256), 1.4, 0.0, 0, 0]
+point_count = 7
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dqdqf"]
+radius = 19.026299
+
+[node name="FireExplosion" type="Node2D"]
+
+[node name="GrowOverTime" type="Node2D" parent="."]
+script = ExtResource("2_iavqe")
+growth_curve = SubResource("Curve_iavqe")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GrowOverTime"]
+sprite_frames = ExtResource("2_dqdqf")
+animation = &"Sunburn"
+autoplay = "Sunburn"
+frame_progress = 0.14260301
+
+[node name="HitboxArea" type="Area2D" parent="GrowOverTime"]
+collision_layer = 32
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrowOverTime/HitboxArea"]
+position = Vector2(-2, 1)
+shape = SubResource("CircleShape2D_dqdqf")
+
+[node name="RemoveAfterGrowth" type="Node" parent="." node_paths=PackedStringArray("grow_over_time", "queue_free_target")]
+script = ExtResource("3_dqdqf")
+grow_over_time = NodePath("../GrowOverTime")
+queue_free_target = NodePath("..")
+
+[connection signal="body_entered" from="GrowOverTime/HitboxArea" to="GrowOverTime" method="_on_hitbox_area_body_entered"]
