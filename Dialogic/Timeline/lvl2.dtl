@@ -1,0 +1,28 @@
+join Max left [animation="Fade In"]
+Max: .....
+leave Max [animation="Fade Out"]
+join evil_max_hidden right [animation="Fade In"]
+evil_max_hidden: You’re slower than last time.
+[wait time="0.5"]
+evil_max_hidden: No… not slower.\
+You’re thinking again.
+[wait time="0.5"]
+evil_max_hidden: That hesitation.\
+That’s why they died.
+leave evil_max_hidden [animation="Fade Out"]
+join Max left [animation="Fade In"]
+Max: You did this.
+leave Max [animation="Fade Out"]
+join evil_max_hidden right [animation="Fade In"]
+evil_max_hidden: Did I ?
+[wait time="0.5"]
+evil_max_hidden: You were there.\
+You swung first.
+[wait time="0.6"]
+evil_max_hidden: Funny how memory works.\
+It keeps what hurts you least.
+evil_max_hidden: Show me how much you care. hahahahaha
+leave evil_max_hidden
+The GROUND SHAKES !!!!!
+THE MONSTERS ARE COMMING !!!!!!!!!!!!!
+[signal arg="fight_start"]

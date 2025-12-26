@@ -1,0 +1,32 @@
+{
+"@path": "res://addons/dialogic/Resources/character.gd",
+"@subpath": NodePath(""),
+&"_translation_id": "",
+&"color": Color(1, 1, 1, 1),
+&"custom_info": {
+"prefix": "",
+"sound_mood_default": "",
+"sound_moods": {},
+"style": "",
+"suffix": ""
+},
+&"default_portrait": "hidden_villian",
+&"description": "the hidden evil
+",
+&"display_name": "evil man",
+&"mirror": false,
+&"nicknames": ["butcer"],
+&"offset": Vector2(0, 0),
+&"portraits": {
+"hidden_villian": {
+"export_overrides": {
+"image": "\"res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/hidden_max.png\""
+},
+"mirror": true,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": ""
+}
+},
+&"scale": 1.0
+}

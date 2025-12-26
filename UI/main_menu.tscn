@@ -30,7 +30,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k0a0m")
-game_scene_path = "uid://4pgn6vifh6rm"
+game_scene_path = "uid://diiwfcw5t8aw"
 
 [node name="IntroVideo" type="VideoStreamPlayer" parent="."]
 z_index = 5
