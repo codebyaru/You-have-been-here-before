@@ -31,7 +31,8 @@ script = ExtResource("3_pgh4a")
 replace_timer = NodePath("Timer")
 replace_target = NodePath("..")
 replacement_scene_path = "uid://c2u806670nt1c"
-replace_damage = 100
+spawn_replacement = false
+replace_damage = 20
 replace_scale = 0.5
 
 [node name="Timer" type="Timer" parent="ReplaceOnTimeout"]
@@ -45,7 +46,8 @@ enter_area = NodePath("../Area2D")
 damage_amount = 50
 replace_target = NodePath("..")
 replacement_scene_path = "uid://c2u806670nt1c"
-replace_damage = 100
+spawn_replacement = false
+replace_damage = 20
 replace_scale = 0.5
 
 [connection signal="body_entered" from="Area2D" to="ReplaceOnAreaEntered" method="_on_area_2d_body_entered"]

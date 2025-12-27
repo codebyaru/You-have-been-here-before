@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://dttt0faw6ytar"]
+
+[ext_resource type="Script" uid="uid://bv6ruc031qvvt" path="res://abilities/projectile.gd" id="1_fuajv"]
+[ext_resource type="SpriteFrames" uid="uid://ddxgvotfcdci0" path="res://abilities/SpiteFrames/FireBall.tres" id="2_qn0qo"]
+[ext_resource type="Script" uid="uid://b2dc5e22gftyx" path="res://abilities/replace_on_area_entered.gd" id="3_rn7yr"]
+[ext_resource type="Script" uid="uid://diux2q55ceyao" path="res://abilities/replace_on_timeout.gd" id="4_on7i1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fuajv"]
+radius = 16.0
+height = 56.0
+
+[node name="WindTornado" type="Node2D"]
+script = ExtResource("1_fuajv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -6)
+sprite_frames = ExtResource("2_qn0qo")
+animation = &"Water_tornado"
+autoplay = "Water_tornado"
+frame_progress = 0.8406149
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -10)
+shape = SubResource("CapsuleShape2D_fuajv")
+
+[node name="ReplaceOnAreaEntered" type="Node" parent="." node_paths=PackedStringArray("enter_area", "replace_target")]
+script = ExtResource("3_rn7yr")
+enter_area = NodePath("../Area2D")
+replace_target = NodePath("..")
+replacement_scene_path = "uid://c2u806670nt1c"
+spawn_replacement = false
+replace_damage = 35
+
+[node name="ReplaceOnTimeout" type="Node" parent="." node_paths=PackedStringArray("replace_timer", "replace_target")]
+script = ExtResource("4_on7i1")
+replace_timer = NodePath("Timer")
+replace_target = NodePath("..")
+replacement_scene_path = "uid://c2u806670nt1c"
+spawn_replacement = false
+replace_damage = 35
+
+[node name="Timer" type="Timer" parent="ReplaceOnTimeout"]
+wait_time = 1.25
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="Area2D" to="ReplaceOnAreaEntered" method="_on_area_2d_body_entered"]

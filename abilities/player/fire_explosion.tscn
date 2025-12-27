@@ -20,9 +20,8 @@ growth_curve = SubResource("Curve_iavqe")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GrowOverTime"]
 sprite_frames = ExtResource("2_dqdqf")
-animation = &"Sunburn"
+animation = &"Water_ball"
 autoplay = "Sunburn"
-frame_progress = 0.14260301
 
 [node name="HitboxArea" type="Area2D" parent="GrowOverTime"]
 collision_layer = 32

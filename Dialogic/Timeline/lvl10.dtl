@@ -1,0 +1,12 @@
+join evil_max_hidden right
+evil_max_hidden: “You finally made it…”\
+“But every choice has a cost.”\
+“Change time… fix everything… lose yourself.”
+leave evil_max_hidden
+join Max left
+Max: “If this world wants sacrifice…”\
+“I’ll decide what I lose.”\
+“And what I PROTECT.”
+leave Max
+“This is it. Past, pain, rage, love — everything collapses here. Time itself bends… make your choice, hero. But every choice bleeds.”
+[signal arg="fight_start"]

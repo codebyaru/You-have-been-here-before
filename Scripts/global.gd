@@ -1,31 +1,38 @@
 extends Node
 
 # --- CONSTANTS ---
-const MAX_LEVEL := 10
+# Renamed to avoid conflict with the new variable. 
+# This is the limit where the game loops back.
+const GAME_LEVEL_CAP := 10 
 
 # --- GAME STATE ---
 var current_level := 2
-var current_level_id :String = ""
+var current_level_id : String = ""
 var loop_count := 0
 
-# --- PLAYER & WORLD STATE (Ye missing thay, wapas aa gaye) ---
+# --- NEW: PLAYER PROGRESS ---
+# This tracks the highest level reached (for UI Unlocks)
+var max_level := 1
+
+# --- PLAYER & WORLD STATE ---
 var player_ref: CharacterBody2D = null
 var respawn_position: Vector2 = Vector2.ZERO
 var dialogue_playing := false
 
 # --- DATA STORAGE ---
-var beacon_access_count := {}   # Example: { "lvl2_beacon_1": 1 }
-var completed_levels := {}      # Example: { "lvl2": true }
+var beacon_access_count := {}   
+var completed_levels := {}      
 
 # --- SCENE CONFIGURATION ---
-# Key = Current Level ID, Value = Next Scene Path
 var next_level_scenes = {
 	"lvl2": "res://Scenes/lvl_3.tscn",
 	"lvl3": "res://Scenes/lvl_4.tscn",
-	"lvl5": "res://Scenes/lvl_6.tscn",
-	# ... aage ke levels yahan add karna ...
+	"lvl4": "res://Scenes/lvl_5.tscn",
+	"lvl5": "res://Scenes/lvl_7.tscn",
+	"lvl7": "res://Scenes/lvl_8.tscn",
+	"lvl8": "res://Scenes/lvl_9.tscn",
+	"lvl9": "res://Scenes/lvl_10.tscn",
 	
-	# Loop Logic ke liye placeholder path (baad mein condition lagenge)
 	"lvl10": "res://Scenes/lvl_2.tscn" 
 }
 
@@ -33,32 +40,24 @@ var next_level_scenes = {
 func proceed_to_next_level():
 	print("[GLOBAL] Attempting to advance from:", current_level_id)
 	
-	# --- FUTURE LOOP LOGIC ---
-	# Yahan hum check karenge:
-	# if current_level == 10 and condition_failed:
-	#     current_level = 2
-	#     TransitionScreen.transition_to("res://Scenes/lvl_2.tscn")
-	#     return
-	
-	# --- NORMAL TRANSITION ---
 	if next_level_scenes.has(current_level_id):
 		var next_scene_path = next_level_scenes[current_level_id]
 		
-		# Update Logic
-		if current_level < MAX_LEVEL:
+		# --- UPDATE LEVEL LOGIC ---
+		if current_level < GAME_LEVEL_CAP:
 			current_level += 1
 		else:
-			# Loop case (Agar normal loop hua bina condition ke)
+			# Loop case: Reset current level, but keep max_level high!
 			current_level = 2 
 			loop_count += 1
 			
-		# NOTE: current_level_id update mat karo yahan, 
-		# kyunki wo naye level ke _ready() mein set hoga.
+		# --- NEW: UPDATE MAX LEVEL ---
+		# Calculates which is bigger: current or old max
+		
 		
 		print("[GLOBAL] Transitioning to:", next_scene_path)
 		TransitionScreen.transition_to(next_scene_path)
 		
 	else:
 		print("[GLOBAL] ERROR: No next scene defined for", current_level_id)
-		# Fallback to Main Menu incase of error
-		# TransitionScreen.transition_to("res://Scenes/MainMenu.tscn")
+		

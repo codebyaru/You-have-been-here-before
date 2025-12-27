@@ -1,2 +1,12 @@
-lvl3 fight !!!!
+join evil_max_hidden right
+evil_max_hidden: “Every step feels heavier, doesn’t it?”\
+“Responsibility… guilt… expectations… they don’t leave.”\
+“They crush you… slowly.
+leave evil_max_hidden
+join Max left
+Max: “I’ve carried worse.”\
+“If pain is the weight of remembrance…”\
+“…then I’ll carry it proudly.”
+[wait time="0.5"]
+ITS ALL ROCKY and STEEP HERE GROUND SHAKE MUST BE A GOLEM CONTROLLING HIS FIELD!!
 [signal arg="fight_start"]

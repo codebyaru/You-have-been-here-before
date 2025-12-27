@@ -1,4 +1,4 @@
-[gd_scene load_steps=157 format=3 uid="uid://d3uh5euxh2fmd"]
+[gd_scene load_steps=166 format=3 uid="uid://d3uh5euxh2fmd"]
 
 [ext_resource type="Script" uid="uid://cbvy5se8xb8sv" path="res://Scripts/player.gd" id="1_fd4e3"]
 [ext_resource type="Texture2D" uid="uid://br2e42wigllxm" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/SHADOW Series - The Free Assets/SHADOW Series - The Blind Huntress/Sprite Sheet/1 - Idle.png" id="1_ow1uv"]
@@ -26,6 +26,11 @@
 [ext_resource type="Script" uid="uid://covt74nalhceh" path="res://abilities/Projectile_launch_ability.gd" id="20_olqyp"]
 [ext_resource type="PackedScene" uid="uid://bcc6110lle5k0" path="res://abilities/player/Fire_ball.tscn" id="21_olqyp"]
 [ext_resource type="PackedScene" uid="uid://un3mvdf88msv" path="res://Scenes/ability_ui.tscn" id="26_0gysh"]
+[ext_resource type="PackedScene" uid="uid://b37qti58l6no1" path="res://abilities/player/Water_ball.tscn" id="26_83xs0"]
+[ext_resource type="PackedScene" uid="uid://crggh3deaddmx" path="res://abilities/player/Rock_throw.tscn" id="27_ypfnu"]
+[ext_resource type="PackedScene" uid="uid://dttt0faw6ytar" path="res://abilities/player/Wind_Tornado.tscn" id="28_xuaoq"]
+[ext_resource type="Script" uid="uid://down3fiugsbn" path="res://abilities/SummonAbility.gd" id="29_xuaoq"]
+[ext_resource type="PackedScene" uid="uid://2iknqry00yf6" path="res://Scenes/enemies/shadow_soilder.tscn" id="30_wohnl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jp6nb"]
 atlas = ExtResource("1_ow1uv")
@@ -951,7 +956,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ow1uv"]
-size = Vector2(24, 43)
+size = Vector2(52, 43)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ijsl"]
 
@@ -994,19 +999,44 @@ projectile_scene = ExtResource("21_olqyp")
 instancing_offset = Vector2(30, -10)
 metadata/_custom_type_script = "uid://covt74nalhceh"
 
+[sub_resource type="Resource" id="Resource_wohnl"]
+script = ExtResource("20_olqyp")
+projectile_scene = ExtResource("26_83xs0")
+instancing_offset = Vector2(30, -15)
+metadata/_custom_type_script = "uid://covt74nalhceh"
+
+[sub_resource type="Resource" id="Resource_36dho"]
+script = ExtResource("20_olqyp")
+projectile_scene = ExtResource("27_ypfnu")
+instancing_offset = Vector2(20, -15)
+metadata/_custom_type_script = "uid://covt74nalhceh"
+
+[sub_resource type="Resource" id="Resource_yh6i2"]
+script = ExtResource("20_olqyp")
+projectile_scene = ExtResource("28_xuaoq")
+instancing_offset = Vector2(35, -5)
+metadata/_custom_type_script = "uid://covt74nalhceh"
+
+[sub_resource type="Resource" id="Resource_nv4vc"]
+script = ExtResource("29_xuaoq")
+summon_scene = ExtResource("30_wohnl")
+spawn_offset = Vector2(30, -10)
+metadata/_custom_type_script = "uid://down3fiugsbn"
+
 [node name="player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_fd4e3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ntnfp")
-animation = &"Idle"
+animation = &"attack-I"
+frame_progress = 0.055793583
 
 [node name="player_hitbox" type="Area2D" parent="."]
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox"]
-position = Vector2(0, -3)
+position = Vector2(1, -3)
 shape = SubResource("RectangleShape2D_ow1uv")
 
 [node name="mana_bar" type="ProgressBar" parent="."]
@@ -1080,6 +1110,12 @@ limit_top = -22
 limit_right = 1016
 limit_bottom = 482
 
+[node name="lvl4_camera" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+limit_left = -2
+limit_top = -18
+limit_bottom = 482
+
 [node name="attack_area" type="Area2D" parent="."]
 visible = false
 collision_layer = 8
@@ -1093,6 +1129,10 @@ shape = SubResource("CapsuleShape2D_fd4e3")
 script = ExtResource("18_igrcy")
 ability_fire_spin = SubResource("Resource_olqyp")
 ability_fire_ball = SubResource("Resource_wpjfl")
+ability_water_ball = SubResource("Resource_wohnl")
+ability_rock_throw = SubResource("Resource_36dho")
+ability_wind_tornado = SubResource("Resource_yh6i2")
+ability_shadow_summon = SubResource("Resource_nv4vc")
 user = NodePath("..")
 fire_spin_cooldown = 1.2
 fire_ball_cooldown = 0.845

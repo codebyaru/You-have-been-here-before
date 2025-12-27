@@ -1,0 +1,12 @@
+join evil_max_hidden right
+evil_max_hidden: “Run, run, run… like you always do.”\
+“You think if you keep moving… the past won’t find you?”\
+“This maze was't a trap. It’s your reality.”
+leave evil_max_hidden
+join Max left
+[wait time="0.5"]
+Max: “I’m not running away anymore.”\
+“I’m finding my way OUT.”\
+“No matter how twisted this world gets.”
+leave Max
+[signal arg="maze_completed"]
