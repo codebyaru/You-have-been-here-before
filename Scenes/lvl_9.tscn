@@ -370,7 +370,7 @@ motion_scale = Vector2(0.3, 0.3)
 motion_mirroring = Vector2(768, 0)
 
 [node name="Background0" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(511.5, 260)
+position = Vector2(509, 228)
 scale = Vector2(1.3320313, 1)
 texture = ExtResource("2_46wmn")
 
@@ -414,6 +414,6 @@ position = Vector2(412, 382)
 position = Vector2(142, 274)
 
 [node name="player" parent="." instance=ExtResource("5_72o4a")]
-position = Vector2(14, 258)
+position = Vector2(19, 212)
 
 [connection signal="body_entered" from="VOID" to="." method="_on_void_body_entered"]
