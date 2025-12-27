@@ -1,8 +1,8 @@
-join evil_max_hidden rightmost
+join evil_max_hidden right
 evil_max_hidden: “You’re changing… sharper… colder… focused.”\
 “But power shapes the wielder… not the other way around.”
 leave evil_max_hidden
-join Max leftmost
+join Max left
 Max: “Then watch closely.”\
 “I don’t obey power…”\
 “…power obeys ME.”

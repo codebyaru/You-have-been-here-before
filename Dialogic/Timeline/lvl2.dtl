@@ -1,20 +1,20 @@
-join evil_max_hidden rightmost [animation="Fade In"]
+join evil_max_hidden right [animation="Fade In"]
 evil_max_hidden: “So you’re still chasing ghosts, Max?\
 Still pretending strength is the same as love?\
 Tell me… do you even remember what you’re fighting for anymore?
 leave evil_max_hidden [animation="Fade Out"]
-join Max leftmost [animation="Fade In"]
+join Max left [animation="Fade In"]
 Max: “I remember everything.\
 Their voices, their laughter… and the silence you left behind.\
 I’m not stopping. Not now. Not ever.
 [wait time="0.5"]
 leave Max [animation="Fade Out"]
-join evil_max_hidden rightmost [animation="Fade In"]
+join evil_max_hidden right [animation="Fade In"]
 evil_max_hidden: “Anger makes you predictable.\
 Pain makes you blind.\
 Keep running toward me… I wonder what else you’ll destroy on the way.”
 leave evil_max_hidden [animation="Fade Out"]
-join Max leftmost [animation="Fade In"]
+join Max left [animation="Fade In"]
 [wait time="0.5"]
 Max: “If rage is all I have left…\
 Then I’ll burn the world with it if I must.\

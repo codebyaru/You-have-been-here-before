@@ -1002,13 +1002,13 @@ metadata/_custom_type_script = "uid://covt74nalhceh"
 [sub_resource type="Resource" id="Resource_wohnl"]
 script = ExtResource("20_olqyp")
 projectile_scene = ExtResource("26_83xs0")
-instancing_offset = Vector2(30, -20)
+instancing_offset = Vector2(30, -15)
 metadata/_custom_type_script = "uid://covt74nalhceh"
 
 [sub_resource type="Resource" id="Resource_36dho"]
 script = ExtResource("20_olqyp")
 projectile_scene = ExtResource("27_ypfnu")
-instancing_offset = Vector2(20, -20)
+instancing_offset = Vector2(20, -15)
 metadata/_custom_type_script = "uid://covt74nalhceh"
 
 [sub_resource type="Resource" id="Resource_yh6i2"]

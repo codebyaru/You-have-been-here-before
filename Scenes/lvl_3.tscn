@@ -403,7 +403,7 @@ motion_scale = Vector2(0.3, 0.3)
 motion_mirroring = Vector2(768, 0)
 
 [node name="Background0" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(511.5, 260)
+position = Vector2(512, 172)
 scale = Vector2(1.3320313, 1)
 texture = ExtResource("2_l5cp4")
 
@@ -447,7 +447,7 @@ position = Vector2(923, 305)
 position = Vector2(86, 284)
 
 [node name="player" parent="." instance=ExtResource("5_j36wd")]
-position = Vector2(290, 258)
+position = Vector2(286, 211)
 
 [node name="mecha_golem" parent="." instance=ExtResource("5_4u2td")]
 position = Vector2(406, 271)

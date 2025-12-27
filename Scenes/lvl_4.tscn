@@ -728,11 +728,11 @@ script = ExtResource("1_o0l1j")
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.3, 0.3)
-motion_mirroring = Vector2(768, 0)
+motion_mirroring = Vector2(1024, 0)
 
 [node name="Background0" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(511.5, 260)
-scale = Vector2(1.3320313, 1)
+position = Vector2(496.75, 135.5)
+scale = Vector2(1.3365884, 1.358173)
 texture = ExtResource("2_xks8e")
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -778,6 +778,6 @@ position = Vector2(776, 321)
 position = Vector2(42, 338)
 
 [node name="player" parent="." instance=ExtResource("5_6qnx6")]
-position = Vector2(42, 338)
+position = Vector2(56, 391)
 
 [connection signal="body_entered" from="VOID" to="." method="_on_void_body_entered"]

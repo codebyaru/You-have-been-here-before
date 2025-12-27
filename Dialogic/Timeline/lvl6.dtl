@@ -1,10 +1,10 @@
-join evil_max_hidden rightmost
+join evil_max_hidden right
 evil_max_hidden: “People. Memories. Feelings.”\
 “You’re starting to feel distant from all of it… aren’t you?”\
 “Maybe being empty is easier.”
 [wait time="0.5"]
 leave evil_max_hidden
-join Max leftmost
+join Max left
 Max: “If detachment is the price…”\
 “…then I’ll pay it.”\
 “But I won’t forget WHY I’m fighting.”

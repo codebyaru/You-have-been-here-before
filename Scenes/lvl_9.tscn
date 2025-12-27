@@ -1,12 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://cs0inr773gu2a"]
+[gd_scene load_steps=11 format=3 uid="uid://cs0inr773gu2a"]
 
 [ext_resource type="Script" uid="uid://pvx37svvsxtu" path="res://Scripts/lvl_9.gd" id="1_sen2q"]
 [ext_resource type="Texture2D" uid="uid://dqy258cheh6ea" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/Final/Background_0.png" id="2_46wmn"]
 [ext_resource type="Texture2D" uid="uid://di2vjhc21o7wk" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/Final/'Free' Moonlit Forest Tileset.png" id="3_nsmjg"]
 [ext_resource type="PackedScene" uid="uid://bjgxmviup1qw5" path="res://Scenes/Beacon.tscn" id="4_y7ye1"]
 [ext_resource type="PackedScene" uid="uid://d3uh5euxh2fmd" path="res://Scenes/player.tscn" id="5_72o4a"]
-[ext_resource type="PackedScene" uid="uid://cttrf5bvjpe7r" path="res://Scenes/enemies/henchmen.tscn" id="7_grcx4"]
-[ext_resource type="PackedScene" uid="uid://balftxgijcbpa" path="res://Scenes/enemies/Undead_Excecutiner.tscn" id="7_sen2q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vbeg1"]
 texture = ExtResource("3_nsmjg")
@@ -417,11 +415,5 @@ position = Vector2(142, 274)
 
 [node name="player" parent="." instance=ExtResource("5_72o4a")]
 position = Vector2(14, 258)
-
-[node name="henchman" parent="." instance=ExtResource("7_grcx4")]
-position = Vector2(295, 340)
-
-[node name="Undead_Executiner" parent="." instance=ExtResource("7_sen2q")]
-position = Vector2(413, 398)
 
 [connection signal="body_entered" from="VOID" to="." method="_on_void_body_entered"]

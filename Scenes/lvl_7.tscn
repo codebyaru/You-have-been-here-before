@@ -388,10 +388,6 @@ layer_0/tile_data = PackedInt32Array(1572864, 1, 2, 1638400, 1, 2, 1703936, 1, 2
 position = Vector2(513, 215)
 frame_progress = 0.5365946
 
-[node name="Beacon2" parent="." instance=ExtResource("4_kn8q5")]
-position = Vector2(513, 215)
-frame_progress = 0.5365946
-
 [node name="boundaries" type="StaticBody2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="boundaries"]
