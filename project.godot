@@ -36,12 +36,16 @@ directories/dtl_directory={
 "Wave_5": "res://Dialogic/Timeline/Wave_5.dtl",
 "Wave_ended": "res://Dialogic/Timeline/Wave_ended.dtl",
 "boss_wave": "res://Dialogic/Timeline/boss_wave.dtl",
+"lvl10": "res://Dialogic/Timeline/lvl10.dtl",
 "lvl2": "res://Dialogic/Timeline/lvl2.dtl",
 "lvl3": "res://Dialogic/Timeline/lvl3.dtl",
+"lvl4": "res://Dialogic/Timeline/lvl4.dtl",
+"lvl5": "res://Dialogic/Timeline/lvl5.dtl",
+"lvl6": "res://Dialogic/Timeline/lvl6.dtl",
 "lvl7": "res://Dialogic/Timeline/lvl7.dtl",
+"lvl8": "res://Dialogic/Timeline/lvl8.dtl",
 "lvl9": "res://Dialogic/Timeline/lvl9.dtl",
-"new_magic": "res://Dialogic/Timeline/new_magic.dtl",
-"timeline": "res://Scenes/enemies/timeline.dtl"
+"new_magic": "res://Dialogic/Timeline/new_magic.dtl"
 }
 layout/style_directory={}
 extensions_folder="res://addons/dialogic_additions"
