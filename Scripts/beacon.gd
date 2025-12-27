@@ -83,6 +83,8 @@ func start_combat_music():
 			music_path = "res://Audio/Music/lvl2_rage_combat.ogg"
 		3:
 			music_path = "res://Audio/Music/lvl3_burden_combat.ogg"
+		4:
+			music_path = "res://Audio/Music/lvl4_escape_ambient.ogg"
 		5:
 			music_path = "res://Audio/Music/lvl5_control_combat.ogg"
 		6:

@@ -9,7 +9,7 @@ join Max left
 audio voice "res://Audio/Voice/max/lvl5_line1.ogg" [volume="5"]
 Max: "I decide who I become."\
 "My fear doesn't rule me anymore…"\
-"…I flow. I adapt. I MOVE.
+"…I flow. I adapt. I MOVE."
 [wait time="0.5"]
 leave Max
 audio music "res://Audio/Music/lvl5_control_combat.ogg" [fade="1.0" volume="0"]
