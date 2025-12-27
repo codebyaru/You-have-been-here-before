@@ -173,7 +173,7 @@ func _on_wave_completed():
 	print("[WAVE] Wave completed")
 	
 	# Play wave completion sound
-	Dialogic.Audio.play_sound("res://Audio/SFX/wave_complete.wav", "sfx", 0.0)
+	Dialogic.Audio.update_audio("", "res://Audio/SFX/wave_complete.wav", {"volume": 0.0})
 	
 	emit_signal("wave_completed", current_wave)
 	
@@ -192,7 +192,7 @@ func _finish_all_waves():
 	Global.max_level=Global.current_level
 	
 	# Play magic unlock sound
-	Dialogic.Audio.play_sound("res://Audio/SFX/magic_unlock.wav", "sfx", 5.0)
+	Dialogic.Audio.update_audio("", "res://Audio/SFX/magic_unlock.wav", {"volume": 5.0})
 	
 	# --- 2. PLAY REWARD DIALOGUE ---
 	# "new_magic" dialogue chalega jo player ko batayega ki nayi power mili hai

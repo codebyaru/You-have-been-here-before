@@ -72,7 +72,7 @@ func _on_dialogic_signal(arg: String):
 # AUDIO HELPERS
 # -----------------------
 func play_beacon_sound():
-	Dialogic.Audio.play_sound("res://Audio/SFX/beacon_activate.wav", "sfx", 0.0)
+	Dialogic.Audio.update_audio("", "res://Audio/SFX/beacon_activate.wav", {"volume": 0.0})
 
 func start_combat_music():
 	var level := Global.current_level
@@ -97,7 +97,8 @@ func start_combat_music():
 			music_path = "res://Audio/Music/lvl10_final_boss.ogg"
 	
 	if music_path != "":
-		Dialogic.Audio.update_music("music", {"path": music_path, "fade_time": 0.5, "volume": 0.0})
+		Dialogic.Audio.update_audio("music", music_path, {"fade_length": 0.5, "volume": 0.0})
+
 
 
 # -----------------------
@@ -246,7 +247,7 @@ func advance_level():
 	print("[BEACON] Advancing to next level")
 	
 	# Fade out music before transition
-	Dialogic.Audio.update_music("music", {"fade_time": 2.0, "volume": -80.0})
+	Dialogic.Audio.update_audio("music", "", {"fade_length": 2.0, "volume": -80.0})
 	await get_tree().create_timer(2.0).timeout
 	
 	# Now transition using Global logic
