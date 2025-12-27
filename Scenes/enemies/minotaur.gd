@@ -13,8 +13,8 @@ const ATTACK_DAMAGE := 10
 const ATTACK_TICK_RATE := 0.5  # Time between damage ticks
 const ATTACK_COOLDOWN := 1.0
 
-const MAX_HEALTH = 450
-
+const MAX_HEALTH = 200
+var REVERSE_FLIP = true
 signal died
 
 # -----------------------
@@ -127,7 +127,7 @@ func _handle_movement_logic(delta: float):
 	# Update direction
 	if dir != current_direction:
 		current_direction = dir
-		sprite.flip_h = dir > 0
+		sprite.flip_h = (dir < 0) if REVERSE_FLIP else (dir > 0)
 		_flip_rays(dir)
 	
 	# Wall & Gap Jumping
@@ -277,7 +277,7 @@ func _initiate_parabolic_jump(target_x: float):
 	jump_cooldown = true
 	
 	current_direction = signf(jump_forward_speed)
-	sprite.flip_h = current_direction > 0
+	sprite.flip_h = (current_direction < 0) if REVERSE_FLIP else (current_direction > 0)
 	
 	if sprite.sprite_frames.has_animation("jump"):
 		sprite.play("jump")
@@ -299,7 +299,7 @@ func _process_pacing(delta: float):
 	
 	if retreat_dir != current_direction:
 		current_direction = retreat_dir
-		sprite.flip_h = retreat_dir > 0
+		sprite.flip_h = (retreat_dir < 0) if REVERSE_FLIP else (retreat_dir > 0)
 		_flip_rays(retreat_dir)
 	
 	velocity.x = retreat_dir * (SPEED * 0.5)

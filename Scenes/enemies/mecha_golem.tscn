@@ -1,6 +1,6 @@
 [gd_scene load_steps=56 format=3 uid="uid://ddme1qb8a36n"]
 
-[ext_resource type="Script" path="res://Scenes/enemies/minotaur.gd" id="1_hgbvf"]
+[ext_resource type="Script" uid="uid://t7vgl0qr8ptr" path="res://Scenes/enemies/mecha_golem.gd" id="1_lpf7x"]
 [ext_resource type="Texture2D" uid="uid://c21mh4hpj075" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/Golems_Free_Version/Golem_1/Blue/No_Swoosh_VFX/Golem_1_attack.png" id="2_lpf7x"]
 [ext_resource type="Texture2D" uid="uid://b0xdwwubrinli" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/Golems_Free_Version/Golem_1/Blue/No_Swoosh_VFX/Golem_1_walk.png" id="3_t8m4u"]
 [ext_resource type="Texture2D" uid="uid://dquj4vunyurp5" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/Golems_Free_Version/Golem_1/Blue/No_Swoosh_VFX/Golem_1_die.png" id="3_wg3rq"]
@@ -249,8 +249,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_0y1ep")
 }],
 "loop": true,
-"name": &"die",
-"speed": 5.0
+"name": &"death",
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -313,16 +313,16 @@ animations = [{
 "texture": SubResource("AtlasTexture_winkh")
 }],
 "loop": true,
-"name": &"walk",
+"name": &"run",
 "speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkybt"]
-size = Vector2(130.5, 104)
+size = Vector2(42, 65)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_audkd"]
-radius = 45.0
-height = 94.0
+radius = 43.0
+height = 200.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_74tp2"]
 size = Vector2(64, 72)
@@ -479,31 +479,31 @@ texture = ExtResource("3_yi3r1")
 sources/0 = SubResource("TileSetAtlasSource_hq7ab")
 
 [node name="mecha_golem" type="CharacterBody2D"]
-position = Vector2(2, 39)
+position = Vector2(4, 44)
 collision_layer = 4
-script = ExtResource("1_hgbvf")
+script = ExtResource("1_lpf7x")
 
 [node name="SpriteRoot" type="Node2D" parent="."]
 position = Vector2(-1, 0)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteRoot"]
-position = Vector2(-6, -107.99999)
-scale = Vector2(2.6888885, 2.0359647)
+position = Vector2(-2, -80)
+scale = Vector2(1.1500001, 1.3638706)
 sprite_frames = SubResource("SpriteFrames_vgqql")
-animation = &"die"
+animation = &"death"
+frame_progress = 0.9400772
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2, -92)
+position = Vector2(-2, -69.5)
 shape = SubResource("RectangleShape2D_fkybt")
 
 [node name="attack_area" type="Area2D" parent="."]
-visible = false
 collision_layer = 16
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attack_area"]
-position = Vector2(-8, -79)
+position = Vector2(-4, -78)
 shape = SubResource("CapsuleShape2D_audkd")
 
 [node name="hitbox" type="Area2D" parent="."]
@@ -550,7 +550,7 @@ target_position = Vector2(115, 35)
 collide_with_areas = true
 
 [node name="RayGround8" type="RayCast2D" parent="."]
-position = Vector2(-2, -65)
+position = Vector2(0, -65)
 target_position = Vector2(109, -37)
 collide_with_areas = true
 

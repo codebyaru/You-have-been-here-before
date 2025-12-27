@@ -8,15 +8,15 @@ const JUMP_VELOCITY := -300.0
 const GRAVITY := 980.0
 const JUMP_COOLDOWN_TIME := 0.6
 
-const ATTACK_RANGE := 60.0
+const ATTACK_RANGE := 40.0
 const ATTACK_DAMAGE := 10
 const ATTACK_TICK_RATE := 0.5  # Time between damage ticks
 const ATTACK_COOLDOWN := 1.0
 
 const MAX_HEALTH = 200
-
-signal died
 var REVERSE_FLIP = true
+signal died
+
 # -----------------------
 # STATE MANAGEMENT
 # -----------------------
@@ -234,7 +234,7 @@ func die():
 	
 	if sprite.sprite_frames.has_animation("death"):
 		sprite.play("death")
-		await get_tree().create_timer(3.0).timeout
+		await get_tree().create_timer(1).timeout
 	else:
 		await get_tree().create_timer(0.5).timeout
 	
@@ -349,7 +349,6 @@ func _process_idle():
 	velocity.x = move_toward(velocity.x, 0, SPEED)
 	sprite.play("idle")
 	if player: state = State.CHASE
-
 
 func _on_detection_body_entered(body):
 	if body.has_method("player"): 
