@@ -38,6 +38,9 @@ directories/dtl_directory={
 "boss_wave": "res://Dialogic/Timeline/boss_wave.dtl",
 "lvl2": "res://Dialogic/Timeline/lvl2.dtl",
 "lvl3": "res://Dialogic/Timeline/lvl3.dtl",
+"lvl4": "res://Dialogic/Timeline/lvl4.dtl",
+"lvl4_start": "res://Dialogic/Timeline/lvl4_start.dtl",
+"lvl5": "res://Dialogic/Timeline/lvl5.dtl",
 "lvl7": "res://Dialogic/Timeline/lvl7.dtl",
 "lvl9": "res://Dialogic/Timeline/lvl9.dtl",
 "new_magic": "res://Dialogic/Timeline/new_magic.dtl"

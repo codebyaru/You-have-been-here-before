@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cw6eufkyhpkco"
-path="res://.godot/imported/7915222.jpg-8fb196f1bd854c834b7535bc18d27d6e.ctex"
+uid="uid://c6qh2oe3lrjk4"
+path="res://.godot/imported/frost_guardian_free_192x128_SpriteSheet.png-653181b8af2fac05329e28136249b610.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/Foozle_2DE0001_Pixel_Magic_Effects/Water_splash/7915222.jpg"
-dest_files=["res://.godot/imported/7915222.jpg-8fb196f1bd854c834b7535bc18d27d6e.ctex"]
+source_file="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/frost_guardian/frost_guardian_free_192x128_SpriteSheet.png"
+dest_files=["res://.godot/imported/frost_guardian_free_192x128_SpriteSheet.png-653181b8af2fac05329e28136249b610.ctex"]
 
 [params]
 

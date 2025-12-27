@@ -111,6 +111,11 @@ func start_dialogue_for_level():
 			run_dialogue("lvl2")
 		3:
 			run_dialogue("lvl3")
+		4:
+			
+			run_dialogue("lvl4") 
+		5:
+			run_dialogue("lvl5")
 		7:
 			run_dialogue("lvl7")
 		9:
@@ -137,6 +142,12 @@ func _on_dialogue_finished():
 
 	if Dialogic.timeline_ended.is_connected(_on_dialogue_finished):
 		Dialogic.timeline_ended.disconnect(_on_dialogue_finished)
+	
+	# --- 🔥 LEVEL 4 SPECIAL EXCEPTION 🔥 ---
+	# Agar level 4 hai, toh fight ka wait mat karo, seedha teleport karo
+	if Global.current_level == 4:
+		print("[BEACON] Level 4 Special: Skipping fight, teleporting directly.")
+		advance_level()
 
 # -----------------------
 # BOUNCE PROMPT

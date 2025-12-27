@@ -6,7 +6,8 @@ func _ready() -> void:
 	Global.current_level_id = "lvl4"
 	Global.current_level = 4
 	WaveHandler.all_waves_completed.connect(_on_waves_done)
-	Global.respawn_position = Vector2(446, 330)
+	Global.respawn_position =  Vector2(14, 258)
+	Dialogic.start("lvl4_start")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
