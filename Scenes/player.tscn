@@ -1109,6 +1109,12 @@ limit_top = -22
 limit_right = 1016
 limit_bottom = 482
 
+[node name="lvl4_camera" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+limit_left = -2
+limit_top = -22
+limit_bottom = 482
+
 [node name="attack_area" type="Area2D" parent="."]
 visible = false
 collision_layer = 8

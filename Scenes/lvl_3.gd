@@ -1,7 +1,7 @@
 extends Node2D
 
 
-# 47 -1 1025 491
+
 
 func _ready() -> void:
 	Global.current_level_id = "lvl3"

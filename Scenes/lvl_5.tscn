@@ -364,15 +364,15 @@ size = Vector2(1236.75, 44)
 [node name="Lvl10" type="Node2D"]
 script = ExtResource("1_hc88i")
 
-[node name="Background1" type="Sprite2D" parent="."]
-position = Vector2(1414, 260)
-scale = Vector2(1.0169271, 1)
-texture = ExtResource("2_1uc51")
-flip_h = true
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="Background0" type="Sprite2D" parent="."]
-position = Vector2(512, 260)
-scale = Vector2(1.3333334, 1)
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(768, 0)
+
+[node name="Background0" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(511.5, 260)
+scale = Vector2(1.3320313, 1)
 texture = ExtResource("2_1uc51")
 
 [node name="TileMap" type="TileMap" parent="."]

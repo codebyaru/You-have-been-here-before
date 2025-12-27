@@ -396,8 +396,14 @@ size = Vector2(149.5, 44)
 [node name="Lvl3" type="Node2D"]
 script = SubResource("GDScript_l5cp4")
 
-[node name="Background0" type="Sprite2D" parent="."]
-position = Vector2(511, 260)
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(768, 0)
+
+[node name="Background0" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(511.5, 260)
 scale = Vector2(1.3320313, 1)
 texture = ExtResource("2_l5cp4")
 

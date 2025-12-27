@@ -68,7 +68,8 @@ var direction
 @onready var attack_area = $attack_area
 
 @onready var ability_component: PlayerUseAbilityComponent = $PlayerUseAbilityComponent
-
+@onready var lvl2_camera = $lvl2_camera
+@onready var lvl4_camera = $lvl4_camera
 
 const MAGIC_MANA_COST := {
 	"fire_spin": 12,
@@ -96,6 +97,9 @@ func _ready():
 	if attack_area:
 		attack_area.monitoring = false
 
+func _process(_delta: float) -> void:
+	update_camera_based_on_level()
+	
 func _on_magic_used(attack_name: String) -> void:
 	if not MAGIC_MANA_COST.has(attack_name):
 		return
@@ -408,3 +412,17 @@ func respawn():
 
 	if Global.respawn_position != Vector2.ZERO:
 		global_position = Global.respawn_position
+
+
+func update_camera_based_on_level():
+	# Agar level 4 hai
+	if Global.current_level == 4:
+		# Check karo agar already level 4 ka camera active nahi hai tabhi switch karo
+		if not lvl4_camera.is_current():
+			lvl4_camera.make_current()
+			print("[CAMERA] Switched to Level 4 Camera")
+			
+	# Future ke liye: Jab level 2 ka logic lagana ho toh yahan 'elif' aa jayega
+	# elif Global.current_level == 2:
+	# 	  if not lvl2_camera.is_current():
+	#         lvl2_camera.make_current()
