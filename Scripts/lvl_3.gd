@@ -5,9 +5,9 @@ extends Node2D
 
 func _ready() -> void:
 	Global.current_level_id = "lvl3"
-	Global.current_level = 7
+	Global.current_level = 3
 	WaveHandler.all_waves_completed.connect(_on_waves_done)
-	Global.respawn_position = Vector2(446, 330)
+	Global.respawn_position = Vector2(14, 258)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

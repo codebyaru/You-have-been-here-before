@@ -29,7 +29,8 @@ var next_level_scenes = {
 	"lvl3": "res://Scenes/lvl_4.tscn",
 	"lvl4": "res://Scenes/lvl_5.tscn",
 	"lvl5": "res://Scenes/lvl_7.tscn",
-	"lvl7": "res://Scenes/lvl_9.tscn",
+	"lvl7": "res://Scenes/lvl_8.tscn",
+	"lvl8": "res://Scenes/lvl_9.tscn",
 	"lvl9": "res://Scenes/lvl_10.tscn",
 	
 	"lvl10": "res://Scenes/lvl_2.tscn" 
