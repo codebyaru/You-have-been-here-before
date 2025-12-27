@@ -12,6 +12,9 @@ var bounce_tween: Tween
 var base_y := 0.0
 
 # -----------------------
+# -----------------------
+# INITIALIZATION
+# -----------------------
 func _ready():
 	prompt.visible = false
 	base_y = prompt.position.y
@@ -21,8 +24,31 @@ func _ready():
 
 	Dialogic.signal_event.connect(_on_dialogic_signal)
 	self.play("default")
-	print("[BEACON]", beacon_id, "ready")
+	
+	# 🔥 FIX 1: Shuru mein Process band kar do taaki Input check hi na ho
+	set_process(false) 
+	
+	# 1.5 second ka delay (Safety Buffer)
+	await get_tree().create_timer(1.5).timeout
+	
+	# Ab Input check chalu karo
+	set_process(true)
+	
+	# Agar Player already upar khada hai (Spawn issue), toh prompt dikha do
+	if area.get_overlapping_bodies().any(func(b): return b.has_method("player")):
+		player_near = true
+		prompt.visible = true
+		start_bounce()
 
+	print("[BEACON]", beacon_id, "ready (Input Unlocked)")
+
+# -----------------------
+# INPUT
+# -----------------------
+func _process(_delta):
+	# Ab yahan extra variable ki zarurat nahi, set_process handle kar lega
+	if player_near and not activated and Input.is_action_just_pressed("interact"):
+		activate_beacon()
 # -----------------------
 # DIALOGIC
 # -----------------------
@@ -40,12 +66,7 @@ func _on_dialogic_signal(arg: String):
 	print("[BEACON]", beacon_id, "→ starting waves for", level_id)
 	WaveHandler.start_level_waves(level_id)
 
-# -----------------------
-# INPUT
-# -----------------------
-func _process(_delta):
-	if player_near and not activated and Input.is_action_just_pressed("interact"):
-		activate_beacon()
+
 
 # -----------------------
 # AREA EVENTS
@@ -89,7 +110,8 @@ func activate_beacon():
 	print("[BEACON]", beacon_id, "activated | access =", access_count)
 
 	# FIRST ACCESS → QUEST / FIGHT
-	if access_count == 1:
+	if access_count % 2 ==  1:
+		access_count = 2
 		print("[BEACON] First access → dialogue")
 		start_dialogue_for_level()
 		return
@@ -111,6 +133,11 @@ func start_dialogue_for_level():
 			run_dialogue("lvl2")
 		3:
 			run_dialogue("lvl3")
+		4:
+			
+			run_dialogue("lvl4") 
+		5:
+			run_dialogue("lvl5")
 		7:
 			run_dialogue("lvl7")
 		9:
@@ -137,6 +164,12 @@ func _on_dialogue_finished():
 
 	if Dialogic.timeline_ended.is_connected(_on_dialogue_finished):
 		Dialogic.timeline_ended.disconnect(_on_dialogue_finished)
+	
+	# --- 🔥 LEVEL 4 SPECIAL EXCEPTION 🔥 ---
+	# Agar level 4 hai, toh fight ka wait mat karo, seedha teleport karo
+	if Global.current_level == 4:
+		print("[BEACON] Level 4 Special: Skipping fight, teleporting directly.")
+		advance_level()
 
 # -----------------------
 # BOUNCE PROMPT

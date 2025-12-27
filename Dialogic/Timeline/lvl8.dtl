@@ -1,0 +1,12 @@
+join evil_max_hidden right
+evil_max_hidden: “Nothingness suits you.”\
+“No light. No path. No purpose.”\
+“Just endless… empty silence.”
+leave evil_max_hidden
+join Max left
+Max: “Even if I can’t see the way…”\
+“I’ll trust myself.”\
+“And keep moving.”
+leave Max
+“Silence. No ground. No mercy. One wrong step… and the void claims everything you love.”
+[signal arg="fight_start"]

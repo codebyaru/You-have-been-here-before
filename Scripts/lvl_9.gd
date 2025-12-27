@@ -22,6 +22,8 @@ func _on_void_body_entered(body: Node2D) -> void:
 			body.take_damage(body.max_health)
 		if body.has_method("enemy"):
 			body.take_damage(body.MAX_HEALTH)
+		if body.has_method("shadow"):
+			body.take_damage(body.MAX_HEALTH)
 
 func _on_waves_done(level_id):
 	if level_id == "lvl9":

@@ -1,0 +1,11 @@
+join evil_max_hidden right
+evil_max_hidden: “You’re changing… sharper… colder… focused.”\
+“But power shapes the wielder… not the other way around.”
+leave evil_max_hidden
+join Max left
+Max: “Then watch closely.”\
+“I don’t obey power…”\
+“…power obeys ME.”
+leave Max
+“Winds scream with ancient fury! Only those who command the storm can survive this sky‑torn battlefield!”
+[signal arg="fight_start"]

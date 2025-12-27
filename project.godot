@@ -36,9 +36,17 @@ directories/dtl_directory={
 "Wave_5": "res://Dialogic/Timeline/Wave_5.dtl",
 "Wave_ended": "res://Dialogic/Timeline/Wave_ended.dtl",
 "boss_wave": "res://Dialogic/Timeline/boss_wave.dtl",
+"lvl10": "res://Dialogic/Timeline/lvl10.dtl",
 "lvl2": "res://Dialogic/Timeline/lvl2.dtl",
 "lvl3": "res://Dialogic/Timeline/lvl3.dtl",
-"lvl9": "res://Dialogic/Timeline/lvl9.dtl"
+"lvl4": "res://Dialogic/Timeline/lvl4.dtl",
+"lvl4_start": "res://Dialogic/Timeline/lvl4_start.dtl",
+"lvl5": "res://Dialogic/Timeline/lvl5.dtl",
+"lvl6": "res://Dialogic/Timeline/lvl6.dtl",
+"lvl7": "res://Dialogic/Timeline/lvl7.dtl",
+"lvl8": "res://Dialogic/Timeline/lvl8.dtl",
+"lvl9": "res://Dialogic/Timeline/lvl9.dtl",
+"new_magic": "res://Dialogic/Timeline/new_magic.dtl"
 }
 layout/style_directory={}
 extensions_folder="res://addons/dialogic_additions"
@@ -78,6 +86,7 @@ text/input_action="dialogic_default_action"
 glossary/default_case_sensitive=true
 layout/style_list=[]
 layout/default_style="Default"
+variables={}
 
 [editor_plugins]
 
@@ -112,6 +121,26 @@ ability_fire_spin={
 ability_fire_ball={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":79,"key_label":0,"unicode":111,"location":0,"echo":false,"script":null)
+]
+}
+ability_water_ball={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":80,"key_label":0,"unicode":112,"location":0,"echo":false,"script":null)
+]
+}
+ability_rock_throw={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":76,"key_label":0,"unicode":108,"location":0,"echo":false,"script":null)
+]
+}
+ability_wind_tornado={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":75,"key_label":0,"unicode":107,"location":0,"echo":false,"script":null)
+]
+}
+ability_shadow_summon={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":72,"key_label":0,"unicode":104,"location":0,"echo":false,"script":null)
 ]
 }
 

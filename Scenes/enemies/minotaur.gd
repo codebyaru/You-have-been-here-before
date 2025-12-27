@@ -4,44 +4,37 @@ extends CharacterBody2D
 # CONFIG & CONSTANTS
 # -----------------------
 const SPEED := 90.0
-const JUMP_VELOCITY := -300.0  # Reduced jump height
+const JUMP_VELOCITY := -300.0
 const GRAVITY := 980.0
 const JUMP_COOLDOWN_TIME := 0.6
-const FLOOR_SNAP_LENGTH := 10.0
 
-# Combat Stats
 const ATTACK_RANGE := 40.0
-const ATTACK_DAMAGE := 10  # Damage per tick
+const ATTACK_DAMAGE := 10
 const ATTACK_TICK_RATE := 0.5  # Time between damage ticks
 const ATTACK_COOLDOWN := 1.0
-const ATTACK_HITBOX_DELAY := 0.2
 
 const MAX_HEALTH = 200
-const DEATH_ANIMATION_TIME := 3  # Time to show death before spawning corpse
-
+var REVERSE_FLIP = true
 signal died
 
 # -----------------------
 # STATE MANAGEMENT
 # -----------------------
-enum State { IDLE, CHASE, ATTACK, JUMPING, PACING, ATTACK_RECOVERY, HIT, DEAD }
+enum State { IDLE, CHASE, ATTACK, JUMPING, PACING, ATTACK_RECOVERY, DEAD }
 var state: State = State.IDLE
 
 var player: CharacterBody2D = null
 var health: int = MAX_HEALTH
 
-# Physics Vars
-var jump_target_x := 0.0
+# Physics
 var jump_forward_speed := 0.0
 var jump_cooldown := false
 var in_air := false
 var pacing_timer := 0.0
-var current_direction := 1.0  # Track current facing direction
+var current_direction := 1.0
 
-# Combat Vars
-var attack_started := false
+# Combat - SIMPLIFIED
 var attack_lock := false
-var attack_can_hit := false
 var damage_tick_timer := 0.0
 var recovery_timer := 0.0
 
@@ -60,7 +53,6 @@ var feet_raycast: RayCast2D = null
 func _ready():
 	sprite.play("idle")
 	attack_area.monitoring = false
-	
 	_setup_health_bar()
 	_collect_raycasts()
 
@@ -105,7 +97,6 @@ func _physics_process(delta: float) -> void:
 		State.JUMPING: _process_jumping(delta)
 		State.ATTACK: _process_attack(delta)
 		State.ATTACK_RECOVERY: _process_recovery(delta)
-		State.HIT: _process_hit_state(delta)
 
 	# Movement
 	if state == State.JUMPING:
@@ -117,7 +108,7 @@ func _physics_process(delta: float) -> void:
 	_prevent_stacking_on_player()
 
 # -----------------------
-# CORE MOVEMENT (Smart AI)
+# CORE MOVEMENT
 # -----------------------
 func _handle_movement_logic(delta: float):
 	if not player:
@@ -133,23 +124,20 @@ func _handle_movement_logic(delta: float):
 		_start_attack()
 		return
 
-	# Update direction and flip sprite
-	# FIXED: flip_h = true when player is on RIGHT (dir > 0)
+	# Update direction
 	if dir != current_direction:
 		current_direction = dir
-		sprite.flip_h = dir > 0  # Flip when player on right
+		sprite.flip_h = (dir < 0) if REVERSE_FLIP else (dir > 0)
 		_flip_rays(dir)
 	
-	# Wall & Gap Jumping Logic
+	# Wall & Gap Jumping
 	if is_on_floor() and not jump_cooldown:
-		# Check Wall
 		var wall_hit = _check_any_wall_ahead(dir)
 		if wall_hit:
 			var wall_x = wall_hit.get_collision_point().x
 			_initiate_parabolic_jump(wall_x + (60.0 * dir))
 			return
 		
-		# Check Gap
 		if feet_raycast and feet_raycast.is_colliding() and not _check_ground_ahead(dir):
 			var landing_x = _scan_for_landing(dir)
 			if landing_x != 0.0:
@@ -160,65 +148,50 @@ func _handle_movement_logic(delta: float):
 				pacing_timer = 2.0
 				return
 
-	# Normal Run
+	# Run
 	velocity.x = dir * SPEED
-	
-	if is_on_floor():
-		if sprite.animation != "run": 
-			sprite.play("run")
+	if is_on_floor() and sprite.animation != "run": 
+		sprite.play("run")
 
 # -----------------------
-# COMBAT LOGIC (CONTINUOUS DAMAGE)
+# COMBAT - SIMPLIFIED
 # -----------------------
 func _start_attack():
 	state = State.ATTACK
 	velocity.x = 0
+	attack_lock = true
+	damage_tick_timer = 0.0
+	
 	sprite.play("attack")
 	
-	attack_started = true
-	attack_lock = true
+	# Enable hitbox immediately
+	attack_area.monitoring = true
 	
-	# Enable hitbox after delay
-	get_tree().create_timer(ATTACK_HITBOX_DELAY).timeout.connect(func():
-		if state == State.ATTACK:
-			attack_can_hit = true
-			attack_area.monitoring = true
-			damage_tick_timer = 0.0
-	)
-	
+	# Wait for animation
 	await sprite.animation_finished
 	
-	# Check if still in attack state
-	if state != State.ATTACK:
-		attack_area.monitoring = false
-		attack_can_hit = false
-		return
-	
+	# Cleanup
 	attack_area.monitoring = false
-	attack_can_hit = false
 	recovery_timer = ATTACK_COOLDOWN
 	state = State.ATTACK_RECOVERY
 
 func _process_attack(delta: float):
 	velocity.x = 0
 	
-	# Continuous damage tick system
-	if attack_can_hit:
-		damage_tick_timer -= delta
-		
-		if damage_tick_timer <= 0:
-			var bodies = attack_area.get_overlapping_bodies()
-			for body in bodies:
-				if body.has_method("player") and body == player:
-					body.take_damage(ATTACK_DAMAGE)
-					damage_tick_timer = ATTACK_TICK_RATE
-					break
+	# Continuous damage on tick
+	damage_tick_timer -= delta
+	if damage_tick_timer <= 0:
+		var bodies = attack_area.get_overlapping_bodies()
+		for body in bodies:
+			if body.has_method("take_damage") and body == player:
+				body.take_damage(ATTACK_DAMAGE)
+				damage_tick_timer = ATTACK_TICK_RATE
+				break
 	
-	# Cancel if player out of range
+	# Cancel if player too far
 	if player:
 		var dist = abs(player.global_position.x - global_position.x)
-		if dist > ATTACK_RANGE * 1.5:
-			attack_can_hit = false
+		if dist > ATTACK_RANGE * 2.0:
 			attack_area.monitoring = false
 			attack_lock = false
 			state = State.CHASE
@@ -226,15 +199,11 @@ func _process_attack(delta: float):
 
 func _process_recovery(delta: float):
 	velocity.x = 0
-	
-	if sprite.animation != "idle":
-		sprite.play("idle")
+	if sprite.animation != "idle": sprite.play("idle")
 	
 	recovery_timer -= delta
-	
 	if recovery_timer <= 0:
 		attack_lock = false
-		attack_started = false
 		state = State.CHASE if player else State.IDLE
 
 # -----------------------
@@ -247,26 +216,13 @@ func take_damage(amount: int):
 	health_bar.value = health
 	health_bar.visible = true 
 	
-	# Damage flash effect
+	# Flash red
 	var tween = create_tween()
 	sprite.modulate = Color(1, 0.3, 0.3)
 	tween.tween_property(sprite, "modulate", Color.WHITE, 0.2)
 	
 	if health <= 0:
 		die()
-		return
-
-	# Play Hit animation (Don't interrupt attacks)
-	if state != State.ATTACK and state != State.JUMPING:
-		state = State.HIT
-		if sprite.sprite_frames.has_animation("hit"):
-			sprite.play("hit")
-			await sprite.animation_finished
-			if state == State.HIT: 
-				state = State.CHASE
-
-func _process_hit_state(delta: float):
-	velocity.x = move_toward(velocity.x, 0, SPEED * 2 * delta)
 
 func die():
 	state = State.DEAD
@@ -276,56 +232,42 @@ func die():
 	health_bar.visible = false
 	attack_area.monitoring = false
 	
-	# Play death animation
 	if sprite.sprite_frames.has_animation("death"):
 		sprite.play("death")
-		
-		# Wait for animation duration
-		await get_tree().create_timer(DEATH_ANIMATION_TIME).timeout
+		await get_tree().create_timer(3.0).timeout
 	else:
-		# If no death animation, just wait a bit
 		await get_tree().create_timer(0.5).timeout
 	
-	# Spawn dead body sprite
-	_spawn_dead_boss()
-	
+	_spawn_dead_body()
 	emit_signal("died")
 	queue_free()
 
-func _spawn_dead_boss():
-	"""Creates a static dead body sprite that stays on ground"""
+func _spawn_dead_body():
 	var dead_body = Sprite2D.new()
 	
-	# Copy current sprite frame/texture
 	if sprite.sprite_frames.has_animation("death"):
-		# Get last frame of death animation
 		var frame_count = sprite.sprite_frames.get_frame_count("death")
 		var last_frame = sprite.sprite_frames.get_frame_texture("death", frame_count - 1)
 		dead_body.texture = last_frame
 	else:
-		# Use current frame
 		dead_body.texture = sprite.sprite_frames.get_frame_texture(sprite.animation, sprite.frame)
 	
-	# Match position and properties
 	dead_body.global_position = global_position
 	dead_body.scale = sprite.scale
 	dead_body.flip_h = sprite.flip_h
-	dead_body.modulate = Color(0.7, 0.7, 0.7)  # Slightly darker
-	dead_body.z_index = -1  # Behind living enemies
+	dead_body.modulate = Color(0.7, 0.7, 0.7)
+	dead_body.z_index = -1
 	
-	# Add to scene
 	get_parent().add_child(dead_body)
 	
-	# Optional: Fade out over time
 	var fade_tween = dead_body.create_tween()
 	fade_tween.tween_property(dead_body, "modulate:a", 0.0, 3.0).set_delay(2.0)
 	fade_tween.tween_callback(dead_body.queue_free)
 
 # -----------------------
-# HELPERS (AI LOGIC)
+# HELPERS
 # -----------------------
 func _initiate_parabolic_jump(target_x: float):
-	jump_target_x = target_x
 	var hang_time = (abs(JUMP_VELOCITY) / GRAVITY) * 2.0
 	var distance_needed = (target_x - global_position.x) + (20.0 * signf(target_x - global_position.x))
 	jump_forward_speed = distance_needed / hang_time
@@ -334,9 +276,8 @@ func _initiate_parabolic_jump(target_x: float):
 	state = State.JUMPING
 	jump_cooldown = true
 	
-	# Update direction for jump
 	current_direction = signf(jump_forward_speed)
-	sprite.flip_h = current_direction > 0  # Flip when jumping right
+	sprite.flip_h = (current_direction < 0) if REVERSE_FLIP else (current_direction > 0)
 	
 	if sprite.sprite_frames.has_animation("jump"):
 		sprite.play("jump")
@@ -356,10 +297,9 @@ func _process_pacing(delta: float):
 	pacing_timer -= delta
 	var retreat_dir = -signf(player.global_position.x - global_position.x) if player else 1.0
 	
-	# Update direction for pacing
 	if retreat_dir != current_direction:
 		current_direction = retreat_dir
-		sprite.flip_h = retreat_dir > 0  # Flip when moving right
+		sprite.flip_h = (retreat_dir < 0) if REVERSE_FLIP else (retreat_dir > 0)
 		_flip_rays(retreat_dir)
 	
 	velocity.x = retreat_dir * (SPEED * 0.5)

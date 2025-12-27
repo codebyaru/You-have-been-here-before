@@ -4,13 +4,21 @@ extends Node
 @export var replace_target : Node
 @export_file var replacement_scene_path : String 
 
-# --- NEW EXPORT VARIABLES ---
-# Ye variables Inspector mein dikhenge. 
-# Fireball ke liye 200/1.0 set karo, Spin ke liye 500/3.0 set karo.
+@export var spawn_replacement : bool = true 
+
+# --- DAMAGE/SCALE VARIABLES ---
 @export var replace_damage : int = 1
-@export var replace_scale : float =1
-# ----------------------------
+@export var replace_scale : float = 1
+
 func replace():
+	# --- LOGIC CHECK 1: DO WE WANT AN EXPLOSION? ---
+	# Agar Fire Spin hai (spawn_replacement = false), to bas purana delete karo aur return karo.
+	if not spawn_replacement:
+		if replace_target:
+			replace_target.queue_free()
+		return
+
+	# --- LOGIC CHECK 2: PATH EXISTS? ---
 	if replacement_scene_path == "" or replacement_scene_path == null:
 		printerr("ERROR: Path empty")
 		return
@@ -21,30 +29,21 @@ func replace():
 
 	var instance : Node2D = scene_resource.instantiate()
 	
-	# --- YE CODE CHANGE KARO ---
-	
-	# 1. Pehle check karo: Kya Root (FireExplosion) par setup hai?
+	# --- SETUP DATA PASSING ---
 	if instance.has_method("setup"):
-		print("callled setup")
+		# print("called setup on root")
 		instance.setup(replace_damage, replace_scale)
-		
-	# 2. Agar Root par nahi hai, toh Children mein dhoondo
 	else:
-		# Sare children check karo (GrowOverTime, AnimatedSprite, etc.)
 		for child in instance.get_children():
 			if child.has_method("setup"):
-				# Mil gaya! Ab data pass karo
 				child.setup(replace_damage, replace_scale)
+				# print("Sending damage and scale to child", replace_damage, replace_scale)
+				break 
 				
-				print("Sendng damge and scale",replace_damage,replace_scale)
-				break # Ek bar mil gaya toh loop rok do
-				
-	# ---------------------------
-	
 	call_deferred("_reposition_and_free", instance)
+
 func _reposition_and_free(p_instance : Node2D):
 	if replace_target == null:
-		# Safety check agar target pehle hi delete ho gaya ho
 		p_instance.queue_free()
 		return
 		

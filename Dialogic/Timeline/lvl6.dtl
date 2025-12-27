@@ -1,0 +1,14 @@
+join evil_max_hidden right
+evil_max_hidden: “People. Memories. Feelings.”\
+“You’re starting to feel distant from all of it… aren’t you?”\
+“Maybe being empty is easier.”
+[wait time="0.5"]
+leave evil_max_hidden
+join Max left
+Max: “If detachment is the price…”\
+“…then I’ll pay it.”\
+“But I won’t forget WHY I’m fighting.”
+[wait time="0.5"]
+leave Max
+"The world feels distant… voices fade, memories blur. He isn’t fighting the monsters anymore… he’s fighting the weight of letting go."
+[signal arg="fight_start"]

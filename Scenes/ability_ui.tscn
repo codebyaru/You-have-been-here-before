@@ -19,6 +19,8 @@ shader_parameter/cooldown_progress = 100
 shader_parameter/active_color = Color(0.94509804, 0.8862745, 0.3019608, 1)
 shader_parameter/cooldown_color = Color(0, 0, 0, 1)
 shader_parameter/border = 0.050000002375
+shader_parameter/unlock_progress = 0.0
+shader_parameter/shine_color = Color(1, 1, 0.8, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f5c7k"]
 resource_local_to_scene = true
@@ -28,6 +30,8 @@ shader_parameter/cooldown_progress = 100
 shader_parameter/active_color = Color(0.94509804, 0.8862745, 0.3019608, 1)
 shader_parameter/cooldown_color = Color(0, 0, 0, 1)
 shader_parameter/border = 0.05
+shader_parameter/unlock_progress = 0.0
+shader_parameter/shine_color = Color(1, 1, 0.8, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mqakn"]
 resource_local_to_scene = true
@@ -37,24 +41,8 @@ shader_parameter/cooldown_progress = 100
 shader_parameter/active_color = Color(0.74509805, 0.64705884, 0.5411765, 1)
 shader_parameter/cooldown_color = Color(0, 0, 0, 1)
 shader_parameter/border = 0.05
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kfqgx"]
-resource_local_to_scene = true
-shader = ExtResource("2_xyhva")
-shader_parameter/custom_texture = ExtResource("6_72ny4")
-shader_parameter/cooldown_progress = 100
-shader_parameter/active_color = Color(0.60784316, 0.7882353, 0.6431373, 1)
-shader_parameter/cooldown_color = Color(0, 0, 0, 1)
-shader_parameter/border = 0.05
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uch41"]
-resource_local_to_scene = true
-shader = ExtResource("2_xyhva")
-shader_parameter/custom_texture = ExtResource("7_4pk8x")
-shader_parameter/cooldown_progress = 100
-shader_parameter/active_color = Color(0.61968654, 0.53419626, 0.9396769, 1)
-shader_parameter/cooldown_color = Color(0, 0, 0, 1)
-shader_parameter/border = 0.05
+shader_parameter/unlock_progress = 0.0
+shader_parameter/shine_color = Color(1, 1, 0.8, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rrs6w"]
 resource_local_to_scene = true
@@ -64,6 +52,30 @@ shader_parameter/cooldown_progress = 100
 shader_parameter/active_color = Color(0.6745098, 0.93333334, 0.9843137, 1)
 shader_parameter/cooldown_color = Color(0, 0, 0, 1)
 shader_parameter/border = 0.05
+shader_parameter/unlock_progress = 0.0
+shader_parameter/shine_color = Color(1, 1, 0.8, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kfqgx"]
+resource_local_to_scene = true
+shader = ExtResource("2_xyhva")
+shader_parameter/custom_texture = ExtResource("6_72ny4")
+shader_parameter/cooldown_progress = 100
+shader_parameter/active_color = Color(0.60784316, 0.7882353, 0.6431373, 1)
+shader_parameter/cooldown_color = Color(0, 0, 0, 1)
+shader_parameter/border = 0.05
+shader_parameter/unlock_progress = 0.0
+shader_parameter/shine_color = Color(1, 1, 0.8, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uch41"]
+resource_local_to_scene = true
+shader = ExtResource("2_xyhva")
+shader_parameter/custom_texture = ExtResource("7_4pk8x")
+shader_parameter/cooldown_progress = 100
+shader_parameter/active_color = Color(0.61968654, 0.53419626, 0.9396769, 1)
+shader_parameter/cooldown_color = Color(0, 0, 0, 1)
+shader_parameter/border = 0.05
+shader_parameter/unlock_progress = 0.0
+shader_parameter/shine_color = Color(1, 1, 0.8, 1)
 
 [node name="AbilityUI" type="Control"]
 layout_mode = 3
@@ -167,6 +179,28 @@ theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/icon_hover_color = Color(0.29803923, 0.29803923, 0.29803923, 0.8392157)
 flat = true
 
+[node name="AbilitySlot_water_ball" type="MarginContainer" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+script = ExtResource("3_uynjj")
+
+[node name="IconRect" type="ColorRect" parent="MarginContainer/GridContainer/AbilitySlot_water_ball"]
+material = SubResource("ShaderMaterial_rrs6w")
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="ManaLabel" type="Label" parent="MarginContainer/GridContainer/AbilitySlot_water_ball"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_72ny4")
+text = "OUT 
+OF 
+MANA"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/GridContainer/AbilitySlot_water_ball"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+flat = true
+
 [node name="AbilitySlot_wind_tornado" type="MarginContainer" parent="MarginContainer/GridContainer"]
 layout_mode = 2
 script = ExtResource("3_uynjj")
@@ -209,26 +243,4 @@ horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="MarginContainer/GridContainer/AbilitySlot_Shadow_summon"]
 layout_mode = 2
-flat = true
-
-[node name="AbilitySlot_water_ball2" type="MarginContainer" parent="MarginContainer/GridContainer"]
-layout_mode = 2
-script = ExtResource("3_uynjj")
-
-[node name="IconRect" type="ColorRect" parent="MarginContainer/GridContainer/AbilitySlot_water_ball2"]
-material = SubResource("ShaderMaterial_rrs6w")
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-
-[node name="ManaLabel" type="Label" parent="MarginContainer/GridContainer/AbilitySlot_water_ball2"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("5_72ny4")
-text = "OUT 
-OF 
-MANA"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="MarginContainer/GridContainer/AbilitySlot_water_ball2"]
-layout_mode = 2
-mouse_default_cursor_shape = 2
 flat = true
