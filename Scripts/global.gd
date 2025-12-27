@@ -12,7 +12,7 @@ var loop_count := 0
 
 # --- NEW: PLAYER PROGRESS ---
 # This tracks the highest level reached (for UI Unlocks)
-var max_level := 2
+var max_level := 1
 
 # --- PLAYER & WORLD STATE ---
 var player_ref: CharacterBody2D = null

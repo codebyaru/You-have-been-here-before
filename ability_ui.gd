@@ -9,6 +9,7 @@ extends Control
 @export var level_req_water_ball := 3
 @export var level_req_rock_throw := 5
 @export var level_req_wind_tornado := 7
+@export var level_req_shadow_summon := 0
 
 var slots: Dictionary = {}
 var active_component: PlayerUseAbilityComponent = null
@@ -71,6 +72,7 @@ func _check_unlocks() -> void:
 	check_ability_unlock("water_ball", level_req_water_ball, lvl)
 	check_ability_unlock("rock_throw", level_req_rock_throw, lvl)
 	check_ability_unlock("wind_tornado", level_req_wind_tornado, lvl)
+	check_ability_unlock("shadow_summon",level_req_shadow_summon,lvl)
 
 func check_ability_unlock(key: String, required_level: int, current_lvl: int) -> void:
 	# If this key doesn't exist in slots, we printed it in _ready, so check output!
@@ -106,6 +108,7 @@ func _on_magic_used(attack_name: String) -> void:
 				"water_ball": time = active_component.water_ball_cooldown
 				"rock_throw": time = active_component.rock_throw_cooldown
 				"wind_tornado": time = active_component.wind_tornado_cooldown
+				"shadow_summon": time  = active_component.shadow_summon_cooldown
 		slots[key].activate(time)
 
 func _on_mana_missing(attack_name: String) -> void:
