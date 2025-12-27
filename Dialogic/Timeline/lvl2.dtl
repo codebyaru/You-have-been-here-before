@@ -1,28 +1,25 @@
-join Max left [animation="Fade In"]
-Max: .....
-leave Max [animation="Fade Out"]
-join evil_max_hidden right [animation="Fade In"]
-evil_max_hidden: You’re slower than last time.
-[wait time="0.5"]
-evil_max_hidden: No… not slower.\
-You’re thinking again.
-[wait time="0.5"]
-evil_max_hidden: That hesitation.\
-That’s why they died.
+join evil_max_hidden rightmost [animation="Fade In"]
+evil_max_hidden: “So you’re still chasing ghosts, Max?\
+Still pretending strength is the same as love?\
+Tell me… do you even remember what you’re fighting for anymore?
 leave evil_max_hidden [animation="Fade Out"]
-join Max left [animation="Fade In"]
-Max: You did this.
-leave Max [animation="Fade Out"]
-join evil_max_hidden right [animation="Fade In"]
-evil_max_hidden: Did I ?
+join Max leftmost [animation="Fade In"]
+Max: “I remember everything.\
+Their voices, their laughter… and the silence you left behind.\
+I’m not stopping. Not now. Not ever.
 [wait time="0.5"]
-evil_max_hidden: You were there.\
-You swung first.
-[wait time="0.6"]
-evil_max_hidden: Funny how memory works.\
-It keeps what hurts you least.
-evil_max_hidden: Show me how much you care. hahahahaha
-leave evil_max_hidden
+leave Max [animation="Fade Out"]
+join evil_max_hidden rightmost [animation="Fade In"]
+evil_max_hidden: “Anger makes you predictable.\
+Pain makes you blind.\
+Keep running toward me… I wonder what else you’ll destroy on the way.”
+leave evil_max_hidden [animation="Fade Out"]
+join Max leftmost [animation="Fade In"]
+[wait time="0.5"]
+Max: “If rage is all I have left…\
+Then I’ll burn the world with it if I must.\
+And I’ll drag you down with me.
+leave Max
 The GROUND SHAKES !!!!!
 THE MONSTERS ARE COMMING !!!!!!!!!!!!!
 [signal arg="fight_start"]

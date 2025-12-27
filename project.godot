@@ -40,7 +40,8 @@ directories/dtl_directory={
 "lvl3": "res://Dialogic/Timeline/lvl3.dtl",
 "lvl7": "res://Dialogic/Timeline/lvl7.dtl",
 "lvl9": "res://Dialogic/Timeline/lvl9.dtl",
-"new_magic": "res://Dialogic/Timeline/new_magic.dtl"
+"new_magic": "res://Dialogic/Timeline/new_magic.dtl",
+"timeline": "res://Scenes/enemies/timeline.dtl"
 }
 layout/style_directory={}
 extensions_folder="res://addons/dialogic_additions"
@@ -80,6 +81,7 @@ text/input_action="dialogic_default_action"
 glossary/default_case_sensitive=true
 layout/style_list=[]
 layout/default_style="Default"
+variables={}
 
 [editor_plugins]
 
