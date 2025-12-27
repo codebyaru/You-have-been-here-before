@@ -1,3 +1,4 @@
+
 join evil_max_hidden rightmost
 evil_max_hidden: “Run, run, run… like you always do.”\
 “You think if you keep moving… the past won’t find you?”\
@@ -10,3 +11,4 @@ Max: “I’m not running away anymore.”\
 “No matter how twisted this world gets.”
 leave Max
 [signal arg="maze_completed"]
+

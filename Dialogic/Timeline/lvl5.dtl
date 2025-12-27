@@ -1,3 +1,4 @@
+
 join evil_max_hidden rightmost
 evil_max_hidden: “Anger… panic… fear… you drown in your own emotions.”\
 “You’ve never had control. Not then. Not now.”
@@ -10,3 +11,4 @@ Max: “I decide who I become.”\
 leave Max
 “Calm waters… deceptive peace. The tide obeys no one, and neither will your fate if you falter now!”
 [signal arg="fight_start"]
+

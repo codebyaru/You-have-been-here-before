@@ -20,22 +20,27 @@ var level_waves := {
 	"lvl2": {
 		"enemy_scene": preload("res://Scenes/enemies/henchmen.tscn"),
 		"boss_scene": preload("res://Scenes/enemies/demon_slime.tscn"), # BOSS SCENE YAHAN DALNA
-		"waves": [3, 5,7] # Example: 2 waves of enemies, then BOSS
+		"waves": [3, 5,7] 
 	},
 	"lvl3": {
 		"enemy_scene": preload("res://Scenes/enemies/henchmen.tscn"),
 		"boss_scene": preload("res://Scenes/enemies/mecha_golem.tscn"), # BOSS SCENE YAHAN DALNA
-		"waves": [ 5,7,10] # Example: 2 waves of enemies, then BOSS
+		"waves": [ 5,7,10] 
+	},
+	"lvl5": {
+		"enemy_scene": preload("res://Scenes/enemies/henchmen.tscn"),
+		"boss_scene": preload("res://Scenes/enemies/Frost_Guardian.tscn"), # BOSS SCENE YAHAN DALNA
+		"waves": [ 5,7,10]
 	},
 	"lvl9": {
 		"enemy_scene": preload("res://Scenes/enemies/henchmen.tscn"),
 		"boss_scene": preload("res://Scenes/enemies/Undead_Excecutiner.tscn"), # BOSS SCENE YAHAN DALNA
-		"waves": [ 5,10,10,10] # Example: 2 waves of enemies, then BOSS
+		"waves": [ 5,10,10,10] 
 	},
 	"lvl7": {
 		"enemy_scene": preload("res://Scenes/enemies/henchmen.tscn"),
 		"boss_scene": preload("res://Scenes/enemies/Minotaur.tscn"), # BOSS SCENE YAHAN DALNA
-		"waves": [ 5,7,10,12] # Example: 2 waves of enemies, then BOSS
+		"waves": [ 5,7,10,12]
 	}
 	
 }

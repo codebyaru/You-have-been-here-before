@@ -26,7 +26,8 @@ var completed_levels := {}
 # --- SCENE CONFIGURATION ---
 var next_level_scenes = {
 	"lvl2": "res://Scenes/lvl_3.tscn",
-	"lvl3": "res://Scenes/lvl_5.tscn",
+	"lvl3": "res://Scenes/lvl_4.tscn",
+	"lvl4": "res://Scenes/lvl_5.tscn",
 	"lvl5": "res://Scenes/lvl_7.tscn",
 	"lvl7": "res://Scenes/lvl_9.tscn",
 	"lvl9": "res://Scenes/lvl_10.tscn",

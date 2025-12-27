@@ -416,7 +416,7 @@ func respawn():
 
 func update_camera_based_on_level():
 	# Agar level 4 hai
-	if Global.current_level == 4:
+	if Global.current_level == 4 or Global.current_level == 5 :
 		# Check karo agar already level 4 ka camera active nahi hai tabhi switch karo
 		if not lvl4_camera.is_current():
 			lvl4_camera.make_current()
