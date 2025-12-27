@@ -57,7 +57,9 @@ func _on_dialogic_signal(arg: String):
 		return
 
 	print("[BEACON]", beacon_id, "→ fight_start received")
+	play_beacon_sound()
 	self.play("activated")
+	start_combat_music()
 	var level_id: String = Global.current_level_id
 	if level_id == "":
 		push_error("[BEACON] No current level set")
@@ -66,6 +68,36 @@ func _on_dialogic_signal(arg: String):
 	print("[BEACON]", beacon_id, "→ starting waves for", level_id)
 	WaveHandler.start_level_waves(level_id)
 
+# -----------------------
+# AUDIO HELPERS
+# -----------------------
+func play_beacon_sound():
+	Dialogic.Audio.play_sound("res://Audio/SFX/beacon_activate.wav", "sfx", 0.0)
+
+func start_combat_music():
+	var level := Global.current_level
+	var music_path := ""
+	
+	match level:
+		2:
+			music_path = "res://Audio/Music/lvl2_rage_combat.ogg"
+		3:
+			music_path = "res://Audio/Music/lvl3_burden_combat.ogg"
+		5:
+			music_path = "res://Audio/Music/lvl5_control_combat.ogg"
+		6:
+			music_path = "res://Audio/Music/lvl6_detachment_combat.ogg"
+		7:
+			music_path = "res://Audio/Music/lvl7_mastery_combat.ogg"
+		8:
+			music_path = "res://Audio/Music/lvl8_emptiness_ambient.ogg"
+		9:
+			music_path = "res://Audio/Music/lvl9_corruption_combat.ogg"
+		10:
+			music_path = "res://Audio/Music/lvl10_final_boss.ogg"
+	
+	if music_path != "":
+		Dialogic.Audio.update_music("music", {"path": music_path, "fade_time": 0.5, "volume": 0.0})
 
 
 # -----------------------
@@ -134,10 +166,11 @@ func start_dialogue_for_level():
 		3:
 			run_dialogue("lvl3")
 		4:
-			
-			run_dialogue("lvl4") 
+			run_dialogue("lvl4_start")
 		5:
 			run_dialogue("lvl5")
+		6:
+			run_dialogue("lvl6")
 		7:
 			run_dialogue("lvl7")
 		8:
@@ -145,10 +178,8 @@ func start_dialogue_for_level():
 		9:
 			run_dialogue("lvl9")
 		10:
-			# run_dialogue("lvl10")
-			pass
+			run_dialogue("lvl10")
 		_:
-			# run_dialogue("default")
 			pass
 
 func run_dialogue(dialogue_string: String):
@@ -212,9 +243,13 @@ func increment_access_count():
 	Global.beacon_access_count[beacon_id] = get_access_count() + 1
 
 func advance_level():
-	print("[BEACON] Level completed. Calling Global to switch scenes...")
+	print("[BEACON] Advancing to next level")
 	
-	# Sirf ye line chahiye ab. Logic Global sambhalega.
+	# Fade out music before transition
+	Dialogic.Audio.update_music("music", {"fade_time": 2.0, "volume": -80.0})
+	await get_tree().create_timer(2.0).timeout
+	
+	# Now transition using Global logic
 	Global.proceed_to_next_level()
 
 	# Scene change later

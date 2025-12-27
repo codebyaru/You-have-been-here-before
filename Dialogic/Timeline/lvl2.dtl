@@ -1,25 +1,35 @@
+audio sfx "res://Audio/SFX/dialogue_open.wav" [volume="0"]
+audio music "res://Audio/Music/lvl2_rage_combat.ogg" [fade="2.0" volume="-10"]
 join evil_max_hidden right [animation="Fade In"]
-evil_max_hidden: “So you’re still chasing ghosts, Max?\
+audio voice "res://Audio/Voice/evil_max/lvl2_line1.ogg" [volume="5"]
+evil_max_hidden: "So you're still chasing ghosts, Max?\
 Still pretending strength is the same as love?\
-Tell me… do you even remember what you’re fighting for anymore?
+Tell me… do you even remember what you're fighting for anymore?
 leave evil_max_hidden [animation="Fade Out"]
 join Max left [animation="Fade In"]
-Max: “I remember everything.\
+audio voice "res://Audio/Voice/max/lvl2_line1.ogg" [volume="5"]
+Max: "I remember everything.\
 Their voices, their laughter… and the silence you left behind.\
-I’m not stopping. Not now. Not ever.
+I'm not stopping. Not now. Not ever.
 [wait time="0.5"]
 leave Max [animation="Fade Out"]
 join evil_max_hidden right [animation="Fade In"]
-evil_max_hidden: “Anger makes you predictable.\
+audio voice "res://Audio/Voice/evil_max/lvl2_line2.ogg" [volume="5"]
+evil_max_hidden: "Anger makes you predictable.\
 Pain makes you blind.\
-Keep running toward me… I wonder what else you’ll destroy on the way.”
+Keep running toward me… I wonder what else you'll destroy on the way."
 leave evil_max_hidden [animation="Fade Out"]
 join Max left [animation="Fade In"]
 [wait time="0.5"]
-Max: “If rage is all I have left…\
-Then I’ll burn the world with it if I must.\
-And I’ll drag you down with me.
+audio voice "res://Audio/Voice/max/lvl2_line2.ogg" [volume="5"]
+Max: "If rage is all I have left…\
+Then I'll burn the world with it if I must.\
+And I'll drag you down with me.
 leave Max
+audio music "res://Audio/Music/lvl2_rage_combat.ogg" [fade="1.0" volume="0"]
 The GROUND SHAKES !!!!!
+audio sfx "res://Audio/SFX/ground_shake.wav" [volume="3"]
 THE MONSTERS ARE COMMING !!!!!!!!!!!!!
+audio sfx "res://Audio/SFX/monster_roar.wav" [volume="5"]
+audio sfx "res://Audio/SFX/dialogue_close.wav" [volume="0"]
 [signal arg="fight_start"]

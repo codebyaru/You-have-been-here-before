@@ -167,12 +167,20 @@ func _on_entity_died():
 			_finish_all_waves()
 		else:
 			# Agar Normal wave khatam hui -> NEXT WAVE
-			print("[WAVE] Wave completed")
-			emit_signal("wave_completed", current_wave)
-			
-			# Thoda wait karo agli wave se pehle
-			await get_tree().create_timer(2.0).timeout
-			_start_next_wave()
+			_on_wave_completed()
+
+func _on_wave_completed():
+	print("[WAVE] Wave completed")
+	
+	# Play wave completion sound
+	Dialogic.Audio.play_sound("res://Audio/SFX/wave_complete.wav", "sfx", 0.0)
+	
+	emit_signal("wave_completed", current_wave)
+	
+	# Thoda wait karo agli wave se pehle
+	await get_tree().create_timer(2.0).timeout
+	_start_next_wave()
+
 func _finish_all_waves():
 	print("[WAVE] 🎉 ALL WAVES & BOSS DEFEATED 🎉")
 	
@@ -182,6 +190,9 @@ func _finish_all_waves():
 	# --- 1. UPDATE GLOBAL PROGRESS (UNLOCK MAGIC) ---
 	# Global ko batao ki humne ye level ka boss hara diya hai
 	Global.max_level=Global.current_level
+	
+	# Play magic unlock sound
+	Dialogic.Audio.play_sound("res://Audio/SFX/magic_unlock.wav", "sfx", 5.0)
 	
 	# --- 2. PLAY REWARD DIALOGUE ---
 	# "new_magic" dialogue chalega jo player ko batayega ki nayi power mili hai

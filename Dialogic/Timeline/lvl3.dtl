@@ -1,12 +1,19 @@
+audio sfx "res://Audio/SFX/dialogue_open.wav" [volume="0"]
+audio music "res://Audio/Music/lvl3_burden_combat.ogg" [fade="2.0" volume="-10"]
 join evil_max_hidden right
-evil_max_hidden: “Every step feels heavier, doesn’t it?”\
-“Responsibility… guilt… expectations… they don’t leave.”\
-“They crush you… slowly.
+audio voice "res://Audio/Voice/evil_max/lvl3_line1.ogg" [volume="5"]
+evil_max_hidden: "Every step feels heavier, doesn't it?"\
+"Responsibility… guilt… expectations… they don't leave."\
+"They crush you… slowly.
 leave evil_max_hidden
 join Max left
-Max: “I’ve carried worse.”\
-“If pain is the weight of remembrance…”\
-“…then I’ll carry it proudly.”
+audio voice "res://Audio/Voice/max/lvl3_line1.ogg" [volume="5"]
+Max: "I've carried worse."\
+"If pain is the weight of remembrance…"\
+"…then I'll carry it proudly."
 [wait time="0.5"]
+audio music "res://Audio/Music/lvl3_burden_combat.ogg" [fade="1.0" volume="0"]
 ITS ALL ROCKY and STEEP HERE GROUND SHAKE MUST BE A GOLEM CONTROLLING HIS FIELD!!
+audio sfx "res://Audio/SFX/ground_shake.wav" [volume="3"]
+audio sfx "res://Audio/SFX/dialogue_close.wav" [volume="0"]
 [signal arg="fight_start"]

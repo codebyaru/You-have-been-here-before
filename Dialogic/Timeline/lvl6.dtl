@@ -1,14 +1,20 @@
+audio sfx "res://Audio/SFX/dialogue_open.wav" [volume="0"]
+audio music "res://Audio/Music/lvl6_detachment_combat.ogg" [fade="2.0" volume="-10"]
 join evil_max_hidden right
-evil_max_hidden: “People. Memories. Feelings.”\
-“You’re starting to feel distant from all of it… aren’t you?”\
-“Maybe being empty is easier.”
+audio voice "res://Audio/Voice/evil_max/lvl6_line1.ogg" [volume="5"]
+evil_max_hidden: "People. Memories. Feelings."\
+"You're starting to feel distant from all of it… aren't you?"\
+"Maybe being empty is easier."
 [wait time="0.5"]
 leave evil_max_hidden
 join Max left
-Max: “If detachment is the price…”\
-“…then I’ll pay it.”\
-“But I won’t forget WHY I’m fighting.”
+audio voice "res://Audio/Voice/max/lvl6_line1.ogg" [volume="5"]
+Max: "If detachment is the price…"\
+"…then I'll pay it."\
+"But I won't forget WHY I'm fighting."
 [wait time="0.5"]
 leave Max
-"The world feels distant… voices fade, memories blur. He isn’t fighting the monsters anymore… he’s fighting the weight of letting go."
+audio music "res://Audio/Music/lvl6_detachment_combat.ogg" [fade="1.0" volume="0"]
+"The world feels distant… voices fade, memories blur. He isn't fighting the monsters anymore… he's fighting the weight of letting go."
+audio sfx "res://Audio/SFX/dialogue_close.wav" [volume="0"]
 [signal arg="fight_start"]

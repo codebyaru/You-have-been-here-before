@@ -1,12 +1,29 @@
+audio sfx "res://Audio/SFX/dialogue_open.wav" [volume="0"]
+audio music "res://Audio/Music/lvl9_corruption_combat.ogg" [fade="2.5" volume="-10"]
+audio ambient "res://Audio/SFX/void_whisper.wav" [volume="-20" fade="3.0"]
 join evil_max_hidden right
-evil_max_hidden: “Nothingness suits you.”\
-“No light. No path. No purpose.”\
-“Just endless… empty silence.”
+audio voice "res://Audio/Voice/evil_max/lvl9_line1.ogg" [volume="5"]
+evil_max_hidden: "Can you feel it, Max?\
+The darkness seeping in… changing you.\
+You think you're using the shadows…\
+…but they're using YOU."
 leave evil_max_hidden
 join Max left
-Max: “Even if I can’t see the way…”\
-“I’ll trust myself.”\
-“And keep moving.”
+audio voice "res://Audio/Voice/max/lvl9_line1.ogg" [volume="5"]
+Max: "I know what I'm becoming.\
+And I accept it.\
+If corruption is the cost of victory…\
+…then let me be corrupted."
+[wait time="0.5"]
 leave Max
-“Darkness whispers  Max… every shadow wants a piece of you. Corruption spreads — either you control it… or it consumes you.”
+join evil_max_hidden right
+audio voice "res://Audio/Voice/evil_max/lvl9_line2.ogg" [volume="5"]
+evil_max_hidden: "Those are the words of someone already lost.\
+Welcome to the abyss, Max.\
+I've been waiting for you here."
+leave evil_max_hidden
+audio music "res://Audio/Music/lvl9_corruption_combat.ogg" [fade="1.0" volume="0"]
+"Darkness whispers  Max… every shadow wants a piece of you. Corruption spreads — either you control it… or it consumes you."
+audio ambient - [fade="2.0"]
+audio sfx "res://Audio/SFX/dialogue_close.wav" [volume="0"]
 [signal arg="fight_start"]

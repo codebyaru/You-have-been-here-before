@@ -1,11 +1,17 @@
+audio sfx "res://Audio/SFX/dialogue_open.wav" [volume="0"]
+audio music "res://Audio/Music/lvl7_mastery_combat.ogg" [fade="2.0" volume="-10"]
 join evil_max_hidden right
-evil_max_hidden: “You’re changing… sharper… colder… focused.”\
-“But power shapes the wielder… not the other way around.”
+audio voice "res://Audio/Voice/evil_max/lvl7_line1.ogg" [volume="5"]
+evil_max_hidden: "You're changing… sharper… colder… focused."\
+"But power shapes the wielder… not the other way around."
 leave evil_max_hidden
 join Max left
-Max: “Then watch closely.”\
-“I don’t obey power…”\
-“…power obeys ME.”
+audio voice "res://Audio/Voice/max/lvl7_line1.ogg" [volume="5"]
+Max: "Then watch closely."\
+"I don't obey power…"\
+"…power obeys ME."
 leave Max
-“Winds scream with ancient fury! Only those who command the storm can survive this sky‑torn battlefield!”
+audio music "res://Audio/Music/lvl7_mastery_combat.ogg" [fade="1.0" volume="0"]
+"Winds scream with ancient fury! Only those who command the storm can survive this sky‑torn battlefield!"
+audio sfx "res://Audio/SFX/dialogue_close.wav" [volume="0"]
 [signal arg="fight_start"]

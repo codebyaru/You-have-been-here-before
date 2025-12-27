@@ -1,12 +1,18 @@
+audio sfx "res://Audio/SFX/dialogue_open.wav" [volume="0"]
+audio music "res://Audio/Music/lvl5_control_combat.ogg" [fade="2.0" volume="-10"]
 join evil_max_hidden right
-evil_max_hidden: “Anger… panic… fear… you drown in your own emotions.”\
-“You’ve never had control. Not then. Not now.”
+audio voice "res://Audio/Voice/evil_max/lvl5_line1.ogg" [volume="5"]
+evil_max_hidden: "Anger… panic… fear… you drown in your own emotions."\
+"You've never had control. Not then. Not now."
 leave evil_max_hidden
 join Max left
-Max: “I decide who I become.”\
-“My fear doesn’t rule me anymore…”\
-“…I flow. I adapt. I MOVE.
+audio voice "res://Audio/Voice/max/lvl5_line1.ogg" [volume="5"]
+Max: "I decide who I become."\
+"My fear doesn't rule me anymore…"\
+"…I flow. I adapt. I MOVE.
 [wait time="0.5"]
 leave Max
-“Calm waters… deceptive peace. The tide obeys no one, and neither will your fate if you falter now!”
+audio music "res://Audio/Music/lvl5_control_combat.ogg" [fade="1.0" volume="0"]
+"Calm waters… deceptive peace. The tide obeys no one, and neither will your fate if you falter now!"
+audio sfx "res://Audio/SFX/dialogue_close.wav" [volume="0"]
 [signal arg="fight_start"]

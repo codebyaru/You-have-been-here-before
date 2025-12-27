@@ -1,1 +1,36 @@
+audio sfx "res://Audio/SFX/dialogue_open.wav" [volume="0"]
+audio music "res://Audio/Music/lvl4_escape_ambient.ogg" [fade="2.0" volume="-8"]
+audio ambient "res://Audio/SFX/void_whisper.wav" [volume="-15" fade="3.0"]
+join evil_max_hidden right [animation="Fade In"]
+audio voice "res://Audio/Voice/evil_max/lvl4_line1.ogg" [volume="5"]
+evil_max_hidden: "Running again, Max?\
+You've always been good at that.\
+Running from pain. Running from truth.\
+Running from yourself."
+leave evil_max_hidden [animation="Fade Out"]
+join Max left [animation="Fade In"]
+audio voice "res://Audio/Voice/max/lvl4_line1.ogg" [volume="5"]
+Max: "I'm not running FROM anything…\
+I'm running TOWARD what matters.\
+There's a difference."
+[wait time="0.5"]
+leave Max [animation="Fade Out"]
+join evil_max_hidden right [animation="Fade In"]
+audio voice "res://Audio/Voice/evil_max/lvl4_line2.ogg" [volume="5"]
+evil_max_hidden: "Is there?\
+Every step forward is another memory you leave behind.\
+Every turn… another piece of who you were.\
+How much of yourself will be left when you reach the end?"
+leave evil_max_hidden [animation="Fade Out"]
+join Max left [animation="Fade In"]
+[wait time="0.5"]
+audio voice "res://Audio/Voice/max/lvl4_line2.ogg" [volume="5"]
+Max: "Enough.\
+Enough to remember why I started.\
+Enough to finish this."
+leave Max
+audio music "res://Audio/Music/lvl4_escape_ambient.ogg" [fade="1.5" volume="-3"]
+audio ambient - [fade="2.0"]
 Find the Beacon to Escape !!!
+audio sfx "res://Audio/SFX/dialogue_close.wav" [volume="0"]
+[signal arg="fight_start"]

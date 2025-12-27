@@ -1,12 +1,20 @@
+audio sfx "res://Audio/SFX/dialogue_open.wav" [volume="0"]
+audio music "res://Audio/Music/lvl8_emptiness_ambient.ogg" [fade="3.0" volume="-12"]
+audio ambient "res://Audio/SFX/void_whisper.wav" [volume="-18" fade="4.0"]
 join evil_max_hidden right
-evil_max_hidden: “Nothingness suits you.”\
-“No light. No path. No purpose.”\
-“Just endless… empty silence.”
+audio voice "res://Audio/Voice/evil_max/lvl8_line1.ogg" [volume="5"]
+evil_max_hidden: "Nothingness suits you."\
+"No light. No path. No purpose."\
+"Just endless… empty silence."
 leave evil_max_hidden
 join Max left
-Max: “Even if I can’t see the way…”\
-“I’ll trust myself.”\
-“And keep moving.”
+audio voice "res://Audio/Voice/max/lvl8_line1.ogg" [volume="5"]
+Max: "Even if I can't see the way…"\
+"I'll trust myself."\
+"And keep moving."
 leave Max
-“Silence. No ground. No mercy. One wrong step… and the void claims everything you love.”
+audio music "res://Audio/Music/lvl8_emptiness_ambient.ogg" [fade="1.0" volume="-8"]
+"Silence. No ground. No mercy. One wrong step… and the void claims everything you love."
+audio ambient - [fade="2.0"]
+audio sfx "res://Audio/SFX/dialogue_close.wav" [volume="0"]
 [signal arg="fight_start"]

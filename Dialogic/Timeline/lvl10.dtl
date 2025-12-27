@@ -1,12 +1,21 @@
+audio sfx "res://Audio/SFX/dialogue_open.wav" [volume="0"]
+audio music "res://Audio/Music/lvl10_final_boss.ogg" [fade="2.0" volume="-8"]
+audio ambient "res://Audio/SFX/time_distortion.wav" [volume="-15" fade="3.0"]
 join evil_max_hidden right
-evil_max_hidden: “You finally made it…”\
-“But every choice has a cost.”\
-“Change time… fix everything… lose yourself.”
+audio voice "res://Audio/Voice/evil_max/lvl10_line1.ogg" [volume="5"]
+evil_max_hidden: "You finally made it…"\
+"But every choice has a cost."\
+"Change time… fix everything… lose yourself."
 leave evil_max_hidden
 join Max left
-Max: “If this world wants sacrifice…”\
-“I’ll decide what I lose.”\
-“And what I PROTECT.”
+audio voice "res://Audio/Voice/max/lvl10_line1.ogg" [volume="5"]
+Max: "If this world wants sacrifice…"\
+"I'll decide what I lose."\
+"And what I PROTECT."
 leave Max
-“This is it. Past, pain, rage, love — everything collapses here. Time itself bends… make your choice, hero. But every choice bleeds.”
+audio music "res://Audio/Music/lvl10_final_boss.ogg" [fade="1.0" volume="0"]
+audio sfx "res://Audio/SFX/time_distortion.wav" [volume="0"]
+"This is it. Past, pain, rage, love — everything collapses here. Time itself bends… make your choice, hero. But every choice bleeds."
+audio ambient - [fade="1.5"]
+audio sfx "res://Audio/SFX/dialogue_close.wav" [volume="0"]
 [signal arg="fight_start"]
