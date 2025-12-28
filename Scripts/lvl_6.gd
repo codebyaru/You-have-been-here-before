@@ -16,6 +16,7 @@ var time_passed: float = 0.0
 var target_data = {} # Yahan hum targets ki starting position save karenge
 
 func _ready() -> void:
+	AudioManager.play_music("res://audio/music/VME - Samurai.mp3")
 	Global.current_level_id = "lvl6"
 	Global.current_level = 6
 	Global.respawn_position = Vector2(14, 258)
