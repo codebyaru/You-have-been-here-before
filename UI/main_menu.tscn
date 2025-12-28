@@ -22,7 +22,7 @@ texture = ExtResource("5_dy7ct")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w44g7"]
 texture = ExtResource("6_0o4t1")
 
-[node name="Main_Menu" type="Control"]
+[node name="Main_Menu" type="Control" node_paths=PackedStringArray("intro_video", "menu_ui", "button_container", "load_panel", "save_slots_container", "save_slots_container_MC", "btn_start", "btn_load", "btn_exit", "btn_back", "template_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,6 +31,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k0a0m")
 game_scene_path = "uid://diiwfcw5t8aw"
+intro_video = NodePath("IntroVideo")
+menu_ui = NodePath("MarginContainer")
+button_container = NodePath("MarginContainer/TextureRect/CenterContainer/button_container")
+load_panel = NodePath("MarginContainer/TextureRect/CenterContainer/MarginContainer_LoadPanel")
+save_slots_container = NodePath("MarginContainer/TextureRect/CenterContainer/MarginContainer_LoadPanel/VBoxContainer/ScrollContainer/VBoxContainer_SaveSlots")
+save_slots_container_MC = NodePath("MarginContainer/TextureRect/CenterContainer/MarginContainer_LoadPanel")
+btn_start = NodePath("MarginContainer/TextureRect/CenterContainer/button_container/Start_game")
+btn_load = NodePath("MarginContainer/TextureRect/CenterContainer/button_container/Load_game")
+btn_exit = NodePath("MarginContainer/TextureRect/CenterContainer/button_container/Exit")
+btn_back = NodePath("MarginContainer/TextureRect/CenterContainer/MarginContainer_LoadPanel/VBoxContainer/go_back")
+template_button = NodePath("MarginContainer/TextureRect/CenterContainer/MarginContainer_LoadPanel/VBoxContainer/ScrollContainer/VBoxContainer_SaveSlots/template")
 
 [node name="IntroVideo" type="VideoStreamPlayer" parent="."]
 z_index = 5
@@ -49,7 +60,6 @@ autoplay = true
 expand = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-visible = false
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -81,12 +91,13 @@ custom_minimum_size = Vector2(700, 700)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_0k4wn")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TextureRect/CenterContainer"]
+[node name="button_container" type="VBoxContainer" parent="MarginContainer/TextureRect/CenterContainer"]
+visible = false
 z_index = 2
 layout_mode = 2
 theme_override_constants/separation = -7
 
-[node name="Start_game" type="Button" parent="MarginContainer/TextureRect/CenterContainer/VBoxContainer"]
+[node name="Start_game" type="Button" parent="MarginContainer/TextureRect/CenterContainer/button_container"]
 custom_minimum_size = Vector2(180, 75)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.30980393, 0.28627452, 0.23921569, 1)
@@ -98,7 +109,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_iotk1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_w44g7")
 text = "START GAME"
 
-[node name="Setting" type="Button" parent="MarginContainer/TextureRect/CenterContainer/VBoxContainer"]
+[node name="Setting" type="Button" parent="MarginContainer/TextureRect/CenterContainer/button_container"]
 custom_minimum_size = Vector2(180, 75)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.30980393, 0.28627452, 0.23921569, 1)
@@ -110,7 +121,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_iotk1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_w44g7")
 text = "SETTINGS"
 
-[node name="Credits" type="Button" parent="MarginContainer/TextureRect/CenterContainer/VBoxContainer"]
+[node name="Load_game" type="Button" parent="MarginContainer/TextureRect/CenterContainer/button_container"]
 custom_minimum_size = Vector2(180, 75)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.30980393, 0.28627452, 0.23921569, 1)
@@ -120,9 +131,10 @@ theme_override_fonts/font = ExtResource("4_ev3b6")
 theme_override_styles/normal = SubResource("StyleBoxTexture_j5v2v")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_iotk1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_w44g7")
-text = "Credits"
+text = "Load_game
+"
 
-[node name="Exit" type="Button" parent="MarginContainer/TextureRect/CenterContainer/VBoxContainer"]
+[node name="Exit" type="Button" parent="MarginContainer/TextureRect/CenterContainer/button_container"]
 custom_minimum_size = Vector2(180, 75)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.30980393, 0.28627452, 0.23921569, 1)
@@ -135,4 +147,58 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_w44g7")
 text = "Exit
 "
 
+[node name="MarginContainer_LoadPanel" type="MarginContainer" parent="MarginContainer/TextureRect/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TextureRect/CenterContainer/MarginContainer_LoadPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TextureRect/CenterContainer/MarginContainer_LoadPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.30980393, 0.28627452, 0.23921569, 1)
+theme_override_fonts/font = ExtResource("4_ev3b6")
+text = "      Select Save File"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/TextureRect/CenterContainer/MarginContainer_LoadPanel/VBoxContainer"]
+custom_minimum_size = Vector2(350, 280)
+layout_mode = 2
+size_flags_vertical = 3
+vertical_scroll_mode = 2
+
+[node name="VBoxContainer_SaveSlots" type="VBoxContainer" parent="MarginContainer/TextureRect/CenterContainer/MarginContainer_LoadPanel/VBoxContainer/ScrollContainer"]
+custom_minimum_size = Vector2(250, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="template" type="Button" parent="MarginContainer/TextureRect/CenterContainer/MarginContainer_LoadPanel/VBoxContainer/ScrollContainer/VBoxContainer_SaveSlots"]
+visible = false
+custom_minimum_size = Vector2(180, 75)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.30980393, 0.28627452, 0.23921569, 1)
+theme_override_colors/font_pressed_color = Color(0.30980393, 0.28627452, 0.23921569, 1)
+theme_override_colors/font_hover_color = Color(0.08528002, 0.07592148, 0.05719886, 1)
+theme_override_fonts/font = ExtResource("4_ev3b6")
+theme_override_styles/normal = SubResource("StyleBoxTexture_j5v2v")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_iotk1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_w44g7")
+text = "COntinue
+"
+
+[node name="go_back" type="Button" parent="MarginContainer/TextureRect/CenterContainer/MarginContainer_LoadPanel/VBoxContainer"]
+custom_minimum_size = Vector2(179.965, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.30980393, 0.28627452, 0.23921569, 1)
+theme_override_colors/font_pressed_color = Color(0.30980393, 0.28627452, 0.23921569, 1)
+theme_override_colors/font_hover_color = Color(0.08528002, 0.07592148, 0.05719886, 1)
+theme_override_fonts/font = ExtResource("4_ev3b6")
+theme_override_styles/normal = SubResource("StyleBoxTexture_j5v2v")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_iotk1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_w44g7")
+text = "go_back "
+
 [node name="CanvasLayer" parent="." instance=ExtResource("9_2mudq")]
+visible = false
