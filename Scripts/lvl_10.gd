@@ -65,6 +65,7 @@ func _on_dialogic_signal(arg: String):
 	match arg:
 		"said_yes":
 			print(" -> Advancing Level (Beacon Style)")
+			Global.loop_count+=1
 			Global.dialogue_playing = false # Release control strictly if needed, but switching scene anyway
 			Global.proceed_to_next_level()
 			

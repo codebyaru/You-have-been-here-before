@@ -379,7 +379,7 @@ func take_damage(amount: int, damage_source: String = "physical"):
 		# 2. Check for Critical Health (10% or below) ONLY for Combat
 		var threshold = max_health * 0.10 # 10% calc
 		
-		if  current_health <= threshold:
+		if  current_health <= threshold and Global.current_level==10:
 			if not is_critical_health: # Taaki baar baar true set na karein
 				is_critical_health = true
 				print("[PLAYER] ⚠️ CRITICAL HEALTH! (Combat Induced)")
