@@ -10,7 +10,7 @@ extends Control
 @export var button_container: VBoxContainer         # Assign: button_container
 @export var load_panel: MarginContainer             # Assign: MarginContainer_LoadPanel
 @export var save_slots_container: VBoxContainer     # Assign: VBoxContainer_SaveSlots
-@export var save_slots_container_MC: MarginContainer  
+@export var save_slots_container_MC:  MarginContainer  
 # --- MAIN BUTTONS (Inside button_container) ---
 # Drag these from inside your 'button_container'
 @export_group("Main Buttons")
@@ -35,14 +35,14 @@ func _ready() -> void:
 	intro_video.finished.connect(_on_video_finished)
 	
 	# 3. CONNECT MAIN BUTTONS
-	if btn_start: btn_start.pressed.connect(_on_start_pressed)
+	if btn_start: btn_start. pressed.connect(_on_start_pressed)
 	if btn_exit: btn_exit.pressed.connect(_on_exit_pressed)
 	if btn_load: btn_load.pressed.connect(_on_load_menu_pressed)
 	
 	# 4. CONNECT BACK BUTTON
 	if btn_back: btn_back.pressed.connect(_on_back_pressed)
 
-func _process(_delta: float) -> void:
+func _process(_delta:  float) -> void:
 	# Skip video on Space/Enter
 	if intro_video.visible and Input.is_action_just_pressed("ui_accept"):
 		_on_video_finished()
@@ -57,16 +57,19 @@ func _on_video_finished() -> void:
 	# Show the Main Menu
 	menu_ui.visible = true
 	
+	# Start playing background music
+	AudioManager.play_music("res://audio/music/Ripples - False Mission.mp3", -5.0)
+	
 	# Double check states (Just in case)
 	button_container.visible = true
-	load_panel.visible = false
+	load_panel. visible = false
 
 # ---------------------------------------------------------
 # --- MAIN MENU ACTIONS ---
 # ---------------------------------------------------------
 func _on_start_pressed() -> void:
 	if game_scene_path:
-		btn_start.disabled = true
+		btn_start. disabled = true
 		# Reset Global variables for a new run
 		Global.current_level = 2 
 		TransitionScreen.transition_to(game_scene_path)
@@ -98,7 +101,7 @@ func _refresh_save_files():
 	for child in save_slots_container.get_children():
 		if child == template_button:
 			continue # Skip the template, keep it safe
-		child.queue_free()
+		child. queue_free()
 	
 	# 2. Check File
 	if FileAccess.file_exists("user://savegame.save"):
@@ -132,3 +135,5 @@ func _refresh_save_files():
 func _on_save_file_clicked():
 	print("[MENU] Loading Save File...")
 	Global.load_game()
+	
+ 

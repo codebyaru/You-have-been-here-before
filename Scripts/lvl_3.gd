@@ -4,13 +4,13 @@ extends Node2D
 # 47 -1 1025 491
 
 func _ready() -> void:
-	AudioManager.play_music("res://audio/music/Sharperheart - Bittersweet.mp3")
+	AudioManager.play_music("res://audio/music/VME - Samurai.mp3")
 	Global.current_level_id = "lvl3"
 	Global.current_level = 3
 	WaveHandler.all_waves_completed.connect(_on_waves_done)
 	Global.respawn_position = Vector2(14, 258)
-	DialogicController.start_dialogue("timeline_4")
-	$Beacon.start_timer()
+	#DialogicController.start_dialogue("timeline_4")
+	#$Beacon.start_timer()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:

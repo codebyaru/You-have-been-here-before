@@ -4,7 +4,7 @@ extends Node2D
 
 
 func _ready() -> void:
-	#AudioManager.play_music("res://audio/music/Sharperheart - Bittersweet.mp3")
+	AudioManager.play_music("res://audio/music/VME - Samurai.mp3")
 	Global.current_level_id = "lvl5"
 	Global.current_level = 5
 	WaveHandler.all_waves_completed.connect(_on_waves_done)

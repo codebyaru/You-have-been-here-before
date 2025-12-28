@@ -4,7 +4,7 @@ extends Node2D
 # 47 -1 1025 491
 
 func _ready() -> void:
-	AudioManager.play_music("res://audio/music/Sharperheart - Bittersweet.mp3")
+	AudioManager.play_music("res://audio/music/VME - Samurai.mp3")
 
 	Global.current_level_id = "lvl9"
 	Global.current_level = 9
