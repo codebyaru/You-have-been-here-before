@@ -10,7 +10,7 @@ var current_wave := 0
 var enemies_alive := 0
 var boss_active := false # Track agar hum boss fight mein hain
 
-var spawn_points: Array = []
+var spawn_points:  Array = []
 
 # -----------------------
 # WAVE CONFIG
@@ -19,31 +19,29 @@ var spawn_points: Array = []
 var level_waves := {
 	"lvl2": {
 		"enemy_scene": preload("res://Scenes/enemies/henchmen.tscn"),
-		"boss_scene": preload("res://Scenes/enemies/demon_slime.tscn"), # BOSS SCENE YAHAN DALNA
-		"waves": [3, 5,7] 
+		"boss_scene": preload("res://Scenes/enemies/demon_slime.tscn"),
+		"waves": [3, 5, 7] 
 	},
 	"lvl3": {
 		"enemy_scene": preload("res://Scenes/enemies/henchmen.tscn"),
-		"boss_scene": preload("res://Scenes/enemies/mecha_golem.tscn"), # BOSS SCENE YAHAN DALNA
-		"waves": [ 5,7,10] 
+		"boss_scene": preload("res://Scenes/enemies/mecha_golem.tscn"),
+		"waves": [5, 7, 10] 
 	},
 	"lvl5": {
 		"enemy_scene": preload("res://Scenes/enemies/henchmen.tscn"),
-		"boss_scene": preload("res://Scenes/enemies/Frost_Guardian.tscn"), # BOSS SCENE YAHAN DALNA
-		"waves": [ 5,7,10]
-	},
-
-	"lvl9": {
-		"enemy_scene": preload("res://Scenes/enemies/henchmen.tscn"),
-		"boss_scene": preload("res://Scenes/enemies/Undead_Excecutiner.tscn"), # BOSS SCENE YAHAN DALNA
-		"waves": [ 5,10,10,10] 
+		"boss_scene": preload("res://Scenes/enemies/demon_slime.tscn"),
+		"waves": [5, 10, 15] 
 	},
 	"lvl7": {
 		"enemy_scene": preload("res://Scenes/enemies/henchmen.tscn"),
-		"boss_scene": preload("res://Scenes/enemies/Minotaur.tscn"), # BOSS SCENE YAHAN DALNA
-		"waves": [ 5,7,10,12]
-	}
-	
+		"boss_scene": preload("res://Scenes/enemies/demon_slime.tscn"),
+		"waves": [10, 15, 20] 
+	},
+	"lvl9": {
+		"enemy_scene": preload("res://Scenes/enemies/henchmen.tscn"),
+		"boss_scene": preload("res://Scenes/enemies/demon_slime.tscn"),
+		"waves": [15, 20, 25] 
+	},
 }
 
 # -----------------------
@@ -55,7 +53,7 @@ func start_level_waves(level_id: String):
 		print("[WAVE] Already running, ignoring")
 		return
 
-	if not level_waves.has(level_id):
+	if not level_waves. has(level_id):
 		push_error("[WAVE] No wave config for " + level_id)
 		return
 
@@ -67,21 +65,25 @@ func start_level_waves(level_id: String):
 	print("[WAVE] Starting waves for", level_id)
 	emit_signal("waves_started", level_id)
 
+	# 🎵 START COMBAT MUSIC WHEN WAVES BEGIN
+	AudioManager. play_music("res://audio/music/Sharperheart - Bittersweet.mp3")
+	print("[WAVE] Started combat music")
+
 	_collect_spawn_points()
 	_start_next_wave()
 
 
 func _collect_spawn_points():
-	spawn_points.clear()
+	spawn_points. clear()
 	var level := get_tree().current_scene
 	var spawners := level.get_node_or_null("Spawners")
 
-	if spawners == null:
+	if spawners == null: 
 		push_error("[WAVE] No 'Spawners' node found in level")
 		return
 
 	for child in spawners.get_children():
-		if child is Marker2D:
+		if child is Marker2D: 
 			spawn_points.append(child)
 
 # -----------------------
@@ -92,7 +94,7 @@ func _start_next_wave():
 	var config = level_waves[current_level]
 	var waves_list = config["waves"]
 
-	# Check: Agar saari normal waves khatam ho gayi hain
+	# Check:  Agar saari normal waves khatam ho gayi hain
 	if current_wave >= waves_list.size():
 		if not boss_active:
 			_start_boss_wave() # Ab Boss ki baari
@@ -108,7 +110,7 @@ func _start_next_wave():
 	
 	# 2. Spawn Enemies
 	enemies_alive = count
-	for i in count:
+	for i in count: 
 		_spawn_enemy(config["enemy_scene"])
 
 	current_wave += 1
@@ -147,7 +149,7 @@ func _spawn_enemy(scene_resource, is_boss: bool = false):
 	
 	if is_boss:
 		# Optional: Boss ko thoda scale ya effect de sakte ho yahan
-		print("[WAVE] Boss Spawned: ", enemy.name)
+		print("[WAVE] Boss Spawned:   ", enemy.name)
 
 # -----------------------
 # COMPLETION LOGIC
@@ -155,33 +157,26 @@ func _spawn_enemy(scene_resource, is_boss: bool = false):
 
 func _on_entity_died():
 	enemies_alive -= 1
-	print("[WAVE] Entity died. Remaining:", enemies_alive)
+	print("[WAVE] Entity died.  Remaining:", enemies_alive)
 
 	if enemies_alive <= 0:
-		if boss_active:
-			# Agar Boss mar gaya -> LEVEL COMPLETE
+		if boss_active: 
 			_finish_all_waves()
 		else:
-			# Agar Normal wave khatam hui -> NEXT WAVE
-			print("[WAVE] Wave completed")
 			emit_signal("wave_completed", current_wave)
-			
-			# Thoda wait karo agli wave se pehle
+			print("[WAVE] Wave", current_wave, "complete")
 			await get_tree().create_timer(2.0).timeout
 			_start_next_wave()
+
 func _finish_all_waves():
-	print("[WAVE] 🎉 ALL WAVES & BOSS DEFEATED 🎉")
-	
+	print("[WAVE] 🎉 ALL WAVES COMPLETE FOR", current_level)
 	active = false
-	boss_active = false
 	
-	# --- 1. UPDATE GLOBAL PROGRESS (UNLOCK MAGIC) ---
-	# Global ko batao ki humne ye level ka boss hara diya hai
-	Global.max_level=Global.current_level
+	# 🎵 STOP COMBAT MUSIC WHEN WAVES END
+	AudioManager.music_player.stop()
+	print("[WAVE] Stopped combat music")
 	
-	# --- 2. PLAY REWARD DIALOGUE ---
-	# "new_magic" dialogue chalega jo player ko batayega ki nayi power mili hai
-	print("[DIALOGUE] Playing Magic Unlock Dialogue")
+	# --- 2. PLAY NEW MAGIC DIALOGUE ---
 	# Agar dialogue wait karna hai to 'await' use kar sakte ho
 	await _play_dialogue("new_magic") 
 	
@@ -198,15 +193,10 @@ func _finish_all_waves():
 # HELPER (Updated for async/await)
 # -----------------------
 func _play_dialogue(timeline_key: String):
-	if true: # Check if Dialogic exists logic
+	if true:  # Check if Dialogic exists logic
 		print("[DIALOGUE] Playing:", timeline_key)
 		Dialogic.start(timeline_key)
 		
 		# Wait for dialogue to finish logic (Dialogic specific)
-		# Agar tum chahte ho code ruke jab tak dialogue chal raha hai:
-		# await Dialogic.timeline_ended
-		# Note: Ye tabhi chalega agar Dialogic 2.0+ correctly setup hai.
-		# Agar simple rakhna hai to bas start karo aur return karo:
-		return 
-	else:
-		print("[DIALOGUE] Dialogic not found, skipping:", timeline_key)
+		# Agar tum chahte ho code ruke jab tak dialogue chal raha hai: 
+		# await Dialogic.  timeline_ended
