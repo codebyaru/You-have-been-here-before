@@ -51,6 +51,16 @@ func grow():
 
 # 4. Damage Logic Update
 func _on_hitbox_area_body_entered(body: Node2D) -> void:
+	# 1. Check if it can take damage
 	if body.has_method("take_damage"):
-		# Variable use karo
-		body.take_damage(damage_amount)
+		
+		# 2. Check if it is Mahoraga (Boss)
+		if body.has_method("mahoraga"):
+			# Mahoraga logic: Send specific type
+			body.take_damage(damage_amount, "explosion")
+			print("Explosion hit Mahoraga!")
+			
+		# 3. Normal Enemy Logic
+		else:
+			# Regular damage call
+			body.take_damage(damage_amount)

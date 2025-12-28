@@ -30,6 +30,7 @@ shape = SubResource("CapsuleShape2D_fuajv")
 [node name="ReplaceOnAreaEntered" type="Node" parent="." node_paths=PackedStringArray("enter_area", "replace_target")]
 script = ExtResource("3_rn7yr")
 enter_area = NodePath("../Area2D")
+element_type = "wind"
 replace_target = NodePath("..")
 replacement_scene_path = "uid://c2u806670nt1c"
 spawn_replacement = false

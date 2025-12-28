@@ -44,6 +44,7 @@ autostart = true
 script = ExtResource("4_qp5ro")
 enter_area = NodePath("../Area2D")
 damage_amount = 50
+element_type = "fire"
 replace_target = NodePath("..")
 replacement_scene_path = "uid://c2u806670nt1c"
 spawn_replacement = false

@@ -21,7 +21,7 @@ func _process(_delta) -> void:
 func _on_void_body_entered(body: Node2D) -> void:
 		if body.has_method("player"):
 			print("Insatnt death")
-			body.take_damage(body.max_health)
+			body.take_damage(body.max_health,"void")
 		if body.has_method("enemy"):
 			body.take_damage(body.MAX_HEALTH)
 		if body.has_method("shadow"):

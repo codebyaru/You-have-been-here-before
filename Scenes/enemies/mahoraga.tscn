@@ -1,4 +1,4 @@
-[gd_scene load_steps=313 format=3 uid="uid://bgghmpfc24dku"]
+[gd_scene load_steps=334 format=3 uid="uid://bgghmpfc24dku"]
 
 [ext_resource type="Script" uid="uid://coysfdgbbbech" path="res://Scenes/enemies/mahoraga.gd" id="1_utwww"]
 [ext_resource type="Texture2D" uid="uid://cnaoapvmwdvro" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/mahoraga/sprite_sheet (4).png" id="2_utwww"]
@@ -7,6 +7,18 @@
 [ext_resource type="Texture2D" uid="uid://bwnniruddbodp" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/mahoraga/Maho_raga_jump.png" id="4_wvovp"]
 [ext_resource type="Texture2D" uid="uid://byrhi0fi2j28v" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/mahoraga/maho_raga_walk.png" id="5_hq7ab"]
 [ext_resource type="Texture2D" uid="uid://di2vjhc21o7wk" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/Final/'Free' Moonlit Forest Tileset.png" id="7_wvovp"]
+[ext_resource type="StyleBox" uid="uid://djwb0j0p62hqr" path="res://progress_bars/maho_bar.tres" id="8_y3w8u"]
+[ext_resource type="Script" uid="uid://c6vg0jwo8mtsm" path="res://progress_bars/health_bar.gd" id="9_opg3w"]
+[ext_resource type="FontFile" uid="uid://c5xk2qbg3yyd7" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/fonts/wonder-raiders-trial-font/WonderRaidersFreeTrial-yYL63.otf" id="10_opg3w"]
+[ext_resource type="Script" uid="uid://c2ktphlnytmyj" path="res://abilities/mahoraga/MahoragaMagicComponent.gd.gd" id="11_5emow"]
+[ext_resource type="PackedScene" uid="uid://bn2f4pctp1x1i" path="res://abilities/player/fire_spin_projectile.tscn" id="12_uvqel"]
+[ext_resource type="Script" uid="uid://covt74nalhceh" path="res://abilities/Projectile_launch_ability.gd" id="13_1p1wx"]
+[ext_resource type="Script" uid="uid://down3fiugsbn" path="res://abilities/SummonAbility.gd" id="14_rkh8q"]
+[ext_resource type="PackedScene" uid="uid://bcc6110lle5k0" path="res://abilities/player/Fire_ball.tscn" id="14_y3w8u"]
+[ext_resource type="PackedScene" uid="uid://b37qti58l6no1" path="res://abilities/player/Water_ball.tscn" id="15_t01qd"]
+[ext_resource type="PackedScene" uid="uid://crggh3deaddmx" path="res://abilities/player/Rock_throw.tscn" id="16_iyn2a"]
+[ext_resource type="PackedScene" uid="uid://dttt0faw6ytar" path="res://abilities/player/Wind_Tornado.tscn" id="17_lvtkm"]
+[ext_resource type="PackedScene" uid="uid://2iknqry00yf6" path="res://Scenes/enemies/shadow_soilder.tscn" id="19_34tau"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_54amb"]
 atlas = ExtResource("2_utwww")
@@ -2128,16 +2140,6 @@ size = Vector2(64, 72)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_audkd"]
 size = Vector2(4692, 2901)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_audkd"]
-bg_color = Color(0.14117648, 1, 0.9764706, 1)
-border_width_left = 2
-border_width_bottom = 1
-border_color = Color(0, 0, 1, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 16
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 20
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hq7ab"]
 texture = ExtResource("7_wvovp")
 0:0/0 = 0
@@ -2276,10 +2278,79 @@ texture = ExtResource("7_wvovp")
 [sub_resource type="TileSet" id="TileSet_54amb"]
 sources/0 = SubResource("TileSetAtlasSource_hq7ab")
 
-[node name="Mahoraga" type="CharacterBody2D"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_npb8o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6qccb"]
+bg_color = Color(0.06469653, 0.064696535, 0.06469648, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 16
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 20
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uppt2"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 16
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_npb8o"]
+bg_color = Color(0.33031112, 0.26665035, 0.75867873, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 3
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Resource" id="Resource_02fvl"]
+script = ExtResource("13_1p1wx")
+projectile_scene = ExtResource("12_uvqel")
+instancing_offset = Vector2(30, -15)
+metadata/_custom_type_script = "uid://covt74nalhceh"
+
+[sub_resource type="Resource" id="Resource_y3w8u"]
+script = ExtResource("13_1p1wx")
+projectile_scene = ExtResource("14_y3w8u")
+instancing_offset = Vector2(30, -15)
+metadata/_custom_type_script = "uid://covt74nalhceh"
+
+[sub_resource type="Resource" id="Resource_t01qd"]
+script = ExtResource("13_1p1wx")
+projectile_scene = ExtResource("15_t01qd")
+instancing_offset = Vector2(30, -15)
+metadata/_custom_type_script = "uid://covt74nalhceh"
+
+[sub_resource type="Resource" id="Resource_iyn2a"]
+script = ExtResource("13_1p1wx")
+projectile_scene = ExtResource("16_iyn2a")
+instancing_offset = Vector2(30, -15)
+metadata/_custom_type_script = "uid://covt74nalhceh"
+
+[sub_resource type="Resource" id="Resource_lvtkm"]
+script = ExtResource("13_1p1wx")
+projectile_scene = ExtResource("17_lvtkm")
+instancing_offset = Vector2(30, -15)
+metadata/_custom_type_script = "uid://covt74nalhceh"
+
+[sub_resource type="Resource" id="Resource_34tau"]
+script = ExtResource("14_rkh8q")
+summon_scene = ExtResource("19_34tau")
+spawn_offset = Vector2(30, -15)
+metadata/_custom_type_script = "uid://down3fiugsbn"
+
+[node name="Mahoraga" type="CharacterBody2D" node_paths=PackedStringArray("updates_label")]
 position = Vector2(-1, 0)
 collision_layer = 4
 script = ExtResource("1_utwww")
+updates_label = NodePath("CanvasLayer/MarginContainer/Updates")
 
 [node name="SpriteRoot" type="Node2D" parent="."]
 position = Vector2(-1, 0)
@@ -2386,17 +2457,6 @@ target_position = Vector2(24, 1)
 position = Vector2(4, 9)
 target_position = Vector2(24, 1)
 
-[node name="health_bar" type="ProgressBar" parent="."]
-offset_left = -15.0
-offset_top = -51.0
-offset_right = 25.0
-offset_bottom = -46.0
-theme_override_font_sizes/font_size = 7
-theme_override_styles/fill = SubResource("StyleBoxFlat_audkd")
-value = 50.0
-rounded = true
-show_percentage = false
-
 [node name="tester_platform" type="TileMap" parent="."]
 visible = false
 position = Vector2(11, -12)
@@ -2412,9 +2472,76 @@ limit_top = -10
 limit_right = 100011
 limit_bottom = 482
 
+[node name="health_bar" type="ProgressBar" parent="."]
+z_index = 1
+offset_left = -13.0
+offset_top = -52.0
+offset_right = 16.0
+offset_bottom = -47.0
+theme_override_font_sizes/font_size = 4
+theme_override_styles/background = SubResource("StyleBoxEmpty_npb8o")
+theme_override_styles/fill = ExtResource("8_y3w8u")
+value = 50.0
+rounded = true
+show_percentage = false
+script = ExtResource("9_opg3w")
+
+[node name="Timer" type="Timer" parent="health_bar"]
+wait_time = 0.1
+one_shot = true
+
+[node name="Damage_bar" type="ProgressBar" parent="health_bar"]
+z_index = -1
+layout_mode = 0
+offset_right = 29.0
+offset_bottom = 5.0
+theme_override_font_sizes/font_size = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_6qccb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_uppt2")
+value = 80.0
+rounded = true
+show_percentage = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -142.0
+offset_top = 35.0
+offset_right = -38.0
+offset_bottom = 89.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Updates" type="Label" parent="CanvasLayer/MarginContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("10_opg3w")
+theme_override_styles/focus = SubResource("StyleBoxFlat_npb8o")
+text = "MAHORAGA - 
+"
+
+[node name="MahoragaMagicComponent" type="Node" parent="." node_paths=PackedStringArray("user")]
+script = ExtResource("11_5emow")
+ability_fire_spin = SubResource("Resource_02fvl")
+ability_fire_ball = SubResource("Resource_y3w8u")
+ability_water_ball = SubResource("Resource_t01qd")
+ability_rock_throw = SubResource("Resource_iyn2a")
+ability_wind_tornado = SubResource("Resource_lvtkm")
+ability_shadow_summon = SubResource("Resource_34tau")
+user = NodePath("..")
+
 [connection signal="body_entered" from="attack_area" to="." method="_on_attack_area_body_entered"]
 [connection signal="body_exited" from="attack_area" to="." method="_on_attack_area_body_exited"]
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]
 [connection signal="body_entered" from="detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="detection" to="." method="_on_detection_body_exited"]
+[connection signal="timeout" from="health_bar/Timer" to="health_bar" method="_on_timer_timeout"]

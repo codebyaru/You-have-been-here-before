@@ -4,7 +4,7 @@ extends ProgressBar
 @onready var timer: Timer = $Timer
 
 var health := 0
-var DEBUG := true
+var DEBUG := false
 
 func _ready() -> void:
 	timer.one_shot = true

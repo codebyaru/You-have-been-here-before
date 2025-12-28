@@ -71,6 +71,10 @@ var direction
 @onready var lvl2_camera = $lvl2_camera
 @onready var lvl4_camera = $lvl4_camera
 @onready var lvl6_camera = $lvl6_camera
+
+var is_critical_health: bool = false # 🔥 New variable for your dialogue check
+
+
 const MAGIC_MANA_COST := {
 	"fire_spin": 12,
 	"fire_ball": 5,
@@ -351,21 +355,45 @@ func _on_attack_area_body_entered(body: Node2D) -> void:
 # -----------------------
 # DAMAGE TAKING
 # -----------------------
-func take_damage(amount):
+func take_damage(amount: int, damage_source: String = "physical"):
 	if is_dead: return
 
 	current_health -= amount
 	current_health = clamp(current_health, 0, max_health)
 	health_bar.set_health(current_health)
 
-	sprite.modulate = Color(1, 0.3, 0.3)
-	var tween = create_tween()
-	tween.tween_property(sprite, "modulate", Color.WHITE, 0.2)
+	# --- 🔥 LOGIC UPDATE START ---
+	
+	# 1. Handle Visuals based on Source
+	if damage_source == "void":
+		# Void damage: Shayad hum hit animation na play karein, bas screen fade ho ya instant respawn logic ho
+		print("[PLAYER] Fell into VOID")
+		is_critical_health = false # Void shouldn't trigger "I'm injured" dialogue
+	else:
+		# Combat damage (physical/magic)
+		sprite.modulate = Color(1, 0.3, 0.3)
+		var tween = create_tween()
+		tween.tween_property(sprite, "modulate", Color.WHITE, 0.2)
+		sprite.play("hit")
+		print("[player] took damage: " , amount," viva ",damage_source)
+		# 2. Check for Critical Health (10% or below) ONLY for Combat
+		var threshold = max_health * 0.10 # 10% calc
+		
+		if  current_health <= threshold:
+			if not is_critical_health: # Taaki baar baar true set na karein
+				is_critical_health = true
+				print("[PLAYER] ⚠️ CRITICAL HEALTH! (Combat Induced)")
+				get_parent()._trigger_critical_sequence()
+				# Yahan tum signal emit kar sakte ho ya dialogue manager check kar lega
+				# emit_signal("player_critical") 
+		else:
+			# Agar health heal ho gayi ya abhi threshold se upar hai
+			is_critical_health = false
+
+	# --- LOGIC UPDATE END ---
 
 	if current_health <= 0:
 		die()
-	else:
-		sprite.play("hit")
 
 func apply_knockback(force_vector: Vector2):
 	velocity = force_vector
@@ -393,6 +421,7 @@ func update_animations(direction, is_dashing, is_super):
 func die():
 	if is_dead: return
 	is_dead = true
+	is_critical_health = false # Marne ke baad critical status reset
 	current_health = 0
 	health_bar.set_health(0)
 
@@ -407,6 +436,7 @@ func respawn():
 	print("[PLAYER] 🔁 RESPAWN")
 
 	is_dead = false
+	is_critical_health = false # Reset status
 	current_health = max_health
 	current_mana = max_mana
 

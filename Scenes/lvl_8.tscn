@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c7ag3cfqdp07g"]
+[gd_scene load_steps=14 format=3 uid="uid://c7ag3cfqdp07g"]
 
 [ext_resource type="Script" uid="uid://fyeym5qran7b" path="res://Scripts/lvl_8.gd" id="1_ihmwg"]
 [ext_resource type="Texture2D" uid="uid://dqy258cheh6ea" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/Final/Background_0.png" id="2_pqvca"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c83wjaf16lsdw" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/Final/modded.png" id="4_pqvca"]
 [ext_resource type="PackedScene" uid="uid://d3uh5euxh2fmd" path="res://Scenes/player.tscn" id="5_cs18y"]
 [ext_resource type="PackedScene" uid="uid://cttrf5bvjpe7r" path="res://Scenes/enemies/henchmen.tscn" id="6_qnnsx"]
+[ext_resource type="PackedScene" uid="uid://bjgxmviup1qw5" path="res://Scenes/Beacon.tscn" id="7_pqvca"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vbeg1"]
 texture = ExtResource("3_eibre")
@@ -516,7 +517,7 @@ texture = ExtResource("2_pqvca")
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_22vjt")
 format = 2
-layer_0/tile_data = PackedInt32Array(1245187, 1048577, 7, 1245185, 1048577, 7, 1245189, 1048577, 7, 1638408, 524289, 10, 1638410, 524289, 10, 1572872, 524289, 10, 1572873, 524289, 10, 1507335, 524289, 10, 1572871, 524289, 10, 1638407, 524289, 10, 1638409, 524289, 10, 1507336, 524289, 10, 1441799, 524289, 10, 1900558, 393217, 11, 1900560, 393217, 11, 1900563, 393217, 11, 1900566, 393217, 11, 1900569, 393217, 11, 1900572, 393217, 11, 1900574, 393217, 11, 1900577, 393217, 11, 1900580, 393217, 11, 1900582, 393217, 11, 1900585, 393217, 11, 1900588, 393217, 11, 1900591, 393217, 11, 1900593, 393217, 11, 1900595, 393217, 11, 1900598, 393217, 11, 1900599, 393217, 11)
+layer_0/tile_data = PackedInt32Array(1245187, 1048577, 7, 1245185, 1048577, 7, 1245189, 1048577, 7, 1638408, 524289, 10, 1638410, 524289, 10, 1572872, 524289, 10, 1572873, 524289, 10, 1507335, 524289, 10, 1572871, 524289, 10, 1638407, 524289, 10, 1638409, 524289, 10, 1507336, 524289, 10, 1441799, 524289, 10, 1900558, 393217, 11, 1900560, 393217, 11, 1900563, 393217, 11, 1900566, 393217, 11, 1900569, 393217, 11, 1900572, 393217, 11, 1900574, 393217, 11, 1900577, 393217, 11, 1900580, 393217, 11, 1900582, 393217, 11, 1900585, 393217, 11, 1900588, 393217, 11, 1900591, 393217, 11, 1900593, 393217, 11, 1900595, 393217, 11, 1900598, 393217, 11, 1900599, 393217, 11, 1441854, 1048577, 7)
 
 [node name="platform" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_rrg1h")
@@ -553,5 +554,9 @@ position = Vector2(149, 388)
 
 [node name="henchman" parent="." instance=ExtResource("6_qnnsx")]
 position = Vector2(224, 438)
+
+[node name="Beacon" parent="." instance=ExtResource("7_pqvca")]
+position = Vector2(965, 390.00003)
+frame_progress = 0.5365946
 
 [connection signal="body_entered" from="VOID" to="." method="_on_void_body_entered"]

@@ -37,6 +37,7 @@ directories/dtl_directory={
 "Wave_5": "res://Dialogic/Timeline/Wave_5.dtl",
 "Wave_ended": "res://Dialogic/Timeline/Wave_ended.dtl",
 "boss_wave": "res://Dialogic/Timeline/boss_wave.dtl",
+"ending": "res://Dialogic/Timeline/ending.dtl",
 "lvl10": "res://Dialogic/Timeline/lvl10.dtl",
 "lvl2": "res://Dialogic/Timeline/lvl2.dtl",
 "lvl3": "res://Dialogic/Timeline/lvl3.dtl",

@@ -1,12 +1,15 @@
-join evil_max_hidden right
-evil_max_hidden: “You finally made it…”\
-“But every choice has a cost.”\
-“Change time… fix everything… lose yourself.”
-leave evil_max_hidden
-join Max left
-Max: “If this world wants sacrifice…”\
-“I’ll decide what I lose.”\
-“And what I PROTECT.”
-leave Max
-“This is it. Past, pain, rage, love — everything collapses here. Time itself bends… make your choice, hero. But every choice bleeds.”
-[signal arg="fight_start"]
+evil_max_hidden: SO,U going to die again
+evil_max_hidden: want to make thing better
+evil_max_hidden: USE THE FORBIDDEN TIME MAGIC??? it will kill THIS MONTROSITY
+BUT IT WILL HAVE CONSEQUENCES.. WILL U STILL USE TIME MAGIC??? DO U WANT TO BE THE STRONGEST !!!!!
+- Yes
+	evil_max_hidden: WELL THEN BE READY FOR CONSWQUENCES BUT YES U ARE STRONGEST NOW
+	[signal arg="said_yes"]
+- NO
+	TIME MAGIC CONDITINON SATISFIED\
+	this dungeon judge will not power your rational decison made u win
+	Max: well... u choose no this time fine ...\
+	wanna know a secreat this was not the first time if u are dumb enough to not notice..\
+	using time magic made the loop intact and u were the one killing ur family now enjoy motherfucker
+	[signal arg="said_no"]
+[signal arg="timeline_end"]

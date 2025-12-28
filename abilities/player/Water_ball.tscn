@@ -45,6 +45,7 @@ autostart = true
 script = ExtResource("4_jg4k2")
 enter_area = NodePath("../Area2D")
 damage_amount = 50
+element_type = "water"
 replace_target = NodePath("..")
 replacement_scene_path = "uid://c2u806670nt1c"
 spawn_replacement = false

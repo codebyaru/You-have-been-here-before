@@ -12,23 +12,35 @@ const JUMP_COOLDOWN_TIME := 0.6
 const FLOOR_SNAP_LENGTH := 10.0
 
 const ATTACK_RANGE := 45.0
-const ATTACK_DAMAGE := 10
+const ATTACK_DAMAGE := 100
 const ATTACK_TICK_RATE := 0.7 
 const ATTACK_COOLDOWN := 0.5
 const ATTACK_HITBOX_FRAME := 0.3
 
-const MAX_HEALTH := 500
-const MAX_LIVES := 3
+const MAX_HEALTH := 10000
+const MAX_LIVES := 30
 const RESPAWN_DELAY := 2.0
 
 # Scale Config
 const BASE_SPRITE_SCALE := Vector2(0.114286, 0.169643)
 const ATTACK_2_SCALE_MULT := 5.9
-const ADAPTED_SCALE_MULT := 1.3 
+
+# --- NEW ADAPTATION CONSTANTS ---
+const ADAPTATION_THRESHOLD := 5 
+var adaptation_counts : Dictionary = {} 
+var adapted_elements : Array = [] 
 
 signal died
 signal respawned
 signal all_lives_lost
+
+# -----------------------
+# UI & COMPONENTS EXPORT
+# -----------------------
+@export var updates_label: Label 
+
+# Reference to the Magic Component Node you created
+@onready var magic_component = $MahoragaMagicComponent
 
 # -----------------------
 # STATE MANAGEMENT
@@ -53,11 +65,6 @@ var attack_can_hit := false
 var recovery_timer := 0.0
 var damage_tick_timer := 0.0
 
-# Boss Vars
-var is_adapted: bool = false
-var is_adapting_process: bool = false
-var has_performed_ritual: bool = false
-
 var ground_raycasts: Array[RayCast2D] = []
 var wall_raycasts: Array[RayCast2D] = []
 var feet_raycast: RayCast2D = null
@@ -65,6 +72,12 @@ var feet_raycast: RayCast2D = null
 @onready var sprite: AnimatedSprite2D = $SpriteRoot/AnimatedSprite2D
 @onready var attack_area: Area2D = $attack_area
 @onready var health_bar: ProgressBar = $health_bar
+
+# -----------------------
+# IDENTITY FUNCTION (TAG)
+# -----------------------
+func mahoraga(): 
+	pass 
 
 # -----------------------
 # INITIALIZATION
@@ -77,6 +90,9 @@ func _ready():
 	
 	_setup_health_bar()
 	_collect_raycasts()
+	
+	if updates_label:
+		updates_label.modulate.a = 0 
 	
 	if DEBUG_AI: print("[AI-INIT] 🔥 MAHORAGA ONLINE 🔥")
 
@@ -129,17 +145,27 @@ func _physics_process(delta: float) -> void:
 	_prevent_stacking_on_player()
 
 # -----------------------
-# CORE MOVEMENT
+# CORE MOVEMENT & SMART ATTACK LOGIC
 # -----------------------
 func _handle_movement_logic(delta: float):
-	if not player or is_adapting_process:
+	if not player:
 		state = State.IDLE
 		return
 
+	# --- 1. MAGIC ATTACK LOGIC (WHILE CHASING) ---
+	# Agar adapted elements hain, aur hum attack lock mein nahi hain
+	if adapted_elements.size() > 0 and not attack_lock and not in_air:
+		# Random Selection Logic: Frame-based random chance (approx 1-2 times per second)
+		if randf() < 0.02: 
+			_try_cast_magic_attack()
+			return # Agar cast kiya, to movement logic skip karo is frame ke liye
+
+	# --- 2. MOVEMENT LOGIC ---
 	var dx = player.global_position.x - global_position.x
 	var dir = signf(dx)
 	var dist = abs(dx)
 
+	# Melee Attack check (Range ke andar)
 	if dist <= ATTACK_RANGE and not in_air and not attack_lock:
 		_start_attack()
 		return
@@ -173,7 +199,23 @@ func _handle_movement_logic(delta: float):
 			sprite.play("jump")
 
 # -----------------------
-# COMBAT LOGIC (CONTINUOUS DAMAGE)
+# MAGIC EXECUTION HELPER
+# -----------------------
+func _try_cast_magic_attack():
+	# Randomly pick an element he knows
+	var random_element = adapted_elements.pick_random()
+	
+	# Stop movement briefly to look cool while casting
+	velocity.x = 0
+	sprite.play("idle") 
+	
+	# Component ko bolo attack karne ko
+	# (Component khud cooldown check karega, agar cooldown hai to kuch nahi hoga)
+	if magic_component:
+		magic_component.try_cast_stolen_magic(random_element)
+
+# -----------------------
+# MELEE COMBAT LOGIC
 # -----------------------
 func _start_attack():
 	state = State.ATTACK
@@ -182,10 +224,8 @@ func _start_attack():
 	var anim = "attack_2" if use_attack_2 else "attack"
 	sprite.play(anim)
 	
-	# Scale handling for Attack 2
 	if anim == "attack_2": 
-		var base = BASE_SPRITE_SCALE * ADAPTED_SCALE_MULT if is_adapted else BASE_SPRITE_SCALE
-		sprite.scale = base * ATTACK_2_SCALE_MULT
+		sprite.scale = BASE_SPRITE_SCALE * ATTACK_2_SCALE_MULT
 	
 	attack_started = true
 	attack_lock = true
@@ -198,15 +238,12 @@ func _start_attack():
 	)
 	await sprite.animation_finished
 	
-	if state != State.ATTACK:
-		_force_base_scale()
-		attack_area.monitoring = false
-		attack_can_hit = false
-		return 
-
-	_force_base_scale()
+	sprite.scale = BASE_SPRITE_SCALE
 	attack_area.monitoring = false
 	attack_can_hit = false
+	
+	if state != State.ATTACK: return 
+
 	recovery_timer = ATTACK_COOLDOWN
 	state = State.ATTACK_RECOVERY
 
@@ -230,7 +267,7 @@ func _process_attack_wait(delta: float):
 			attack_lock = false
 			attack_can_hit = false
 			attack_area.monitoring = false
-			_force_base_scale()
+			sprite.scale = BASE_SPRITE_SCALE
 			state = State.CHASE
 			sprite.play("run")
 
@@ -243,75 +280,92 @@ func _process_recovery(delta: float):
 		state = State.CHASE if player else State.IDLE
 
 # -----------------------
-# BOSS PHASE
+# DAMAGE & ADAPTATION LOGIC
 # -----------------------
-func take_damage(amount: int):
-	if is_adapting_process or state == State.DEAD:
-		return
-
-	if not is_adapting_process:
-		var tween = create_tween()
-		sprite.modulate = Color(1, 0.3, 0.3)
-		tween.tween_property(sprite, "modulate", Color.WHITE, 0.2)
+func take_damage(amount: int, attack_type: String = "physical"):
+	if state == State.DEAD: return
 
 	var final_damage = amount
-	if is_adapted:
-		final_damage = int(amount * 0.5) 
-		_trigger_repel_shockwave()
+
+	if attack_type != "physical":
+		if attack_type in adapted_elements:
+			print("🛑 MAHORAGA IMMUNE TO: ", attack_type)
+			_play_immune_effect()
+			return 
+		
+		if not adaptation_counts.has(attack_type):
+			adaptation_counts[attack_type] = 0
+		adaptation_counts[attack_type] += 1
+		
+		if adaptation_counts[attack_type] >= ADAPTATION_THRESHOLD:
+			_adapt_to_element(attack_type)
+
+	else:
+		if lives == 2:
+			final_damage = int(amount * 0.5)
+			_show_adaptation_text("ADAPTING TO PHYSICAL ATKS", Color.GRAY)
+			
+		elif lives == 1:
+			final_damage = int(amount * 0.2)
+			_show_adaptation_text("PHYSICAL ADAPTATION COMPLETE", Color.BLACK)
 
 	health -= final_damage
-	
 	health_bar.value = health
 	health_bar.visible = true 
 	
+	_play_hurt_effect()
+
 	if health <= 0:
 		die()
-		return
 
-	if health <= (MAX_HEALTH * 0.5) and not has_performed_ritual:
-		_start_adaptation_ritual()
-
-func _start_adaptation_ritual():
-	print("⚙️ CRITICAL HEALTH! MAHORAGA ADAPTING! ⚙️")
+func _adapt_to_element(element: String):
+	if element in adapted_elements: return
 	
-	# 🔥 Force reset flags to prevent stuck state
-	attack_lock = false
-	attack_started = false
-	attack_can_hit = false
-	attack_area.monitoring = false
+	adapted_elements.append(element)
+	print("⚙️ WHEEL TURNS! ADAPTED TO: ", element)
 	
-	sprite.scale = BASE_SPRITE_SCALE 
-	has_performed_ritual = true 
-	is_adapting_process = true
-	state = State.IDLE 
-	velocity = Vector2.ZERO
+	var msg_color = Color.WHITE
+	match element:
+		"fire": msg_color = Color.ORANGE
+		"water": msg_color = Color.AQUA
+		"wind": msg_color = Color.GREEN
+		"rock": msg_color = Color.BROWN
+		"shadow": msg_color = Color.PURPLE
+	
+	_show_adaptation_text("ADAPTED TO " + element.to_upper(), msg_color)
 	
 	var tween = create_tween()
-	tween.tween_property(sprite, "modulate", Color(0.0, 0.8, 1.0), 0.5)
+	tween.tween_property(sprite, "modulate", Color(0.0, 0.8, 1.0), 0.3)
+	tween.tween_property(sprite, "modulate", Color.WHITE, 0.3)
 	
-	var new_scale = BASE_SPRITE_SCALE * ADAPTED_SCALE_MULT
-	tween.parallel().tween_property(sprite, "scale", new_scale, 1.0)
-	
-	tween.tween_property(sprite, "modulate", Color(2.5, 2.5, 2.5), 0.5)
-	
-	tween.tween_callback(func():
-		health = MAX_HEALTH
-		health_bar.value = MAX_HEALTH 
-		print("✨ MAHORAGA FULLY HEALED! ✨")
-	)
-	
-	tween.tween_property(sprite, "modulate", Color.WHITE, 0.5)
-	
-	await tween.finished
-	is_adapted = true
-	is_adapting_process = false
-	state = State.CHASE
+	_trigger_repel_shockwave()
 
-func _force_base_scale():
-	if is_adapted:
-		sprite.scale = BASE_SPRITE_SCALE * ADAPTED_SCALE_MULT
-	else:
-		sprite.scale = BASE_SPRITE_SCALE
+# -----------------------
+# UI HELPER
+# -----------------------
+func _show_adaptation_text(message: String, color: Color):
+	if not updates_label: return
+	
+	updates_label.text = "MAHORAGA: " + message
+	updates_label.modulate = color
+	
+	var tween = create_tween()
+	tween.tween_property(updates_label, "modulate:a", 1.0, 0.5)
+	tween.tween_interval(2.0)
+	tween.tween_property(updates_label, "modulate:a", 0.0, 0.5)
+
+# -----------------------
+# HELPERS
+# -----------------------
+func _play_immune_effect():
+	var tween = create_tween()
+	sprite.modulate = Color(3.0, 3.0, 1.092, 0.655) 
+	tween.tween_property(sprite, "modulate", Color.WHITE, 0.1)
+
+func _play_hurt_effect():
+	var tween = create_tween()
+	sprite.modulate = Color(1, 0.3, 0.3)
+	tween.tween_property(sprite, "modulate", Color.WHITE, 0.2)
 
 func _trigger_repel_shockwave():
 	if player:
@@ -320,9 +374,6 @@ func _trigger_repel_shockwave():
 		if player.has_method("apply_knockback"):
 			player.apply_knockback(force)
 
-# -----------------------
-# HELPERS
-# -----------------------
 func _initiate_parabolic_jump(target_x: float):
 	jump_target_x = target_x
 	var hang_time = (abs(JUMP_VELOCITY) / GRAVITY) * 2.0

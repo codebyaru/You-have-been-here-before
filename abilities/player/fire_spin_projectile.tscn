@@ -28,6 +28,7 @@ shape = SubResource("CircleShape2D_k5oii")
 [node name="ReplaceOnAreaEntered" type="Node" parent="." node_paths=PackedStringArray("enter_area", "replace_target")]
 script = ExtResource("4_xur25")
 enter_area = NodePath("../Area2D")
+element_type = "fire_spin"
 replace_target = NodePath("..")
 replacement_scene_path = "uid://c2u806670nt1c"
 replace_damage = 200
