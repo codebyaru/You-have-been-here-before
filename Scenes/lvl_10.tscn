@@ -364,15 +364,15 @@ size = Vector2(311.75, 44)
 [node name="Lvl10" type="Node2D"]
 script = ExtResource("1_lyd2k")
 
-[node name="Background1" type="Sprite2D" parent="."]
-position = Vector2(1414, 260)
-scale = Vector2(1.0169271, 1)
-texture = ExtResource("2_y3h48")
-flip_h = true
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="Background0" type="Sprite2D" parent="."]
-position = Vector2(512, 260)
-scale = Vector2(1.3333334, 1)
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(1023.1, 0)
+
+[node name="Background0" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(509, 228)
+scale = Vector2(1.3320313, 1)
 texture = ExtResource("2_y3h48")
 
 [node name="TileMap" type="TileMap" parent="."]

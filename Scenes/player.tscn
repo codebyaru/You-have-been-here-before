@@ -1117,6 +1117,12 @@ limit_left = -2
 limit_top = -18
 limit_bottom = 482
 
+[node name="lvl6_camera" type="Camera2D" parent="."]
+zoom = Vector2(2.5, 2.5)
+limit_left = -2
+limit_top = -18
+limit_bottom = 482
+
 [node name="attack_area" type="Area2D" parent="."]
 visible = false
 collision_layer = 8
@@ -1139,8 +1145,10 @@ fire_spin_cooldown = 1.2
 fire_ball_cooldown = 0.845
 
 [node name="UI2" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="AbilityUI" parent="UI2" node_paths=PackedStringArray("player_component_manual") instance=ExtResource("26_0gysh")]
+visible = false
 offset_left = -45.0
 offset_top = -37.0
 offset_right = -98.0
@@ -1148,6 +1156,7 @@ offset_bottom = -116.0
 player_component_manual = NodePath("../../PlayerUseAbilityComponent")
 
 [node name="PauseMenu" parent="UI2" instance=ExtResource("32_wohnl")]
+visible = false
 
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]

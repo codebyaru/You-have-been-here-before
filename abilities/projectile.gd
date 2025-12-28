@@ -31,3 +31,6 @@ func launch(p_source: Node, p_direction: Vector2):
 func _validate_setup():
 	if not launched:
 		push_warning("Projectile created but launch() was not called!")
+
+func projectile():
+	pass

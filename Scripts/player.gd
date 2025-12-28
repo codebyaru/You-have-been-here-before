@@ -70,7 +70,7 @@ var direction
 @onready var ability_component: PlayerUseAbilityComponent = $PlayerUseAbilityComponent
 @onready var lvl2_camera = $lvl2_camera
 @onready var lvl4_camera = $lvl4_camera
-
+@onready var lvl6_camera = $lvl6_camera
 const MAGIC_MANA_COST := {
 	"fire_spin": 12,
 	"fire_ball": 5,
@@ -437,7 +437,10 @@ func update_camera_based_on_level():
 		if not lvl4_camera.is_current():
 			lvl4_camera.make_current()
 			print("[CAMERA] Switched to Level 4 Camera")
-			
+	if Global.current_level == 6:
+		if not lvl6_camera.is_current():
+			lvl6_camera.make_current()
+			print("[CAMERA] Switched to Level 4 Camera")
 	# Future ke liye: Jab level 2 ka logic lagana ho toh yahan 'elif' aa jayega
 	# elif Global.current_level == 2:
 	# 	  if not lvl2_camera.is_current():

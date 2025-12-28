@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bvnymxdmx1sl2"]
+[gd_scene load_steps=14 format=3 uid="uid://bvnymxdmx1sl2"]
 
 [ext_resource type="Script" uid="uid://bru73mpsygjqe" path="res://Scenes/lvl_4.gd" id="1_o0l1j"]
 [ext_resource type="Texture2D" uid="uid://dqy258cheh6ea" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/Final/Background_0.png" id="2_xks8e"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://c83wjaf16lsdw" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/Final/modded.png" id="3_xks8e"]
 [ext_resource type="PackedScene" uid="uid://bjgxmviup1qw5" path="res://Scenes/Beacon.tscn" id="4_rcnmq"]
 [ext_resource type="PackedScene" uid="uid://d3uh5euxh2fmd" path="res://Scenes/player.tscn" id="5_6qnx6"]
-[ext_resource type="PackedScene" uid="uid://cttrf5bvjpe7r" path="res://Scenes/enemies/henchmen.tscn" id="6_b778u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ik8ex"]
 texture = ExtResource("3_xks8e")
@@ -728,7 +727,7 @@ script = ExtResource("1_o0l1j")
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.3, 0.3)
-motion_mirroring = Vector2(1024, 0)
+motion_mirroring = Vector2(1020, 0)
 
 [node name="Background0" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
 position = Vector2(496.75, 135.5)
@@ -773,9 +772,6 @@ position = Vector2(127, 390)
 
 [node name="Spawn3" type="Marker2D" parent="Spawners"]
 position = Vector2(776, 321)
-
-[node name="henchman" parent="." instance=ExtResource("6_b778u")]
-position = Vector2(42, 338)
 
 [node name="player" parent="." instance=ExtResource("5_6qnx6")]
 position = Vector2(56, 391)
