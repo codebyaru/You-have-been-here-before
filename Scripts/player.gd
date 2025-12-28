@@ -1,6 +1,13 @@
 extends CharacterBody2D
 
 # -----------------------
+# AUDIO CONFIG
+# -----------------------
+# I found these actual files in your project folder:
+const ATTACK_SOUND_PATH = "res://audio/SFX/attack-release-384909.mp3"
+const HURT_SOUND_PATH = "res://audio/SFX/bulletimpact2-442718.mp3"
+
+# -----------------------
 # CONFIG
 # -----------------------
 const SPEED = 100.0
@@ -261,6 +268,10 @@ func perform_normal_attack(dashing):
 	attack_can_hit = false
 	is_special_attack_active = false # Normal fixed damage logic apply hoga
 	
+	# --- 🔊 AUDIO ADDED HERE ---
+	AudioManager.play_sfx(ATTACK_SOUND_PATH)
+	# ---------------------------
+	
 	sprite.scale = base_scale 
 	
 	var anim = ""
@@ -308,6 +319,11 @@ func perform_special_attack():
 	
 	print("[PLAYER] ⚠️ SP ATTACK START! Base Scale: ", base_scale)
 	sprite.play(anim)
+	
+	# --- 🔊 AUDIO ADDED HERE ---
+	# Playing the same attack sound, but you can change this to a unique special sound later
+	AudioManager.play_sfx(ATTACK_SOUND_PATH)
+	# ---------------------------
 	
 	sprite.scale = base_scale * SP_SCALE_MULT
 	print("[PLAYER] 🔻 Shrinking Sprite to: ", sprite.scale)
@@ -357,6 +373,10 @@ func take_damage(amount):
 	current_health -= amount
 	current_health = clamp(current_health, 0, max_health)
 	health_bar.set_health(current_health)
+	
+	# --- 🔊 AUDIO ADDED HERE ---
+	AudioManager.play_sfx(HURT_SOUND_PATH)
+	# ---------------------------
 
 	sprite.modulate = Color(1, 0.3, 0.3)
 	var tween = create_tween()
