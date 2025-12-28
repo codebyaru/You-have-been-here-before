@@ -445,6 +445,13 @@ position = Vector2(923, 305)
 position = Vector2(86, 284)
 
 [node name="player" parent="." instance=ExtResource("5_j36wd")]
-position = Vector2(286, 211)
+position = Vector2(290, 258)
+
+[node name="mecha_golem" parent="." instance=ExtResource("5_4u2td")]
+visible = false
+position = Vector2(406, 271)
+
+[node name="henchman" parent="." instance=ExtResource("6_scqif")]
+position = Vector2(898, 297)
 
 [connection signal="body_entered" from="VOID" to="." method="_on_void_body_entered"]
