@@ -62,7 +62,6 @@ grow_vertical = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
-visible = false
 
 [node name="popupMenu" type="MarginContainer" parent="CanvasLayer" node_paths=PackedStringArray("menu_screen", "open_menu_screen", "welcome_panel", "help_panel", "progress_panel", "enemies_panel", "control_panel", "save_button", "exit_button", "back_button", "help_button", "enemies_button", "control_button", "dimmer", "kills_label", "level_label", "xp_label", "xp_bar")]
 anchors_preset = 15

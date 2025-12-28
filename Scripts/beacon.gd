@@ -169,8 +169,8 @@ func _on_dialogue_finished():
 	
 	# --- 🔥 LEVEL 4 SPECIAL EXCEPTION 🔥 ---
 	# Agar level 4 hai, toh fight ka wait mat karo, seedha teleport karo
-	if Global.current_level == 4 or Global.current_level == 8:
-		print("[BEACON] Level 4/8 Special: Skipping fight, teleporting directly.")
+	if Global.current_level == 4 or Global.current_level == 8 or Global.current_level == 6:
+		print("[BEACON] Level 4/6/8 Special: Skipping fight, teleporting directly.")
 		advance_level()
 
 # -----------------------

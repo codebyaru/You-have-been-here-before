@@ -1144,19 +1144,19 @@ user = NodePath("..")
 fire_spin_cooldown = 1.2
 fire_ball_cooldown = 0.845
 
-[node name="UI2" type="CanvasLayer" parent="."]
-visible = false
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 2
 
-[node name="AbilityUI" parent="UI2" node_paths=PackedStringArray("player_component_manual") instance=ExtResource("26_0gysh")]
-visible = false
+[node name="AbilityUI" parent="UI" node_paths=PackedStringArray("player_component_manual") instance=ExtResource("26_0gysh")]
 offset_left = -45.0
 offset_top = -37.0
 offset_right = -98.0
 offset_bottom = -116.0
 player_component_manual = NodePath("../../PlayerUseAbilityComponent")
 
+[node name="UI2" type="CanvasLayer" parent="."]
+
 [node name="PauseMenu" parent="UI2" instance=ExtResource("32_wohnl")]
-visible = false
 
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]

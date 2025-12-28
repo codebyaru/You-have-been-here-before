@@ -11,8 +11,8 @@ func _ready() -> void:
 	
 	WaveHandler.all_waves_completed.connect(_on_waves_done)
 	Global.respawn_position = Vector2(14, 258)
-	DialogicController.start_dialogue("timeline_4")
-	$Beacon.start_timer()
+	#DialogicController.start_dialogue("timeline_4")
+	#$Beacon.start_timer()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
