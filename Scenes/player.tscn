@@ -1145,7 +1145,6 @@ fire_spin_cooldown = 1.2
 fire_ball_cooldown = 0.845
 
 [node name="UI" type="CanvasLayer" parent="."]
-layer = 2
 
 [node name="AbilityUI" parent="UI" node_paths=PackedStringArray("player_component_manual") instance=ExtResource("26_0gysh")]
 offset_left = -45.0
@@ -1154,9 +1153,7 @@ offset_right = -98.0
 offset_bottom = -116.0
 player_component_manual = NodePath("../../PlayerUseAbilityComponent")
 
-[node name="UI2" type="CanvasLayer" parent="."]
-
-[node name="PauseMenu" parent="UI2" instance=ExtResource("32_wohnl")]
+[node name="PauseMenu" parent="UI" instance=ExtResource("32_wohnl")]
 
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
