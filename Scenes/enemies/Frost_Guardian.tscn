@@ -1,6 +1,6 @@
 [gd_scene load_steps=65 format=3 uid="uid://cckti5fu51reu"]
 
-[ext_resource type="Script" uid="uid://t4u0j8sfk3it" path="res://Scenes/enemies/frost_guardian.gd" id="1_c87uv"]
+[ext_resource type="Script" path="res://Scenes/enemies/frost_guardian.gd" id="1_c87uv"]
 [ext_resource type="Texture2D" uid="uid://c6qh2oe3lrjk4" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/frost_guardian/frost_guardian_free_192x128_SpriteSheet.png" id="2_bk3aw"]
 [ext_resource type="Texture2D" uid="uid://di2vjhc21o7wk" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/Final/'Free' Moonlit Forest Tileset.png" id="3_xace0"]
 
@@ -578,7 +578,7 @@ scale = Vector2(0.40625003, 0.5274414)
 sprite_frames = SubResource("SpriteFrames_vgqql")
 animation = &"run"
 autoplay = "Idle"
-frame_progress = 0.5148864
+frame_progress = 0.45268452
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

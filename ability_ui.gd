@@ -6,8 +6,8 @@ extends Control
 @export_group("Unlock Levels")
 @export var level_req_fire_ball := 0
 @export var level_req_fire_spin := 2
-@export var level_req_water_ball := 3
-@export var level_req_rock_throw := 5
+@export var level_req_water_ball := 5
+@export var level_req_rock_throw := 3
 @export var level_req_wind_tornado := 7
 @export var level_req_shadow_summon := 9
 
@@ -24,24 +24,16 @@ func _ready() -> void:
 	
 	for child in container.get_children():
 		if child.has_method("activate"):
-			# --- CRITICAL: NAME CLEANING ---
-			# Converts "AbilitySlot_Fire_Ball" -> "fire_ball"
-			# Converts "AbilitySlot_FireBall" -> "fireball" (Use underscores in Scene Tree!)
 			var key = child.name.replace("AbilitySlot_", "").to_lower()
-			
-			print("Found Slot Node: ", child.name, " | Registered Key: ", key)
-			
 			slots[key] = child
 			_unlocked_state[key] = false
 			
-			# Connect Click
 			if not child.slot_clicked.is_connected(_on_slot_clicked):
 				child.slot_clicked.connect(_on_slot_clicked.bind(key))
 			
-			# Lock everyone first
 			child.lock()
 
-	# 2. FIND PLAYER
+	# 2. FIND PLAYER (Standard code...)
 	if player_component_manual:
 		active_component = player_component_manual
 	else:
@@ -49,46 +41,60 @@ func _ready() -> void:
 		if player_group.size() > 0:
 			active_component = player_group[0].find_child("PlayerUseAbilityComponent")
 			
-	# 3. CONNECT PLAYER SIGNALS
 	if active_component:
 		if not active_component.magic_used.is_connected(_on_magic_used):
 			active_component.magic_used.connect(_on_magic_used)
 		if not active_component.mana_missing.is_connected(_on_mana_missing):
 			active_component.mana_missing.connect(_on_mana_missing)
 	
-	# 4. CHECK UNLOCKS IMMEDIATELY (Don't wait for _process)
-	_check_unlocks()
+	# --- FIX: CHECK UNLOCKS SILENTLY ON STARTUP ---
+	# Passing 'true' to skip animation
+	_check_unlocks(true) 
+	
+	# Reset the loading flag in Global (Job done)
+	if Global.is_loading_save:
+		Global.is_loading_save = false
 
 func _process(_delta: float) -> void:
-	_check_unlocks()
+	# Normal process calls it with animation enabled
+	_check_unlocks(false)
 
-func _check_unlocks() -> void:
-	# Ensure Global Level is readable
+# Added 'skip_anim' parameter
+func _check_unlocks(skip_anim: bool) -> void:
 	var lvl = Global.max_level
 	
-	# Check all spells against the generated keys
-	check_ability_unlock("fire_ball", level_req_fire_ball, lvl)
-	check_ability_unlock("fire_spin", level_req_fire_spin, lvl)
-	check_ability_unlock("water_ball", level_req_water_ball, lvl)
-	check_ability_unlock("rock_throw", level_req_rock_throw, lvl)
-	check_ability_unlock("wind_tornado", level_req_wind_tornado, lvl)
-	check_ability_unlock("shadow_summon",level_req_shadow_summon,lvl)
+	check_ability_unlock("fire_ball", level_req_fire_ball, lvl, skip_anim)
+	check_ability_unlock("fire_spin", level_req_fire_spin, lvl, skip_anim)
+	check_ability_unlock("water_ball", level_req_water_ball, lvl, skip_anim)
+	check_ability_unlock("rock_throw", level_req_rock_throw, lvl, skip_anim)
+	check_ability_unlock("wind_tornado", level_req_wind_tornado, lvl, skip_anim)
+	check_ability_unlock("shadow_summon",level_req_shadow_summon, lvl, skip_anim)
 
-func check_ability_unlock(key: String, required_level: int, current_lvl: int) -> void:
-	# If this key doesn't exist in slots, we printed it in _ready, so check output!
+func check_ability_unlock(key: String, required_level: int, current_lvl: int, skip_anim: bool) -> void:
 	if not slots.has(key): 
 		return
 
 	if current_lvl >= required_level:
 		if _unlocked_state[key] == false:
-			print("✨ Unlocking: ", key)
-			slots[key].unlock()
-			_unlocked_state[key] = true
+			_unlocked_state[key] = true # Mark as unlocked
+			
+			if skip_anim:
+				# If we are loading, just unlock instantly without fanfare
+				# Assuming your slot has an .unlock() method, we call it.
+				# If your slot's .unlock() forces animation, you might need to add a method 
+				# to the SLOT script like .instant_unlock() or just .visible = true
+				slots[key].unlock() 
+				print("✨ Silent Unlock (Load): ", key)
+			else:
+				# Normal gameplay unlock (plays animation)
+				print("✨ NEW Unlock (Level Up): ", key)
+				slots[key].unlock()
+				
 	else:
-		# If level is too low, keep locked
 		if _unlocked_state[key] == true:
 			slots[key].lock()
 			_unlocked_state[key] = false
+
 
 # --- CLICKS & COOLDOWNS ---
 func _on_slot_clicked(key: String) -> void:

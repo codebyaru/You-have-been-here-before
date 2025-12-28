@@ -1,0 +1,678 @@
+[gd_scene load_steps=17 format=3 uid="uid://bhpg4ufn8mey1"]
+
+[ext_resource type="Texture2D" uid="uid://c3r3nlv545472" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/Sprout Lands - UI Pack - Basic pack/emojis-free/emoji style ui/Inventory_Spritesheet.png" id="1_lj4oq"]
+[ext_resource type="Script" uid="uid://dfya5bntv1wos" path="res://UI/popup_menu_manager.gd" id="1_siy43"]
+[ext_resource type="Texture2D" uid="uid://w1o6y70dsr4h" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Icons/white icons.png" id="2_5w4ur"]
+[ext_resource type="Texture2D" uid="uid://cqu0msjqi3jr5" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/Sprout Lands - UI Pack - Basic pack/Sprite sheets/buttons/Small Square Buttons.png" id="2_qwhev"]
+[ext_resource type="Texture2D" uid="uid://b8s66rdcoqwgp" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Icons/All Icons.png" id="2_yxrls"]
+[ext_resource type="FontFile" uid="uid://biwid6fsha1u6" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/Sprout Lands - UI Pack - Basic pack/fonts/pixelFont-7-8x14-sproutLands.ttf" id="6_gqxqw"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gqxqw"]
+texture = ExtResource("2_yxrls")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(18, 38, 12, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5w4ur"]
+texture = ExtResource("2_qwhev")
+region_rect = Rect2(0, 80, 16, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ey1tb"]
+texture = ExtResource("2_qwhev")
+region_rect = Rect2(17, 66, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqxqw"]
+resource_local_to_scene = true
+atlas = ExtResource("2_5w4ur")
+region = Rect2(67, 1, 10, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5w4ur"]
+atlas = ExtResource("2_5w4ur")
+region = Rect2(2, 4, 12, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8btd"]
+atlas = ExtResource("2_5w4ur")
+region = Rect2(65, 33, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ey1tb"]
+atlas = ExtResource("2_5w4ur")
+region = Rect2(2, 17, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_siy43"]
+atlas = ExtResource("2_5w4ur")
+region = Rect2(34, 3, 12, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbsus"]
+atlas = ExtResource("2_5w4ur")
+region = Rect2(33, 34, 14, 13)
+
+[sub_resource type="Theme" id="Theme_425uk"]
+default_font = ExtResource("6_gqxqw")
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="popupMenu" type="MarginContainer" parent="CanvasLayer" node_paths=PackedStringArray("menu_screen", "open_menu_screen", "welcome_panel", "help_panel", "progress_panel", "enemies_panel", "control_panel", "save_button", "exit_button", "back_button", "help_button", "enemies_button", "control_button", "dimmer", "kills_label", "level_label", "xp_label", "xp_bar")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 2.0
+offset_right = 8.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_siy43")
+menu_screen = NodePath("Base_menu_screen_conatiner")
+open_menu_screen = NodePath("BaseMenuOpenUpContainer")
+welcome_panel = NodePath("Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Welcome")
+help_panel = NodePath("Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/helpMenuContainer")
+progress_panel = NodePath("Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Player_progress_lMenuContainer3")
+enemies_panel = NodePath("Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Enemies Defeated_lMenuContainer4")
+control_panel = NodePath("Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Control_MenuContainer2")
+save_button = NodePath("Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Welcome/WelcomeContainer/SAVE")
+exit_button = NodePath("Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer/EXIT")
+back_button = NodePath("Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer2/Back")
+help_button = NodePath("Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer/Help_button")
+enemies_button = NodePath("Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer2/enemies_button")
+control_button = NodePath("Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer/control_button")
+dimmer = NodePath("../../CanvasLayer2/ColorRect")
+kills_label = NodePath("Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Enemies Defeated_lMenuContainer4/MarginContainer/VBoxContainer/TK")
+level_label = NodePath("Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Player_progress_lMenuContainer3/MarginContainer/VBoxContainer/Level")
+xp_label = NodePath("Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Player_progress_lMenuContainer3/MarginContainer/VBoxContainer/XP")
+xp_bar = NodePath("Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Player_progress_lMenuContainer3/MarginContainer/VBoxContainer/ProgressBar")
+
+[node name="Base_menu_screen_conatiner" type="VBoxContainer" parent="CanvasLayer/popupMenu"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 90
+
+[node name="BaseMenu" type="MarginContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu"]
+layout_mode = 2
+
+[node name="toggleMenuButton" type="Button" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(31.225, 5)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_gqxqw")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(450, 160)
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("1_lj4oq")
+region_rect = Rect2(323, 162, 42, 44)
+patch_margin_left = 3
+patch_margin_top = 2
+patch_margin_right = 3
+patch_margin_bottom = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect"]
+z_index = 10
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -67.0
+offset_bottom = 67.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 15
+
+[node name="Button conatiner" type="VBoxContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner"]
+layout_mode = 2
+
+[node name="Help_button" type="Button" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_5w4ur")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ey1tb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ey1tb")
+icon_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer/Help_button"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 40.0
+offset_bottom = 34.0
+texture = SubResource("AtlasTexture_gqxqw")
+
+[node name="control_button" type="Button" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_5w4ur")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ey1tb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ey1tb")
+icon_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer/control_button"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 39.0
+offset_bottom = 33.0
+texture = SubResource("AtlasTexture_5w4ur")
+
+[node name="EXIT" type="Button" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_5w4ur")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ey1tb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ey1tb")
+icon_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer/EXIT"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 40.0
+offset_bottom = 34.0
+texture = SubResource("AtlasTexture_f8btd")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner"]
+layout_mode = 2
+
+[node name="progress_button" type="Button" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_5w4ur")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ey1tb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ey1tb")
+icon_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer2/progress_button"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 40.0
+offset_bottom = 34.0
+texture = SubResource("AtlasTexture_ey1tb")
+
+[node name="enemies_button" type="Button" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_5w4ur")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ey1tb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ey1tb")
+icon_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer2/enemies_button"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 39.0
+offset_bottom = 33.0
+texture = SubResource("AtlasTexture_siy43")
+
+[node name="Back" type="Button" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_5w4ur")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ey1tb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ey1tb")
+icon_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer2/Back"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 40.0
+offset_bottom = 34.0
+texture = SubResource("AtlasTexture_pbsus")
+
+[node name="Welcome" type="MarginContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect"]
+custom_minimum_size = Vector2(-0.41, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -75.0
+offset_right = 216.0
+offset_bottom = 75.0
+grow_vertical = 2
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_top = 15
+
+[node name="WelcomeContainer" type="VBoxContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Welcome"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Welcome/WelcomeContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = SubResource("Theme_425uk")
+theme_override_colors/font_color = Color(0.9843137, 0.9843137, 0.9647059, 1)
+theme_override_colors/font_shadow_color = Color(0.9843137, 0.9843137, 0.9647059, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 5
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 19
+text = "
+"
+
+[node name="SAVE" type="Button" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Welcome/WelcomeContainer"]
+layout_mode = 2
+text = "SAVE GAME"
+
+[node name="helpMenuContainer" type="MarginContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect"]
+visible = false
+layout_mode = 0
+offset_left = -1.0
+offset_top = 16.0
+offset_right = 264.0
+offset_bottom = 390.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = -85
+
+[node name="TITLEMarginContainer2" type="MarginContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/helpMenuContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 70
+theme_override_constants/margin_top = 10
+
+[node name="Title" type="HBoxContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/helpMenuContainer/TITLEMarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 84
+
+[node name="seperator" type="Control" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/helpMenuContainer/TITLEMarginContainer2/Title"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/helpMenuContainer/TITLEMarginContainer2/Title"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme = SubResource("Theme_425uk")
+theme_override_colors/font_color = Color(0.77499425, 0.7433469, 0.7221884, 1)
+theme_override_colors/font_shadow_color = Color(0.9843137, 0.9843137, 0.9647059, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 27
+text = "HOW  TO  PLAY"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/helpMenuContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 125
+theme_override_constants/margin_top = 55
+theme_override_constants/margin_bottom = -280
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/helpMenuContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/helpMenuContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_425uk")
+theme_override_colors/font_color = Color(0.77499425, 0.7433469, 0.7221884, 1)
+theme_override_colors/font_shadow_color = Color(0.9843137, 0.9843137, 0.9647059, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 9
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 19
+text = "KILL MONSTERS EARN XP AND COINS AND GROW ;) SIMPLE ISN\"T IT DUMBASS"
+autowrap_mode = 3
+
+[node name="Control_MenuContainer2" type="MarginContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect"]
+visible = false
+layout_mode = 0
+offset_left = 20.0
+offset_top = 15.0
+offset_right = 261.0
+offset_bottom = 390.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = -85
+
+[node name="TITLEMarginContainer2" type="MarginContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Control_MenuContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 65
+theme_override_constants/margin_top = 10
+
+[node name="Title" type="HBoxContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Control_MenuContainer2/TITLEMarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 84
+
+[node name="seperator" type="Control" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Control_MenuContainer2/TITLEMarginContainer2/Title"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Control_MenuContainer2/TITLEMarginContainer2/Title"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme = SubResource("Theme_425uk")
+theme_override_colors/font_color = Color(0.77499425, 0.7433469, 0.7221884, 1)
+theme_override_colors/font_shadow_color = Color(0.9843137, 0.9843137, 0.9647059, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 27
+text = "Controls"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Control_MenuContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 94
+theme_override_constants/margin_top = 55
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Control_MenuContainer2/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Control_MenuContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_425uk")
+theme_override_colors/font_color = Color(0.77499425, 0.7433469, 0.7221884, 1)
+theme_override_colors/font_shadow_color = Color(0.9843137, 0.9843137, 0.9647059, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 9
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 17
+text = "Move        - Arrow Keys / WASD
+Attack      - E
+Pause Menu  - ESC"
+autowrap_mode = 2
+
+[node name="Player_progress_lMenuContainer3" type="MarginContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect"]
+visible = false
+layout_mode = 0
+offset_left = 26.0
+offset_top = 15.0
+offset_right = 263.0
+offset_bottom = 390.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = -85
+
+[node name="TITLEMarginContainer2" type="MarginContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Player_progress_lMenuContainer3"]
+layout_mode = 2
+theme_override_constants/margin_left = 90
+theme_override_constants/margin_top = 10
+
+[node name="Title" type="HBoxContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Player_progress_lMenuContainer3/TITLEMarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="seperator" type="Control" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Player_progress_lMenuContainer3/TITLEMarginContainer2/Title"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Player_progress_lMenuContainer3/TITLEMarginContainer2/Title"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme = SubResource("Theme_425uk")
+theme_override_colors/font_color = Color(0.77499425, 0.7433469, 0.7221884, 1)
+theme_override_colors/font_shadow_color = Color(0.9843137, 0.9843137, 0.9647059, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 27
+text = "Player  Progress"
+justification_flags = 171
+uppercase = true
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Player_progress_lMenuContainer3"]
+layout_mode = 2
+theme_override_constants/margin_left = 85
+theme_override_constants/margin_top = 46
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Player_progress_lMenuContainer3/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 11
+
+[node name="Level" type="Label" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Player_progress_lMenuContainer3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_425uk")
+theme_override_colors/font_color = Color(0.77499425, 0.7433469, 0.7221884, 1)
+theme_override_colors/font_shadow_color = Color(0.9843137, 0.9843137, 0.9647059, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 9
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 17
+text = "Level: <level>"
+autowrap_mode = 2
+
+[node name="XP" type="Label" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Player_progress_lMenuContainer3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_425uk")
+theme_override_colors/font_color = Color(0.77499425, 0.7433469, 0.7221884, 1)
+theme_override_colors/font_shadow_color = Color(0.9843137, 0.9843137, 0.9647059, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 9
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 16
+text = "Experience:  50/100"
+autowrap_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Player_progress_lMenuContainer3/MarginContainer/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9843137, 0.9843137, 0.9647059, 1)
+theme_override_colors/font_outline_color = Color(0.8627451, 0.7254902, 0.5411765, 1)
+theme_override_constants/outline_size = 20
+show_percentage = false
+
+[node name="Enemies Defeated_lMenuContainer4" type="MarginContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect"]
+visible = false
+layout_mode = 0
+offset_left = 19.0
+offset_top = 22.0
+offset_right = 265.0
+offset_bottom = 390.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = -85
+
+[node name="TITLEMarginContainer2" type="MarginContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Enemies Defeated_lMenuContainer4"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 0
+
+[node name="Title" type="HBoxContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Enemies Defeated_lMenuContainer4/TITLEMarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 84
+
+[node name="seperator" type="Control" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Enemies Defeated_lMenuContainer4/TITLEMarginContainer2/Title"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Enemies Defeated_lMenuContainer4/TITLEMarginContainer2/Title"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme = SubResource("Theme_425uk")
+theme_override_colors/font_color = Color(0.77499425, 0.7433469, 0.7221884, 1)
+theme_override_colors/font_shadow_color = Color(0.9843137, 0.9843137, 0.9647059, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 27
+text = "Enemies Defeated"
+justification_flags = 171
+uppercase = true
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Enemies Defeated_lMenuContainer4"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 90
+theme_override_constants/margin_top = 35
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Enemies Defeated_lMenuContainer4/MarginContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = -12
+
+[node name="TK" type="Label" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Enemies Defeated_lMenuContainer4/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme = SubResource("Theme_425uk")
+theme_override_colors/font_color = Color(0.77499425, 0.7433469, 0.7221884, 1)
+theme_override_colors/font_shadow_color = Color(0.9843137, 0.9843137, 0.9647059, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 9
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 17
+text = "Total Kills: <kills>
+"
+autowrap_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Enemies Defeated_lMenuContainer4/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Enemies Defeated_lMenuContainer4/MarginContainer/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Enemies Defeated_lMenuContainer4/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Enemies Defeated_lMenuContainer4/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/separation = 7
+
+[node name="Slime" type="Label" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Enemies Defeated_lMenuContainer4/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_425uk")
+theme_override_colors/font_color = Color(0.77499425, 0.7433469, 0.7221884, 1)
+theme_override_colors/font_shadow_color = Color(0.9843137, 0.9843137, 0.9647059, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 9
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 16
+text = "Slimes: X"
+autowrap_mode = 2
+
+[node name="Skelton" type="Label" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Enemies Defeated_lMenuContainer4/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_425uk")
+theme_override_colors/font_color = Color(0.77499425, 0.7433469, 0.7221884, 1)
+theme_override_colors/font_shadow_color = Color(0.9843137, 0.9843137, 0.9647059, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 9
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 16
+text = "Skelton: X"
+autowrap_mode = 2
+
+[node name="Slime4" type="Label" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Enemies Defeated_lMenuContainer4/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_425uk")
+theme_override_colors/font_color = Color(0.77499425, 0.7433469, 0.7221884, 1)
+theme_override_colors/font_shadow_color = Color(0.9843137, 0.9843137, 0.9647059, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 9
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 16
+text = "Slimes: X"
+autowrap_mode = 2
+
+[node name="Slime3" type="Label" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/Enemies Defeated_lMenuContainer4/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_425uk")
+theme_override_colors/font_color = Color(0.77499425, 0.7433469, 0.7221884, 1)
+theme_override_colors/font_shadow_color = Color(0.9843137, 0.9843137, 0.9647059, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 9
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 16
+text = "Slimes: X"
+autowrap_mode = 2
+
+[node name="seperator" type="Control" parent="CanvasLayer/popupMenu/Base_menu_screen_conatiner"]
+layout_mode = 2
+
+[node name="BaseMenuOpenUpContainer" type="VBoxContainer" parent="CanvasLayer/popupMenu"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="toggleMenuButton" type="Button" parent="CanvasLayer/popupMenu/BaseMenuOpenUpContainer"]
+custom_minimum_size = Vector2(31.225, 5)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_gqxqw")
+
+[node name="seperator" type="Control" parent="CanvasLayer/popupMenu/BaseMenuOpenUpContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.45882353)
+
+[connection signal="pressed" from="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/toggleMenuButton" to="CanvasLayer/popupMenu" method="_on_toggle_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer/Help_button" to="CanvasLayer/popupMenu" method="_on_button_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer/Help_button" to="CanvasLayer/popupMenu" method="_on_help_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer/control_button" to="CanvasLayer/popupMenu" method="_on_control_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer/EXIT" to="CanvasLayer/popupMenu" method="_on_button_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer/EXIT" to="CanvasLayer/popupMenu" method="_on_help_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer2/progress_button" to="CanvasLayer/popupMenu" method="_on_progress_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/popupMenu/Base_menu_screen_conatiner/BaseMenu/VBoxContainer/NinePatchRect/MarginContainer/Button conatiner/HBoxContainer2/enemies_button" to="CanvasLayer/popupMenu" method="_on_enemies_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/popupMenu/BaseMenuOpenUpContainer/toggleMenuButton" to="CanvasLayer/popupMenu" method="_on_toggle_menu_button_pressed"]

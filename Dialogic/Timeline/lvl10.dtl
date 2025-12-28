@@ -1,9 +1,9 @@
-join evil_max_hidden rightmost
+join evil_max_hidden right
 evil_max_hidden: “You finally made it…”\
 “But every choice has a cost.”\
 “Change time… fix everything… lose yourself.”
 leave evil_max_hidden
-join Max leftmost
+join Max left
 Max: “If this world wants sacrifice…”\
 “I’ll decide what I lose.”\
 “And what I PROTECT.”

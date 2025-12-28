@@ -1,4 +1,4 @@
-[gd_scene load_steps=166 format=3 uid="uid://d3uh5euxh2fmd"]
+[gd_scene load_steps=167 format=3 uid="uid://d3uh5euxh2fmd"]
 
 [ext_resource type="Script" uid="uid://cbvy5se8xb8sv" path="res://Scripts/player.gd" id="1_fd4e3"]
 [ext_resource type="Texture2D" uid="uid://br2e42wigllxm" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/SHADOW Series - The Free Assets/SHADOW Series - The Blind Huntress/Sprite Sheet/1 - Idle.png" id="1_ow1uv"]
@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://dttt0faw6ytar" path="res://abilities/player/Wind_Tornado.tscn" id="28_xuaoq"]
 [ext_resource type="Script" uid="uid://down3fiugsbn" path="res://abilities/SummonAbility.gd" id="29_xuaoq"]
 [ext_resource type="PackedScene" uid="uid://2iknqry00yf6" path="res://Scenes/enemies/shadow_soilder.tscn" id="30_wohnl"]
+[ext_resource type="PackedScene" uid="uid://bhpg4ufn8mey1" path="res://UI/PauseMenu.tscn" id="32_wohnl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jp6nb"]
 atlas = ExtResource("1_ow1uv")
@@ -1002,13 +1003,13 @@ metadata/_custom_type_script = "uid://covt74nalhceh"
 [sub_resource type="Resource" id="Resource_wohnl"]
 script = ExtResource("20_olqyp")
 projectile_scene = ExtResource("26_83xs0")
-instancing_offset = Vector2(30, -20)
+instancing_offset = Vector2(30, -15)
 metadata/_custom_type_script = "uid://covt74nalhceh"
 
 [sub_resource type="Resource" id="Resource_36dho"]
 script = ExtResource("20_olqyp")
 projectile_scene = ExtResource("27_ypfnu")
-instancing_offset = Vector2(20, -20)
+instancing_offset = Vector2(20, -15)
 metadata/_custom_type_script = "uid://covt74nalhceh"
 
 [sub_resource type="Resource" id="Resource_yh6i2"]
@@ -1116,6 +1117,12 @@ limit_left = -2
 limit_top = -18
 limit_bottom = 482
 
+[node name="lvl6_camera" type="Camera2D" parent="."]
+zoom = Vector2(2.5, 2.5)
+limit_left = -2
+limit_top = -18
+limit_bottom = 482
+
 [node name="attack_area" type="Area2D" parent="."]
 visible = false
 collision_layer = 8
@@ -1137,14 +1144,19 @@ user = NodePath("..")
 fire_spin_cooldown = 1.2
 fire_ball_cooldown = 0.845
 
-[node name="UI2" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 2
 
-[node name="AbilityUI" parent="UI2" node_paths=PackedStringArray("player_component_manual") instance=ExtResource("26_0gysh")]
+[node name="AbilityUI" parent="UI" node_paths=PackedStringArray("player_component_manual") instance=ExtResource("26_0gysh")]
 offset_left = -45.0
 offset_top = -37.0
 offset_right = -98.0
 offset_bottom = -116.0
 player_component_manual = NodePath("../../PlayerUseAbilityComponent")
+
+[node name="UI2" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="UI2" instance=ExtResource("32_wohnl")]
 
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]

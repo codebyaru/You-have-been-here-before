@@ -1,9 +1,9 @@
-join evil_max_hidden rightmost
+join evil_max_hidden right
 evil_max_hidden: “Nothingness suits you.”\
 “No light. No path. No purpose.”\
 “Just endless… empty silence.”
 leave evil_max_hidden
-join Max leftmost
+join Max left
 Max: “Even if I can’t see the way…”\
 “I’ll trust myself.”\
 “And keep moving.”
