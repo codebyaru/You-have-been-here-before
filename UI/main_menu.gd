@@ -1,62 +1,61 @@
 extends Control
 
-# --- CONFIGURATION (Drag & Drop) ---
-# Ye variable Inspector mein dikhega. 
-# Wahan apni "World.tscn" ya "Game.tscn" drag karke drop kar dena.
 @export_file("*.tscn") var game_scene_path: String
-
-# --- NODES (Based on your image structure) ---
+@onready var settings_panel: Control = $settingpannel
+@onready var back_button: Button     = $settingpannel/MarginContainer/TextureRect/CenterContainer/PanelContainer/settingvbox/BackButton
+@onready var volume_slider: HSlider  = $settingpannel/MarginContainer/TextureRect/CenterContainer/PanelContainer/settingvbox/MasterVolume
+@onready var credits_panel: Control = $creditspannel
+@onready var credits_back_button: Button = $creditspannel/MarginContainer/TextureRect/CenterContainer/PanelContainer/creditsvbox/CreditsBackButton
 @onready var intro_video: VideoStreamPlayer = $IntroVideo
-@onready var menu_ui: MarginContainer = $MarginContainer
-
-# Button Paths (image ke hisaab se exact path)
-@onready var btn_start: Button = $MarginContainer/TextureRect/CenterContainer/VBoxContainer/Start_game
-@onready var btn_exit: Button = $MarginContainer/TextureRect/CenterContainer/VBoxContainer/Exit
-
+@onready var main_menu: MarginContainer    = $MarginContainer
+@onready var buttons_root: Control         = $MarginContainer/TextureRect/CenterContainer/VBoxContainer/Control
 func _ready() -> void:
-	# 1. Start State: Video ON, Menu OFF
-	menu_ui.visible = false
+	# Show video first, hide menu
+	main_menu.visible = false
 	intro_video.visible = true
-	
-	# Video play karo
 	intro_video.play()
-	
-	# 2. Signals Connect karo (Taaki click kaam kare)
 	intro_video.finished.connect(_on_video_finished)
-	
-	# Agar button paths sahi hain toh connect karo
-	if btn_start:
-		btn_start.pressed.connect(_on_start_pressed)
-	if btn_exit:
-		btn_exit.pressed.connect(_on_exit_pressed)
+	credits_panel.visible = false
+	credits_back_button.pressed.connect(_on_credits_back_pressed)
 
-func _process(_delta: float) -> void:
-	# OPTIONAL: Agar Space/Enter dabaye toh video skip ho jaye
-	if intro_video.visible and Input.is_action_just_pressed("ui_accept"):
-		_on_video_finished()
+	# Connect buttons by code
+	buttons_root.get_node("Start_game").pressed.connect(_on_start_pressed)
+	buttons_root.get_node("Setting").pressed.connect(_on_settings_pressed)
+	buttons_root.get_node("Credits").pressed.connect(_on_credits_pressed)
+	buttons_root.get_node("Exit").pressed.connect(_on_exit_pressed)
+	settings_panel.visible = false
+	back_button.pressed.connect(_on_back_pressed)
+	volume_slider.value_changed.connect(_on_volume_changed)
 
-# --- LOGIC FUNCTIONS ---
 
 func _on_video_finished() -> void:
-	# Video band karo aur chupa do
 	intro_video.stop()
 	intro_video.visible = false
-	
-	# Main Menu (Background + Buttons) dikhao
-	menu_ui.visible = true
+	main_menu.visible = true
 
-# In main_menu.gd
 
 func _on_start_pressed() -> void:
-	if game_scene_path:
-		# Button lock karo
-		btn_start.disabled = true
-		
-		# Saara kaam TransitionScreen ko sonp do
-		TransitionScreen.transition_to(game_scene_path)
-		
-		# Ab ye script delete bhi ho jaye toh fark nahi padta, 
-		# kyunki TransitionScreen sambhal raha hai.
+	if game_scene_path != "":
+		get_tree().change_scene_to_file(game_scene_path)
+
+func _on_credits_pressed() -> void:
+	print("Show credits here")
+	main_menu.visible = false
+	settings_panel.visible = false
+	credits_panel.visible = true
+
 func _on_exit_pressed() -> void:
-	# Game band karne ke liye
 	get_tree().quit()
+func _on_settings_pressed() -> void:
+	main_menu.visible = false
+	settings_panel.visible = true
+
+func _on_back_pressed() -> void:
+	settings_panel.visible = false
+	main_menu.visible = true
+func _on_volume_changed(value: float) -> void:
+	var db := linear_to_db(value)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), db)
+func _on_credits_back_pressed() -> void:
+	credits_panel.visible = false
+	main_menu.visible = true
