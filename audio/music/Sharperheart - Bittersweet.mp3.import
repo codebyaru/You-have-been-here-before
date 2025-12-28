@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dq7ckoiwvnkex"
+path="res://.godot/imported/Sharperheart - Bittersweet.mp3-af10332e9ca8bfa7f08280c77ee106b6.mp3str"
+
+[deps]
+
+source_file="res://audio/music/Sharperheart - Bittersweet.mp3"
+dest_files=["res://.godot/imported/Sharperheart - Bittersweet.mp3-af10332e9ca8bfa7f08280c77ee106b6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
