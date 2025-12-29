@@ -3,7 +3,8 @@ extends CharacterBody2D
 # -----------------------
 # CONFIG & CONSTANTS
 # -----------------------
-const SPEED := 90.0
+# 🔥 UPDATED: Speed increased to 130
+const SPEED := 130.0
 const JUMP_VELOCITY := -300.0
 const GRAVITY := 980.0
 const JUMP_COOLDOWN_TIME := 0.6
@@ -13,15 +14,20 @@ const ATTACK_DAMAGE := 10
 const ATTACK_TICK_RATE := 0.5  # Time between damage ticks
 const ATTACK_COOLDOWN := 1.0
 
+# 🔥 NEW: Knockback Strength
+const KNOCKBACK_FORCE := Vector2(400.0, -250.0) 
+
 const MAX_HEALTH = 200
-var REVERSE_FLIP = true
+var REVERSE_FLIP = true # Kept as true based on your latest paste
 signal died
 
 # -----------------------
 # STATE MANAGEMENT
 # -----------------------
 enum State { IDLE, CHASE, ATTACK, JUMPING, PACING, ATTACK_RECOVERY, DEAD }
-var state: State = State.IDLE
+
+# FIX: Removed ": State" to prevent the error
+var state = State.IDLE
 
 var player: CharacterBody2D = null
 var health: int = MAX_HEALTH
@@ -154,7 +160,7 @@ func _handle_movement_logic(delta: float):
 		sprite.play("run")
 
 # -----------------------
-# COMBAT - SIMPLIFIED
+# COMBAT - UPDATED WITH KNOCKBACK
 # -----------------------
 func _start_attack():
 	state = State.ATTACK
@@ -185,6 +191,14 @@ func _process_attack(delta: float):
 		for body in bodies:
 			if body.has_method("take_damage") and body == player:
 				body.take_damage(ATTACK_DAMAGE)
+				
+				# 🔥 ADDED KNOCKBACK HERE
+				if body.has_method("apply_knockback"):
+					var k_dir = signf(body.global_position.x - global_position.x)
+					if k_dir == 0: k_dir = 1
+					var k_vector = Vector2(KNOCKBACK_FORCE.x * k_dir, KNOCKBACK_FORCE.y)
+					body.apply_knockback(k_vector)
+				
 				damage_tick_timer = ATTACK_TICK_RATE
 				break
 	

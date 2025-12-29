@@ -1,0 +1,112 @@
+[gd_scene load_steps=7 format=3 uid="uid://bmq44w631lf35"]
+
+[ext_resource type="Shader" uid="uid://d3plea41urxdx" path="res://shaders/star_shape_move.gdshader" id="1_67sti"]
+[ext_resource type="Texture2D" uid="uid://bqqn23ubrs2gu" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/We_have_been_here_before_logo.png" id="2_16o3s"]
+[ext_resource type="PackedScene" uid="uid://clnac4xlws0xe" path="res://Scene/persona_menu.tscn" id="2_mc2w6"]
+
+[sub_resource type="GDScript" id="GDScript_ms8or"]
+resource_name = "preloadUI"
+script/source = "extends Node
+
+func _ready():
+	# Thoda wait karte hain taaki game fully load ho jaye (0.1 sec)
+	await get_tree().create_timer(0.1).timeout
+	
+	print(\"🤖 AI: Simulating 'pause' input...\")
+	
+	# 1. 'Press' event create karo
+	var event_press = InputEventAction.new()
+	event_press.action = \"ui_cancel\"  # Make sure Input Map mein ye naam same ho
+	event_press.pressed = true
+	
+	# 2. Engine ko feed karo (Press)
+	Input.parse_input_event(event_press)
+	
+	# 3. 'Release' event create karo (Taaki button dab ke na reh jaye)
+	var event_release = InputEventAction.new()
+	event_release.action = \"ui_cancel\"
+	event_release.pressed = false
+	
+	# 4. Engine ko feed karo (Release)
+	Input.parse_input_event(event_release)
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_asxak"]
+shader = ExtResource("1_67sti")
+shader_parameter/tiling = Vector2(1, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/rotate = 0.0
+shader_parameter/frequency = 5.0
+shader_parameter/star_size = 1.0
+shader_parameter/sine_speed = -5.0
+shader_parameter/sharpness = 1.0
+shader_parameter/white_color = Color(1, 1, 1, 1)
+shader_parameter/black_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Environment" id="Environment_vpt1c"]
+background_mode = 2
+background_color = Color(0.478431, 0.478431, 0.478431, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.439216, 0.760784, 0.67451, 1)
+
+[node name="PersonaMenuPlace" type="Node3D"]
+
+[node name="PreloadUI" type="Node" parent="."]
+script = SubResource("GDScript_ms8or")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(13.9171, 0, 0, 0, 0.113709, 0, 0, 0, 11.7656, 0, 0, 0)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75329, 3.14473)
+
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1170.0
+offset_bottom = 682.0
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+material = SubResource("ShaderMaterial_asxak")
+layout_mode = 0
+offset_right = 203.0
+offset_bottom = 197.0
+pivot_offset = Vector2(100, 100)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9680603, 0.25071755, 0, -0.25071755, 0.9680603, 0, 0, 0)
+light_color = Color(0.992157, 0.992157, 0.992157, 1)
+light_energy = 2.322
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vpt1c")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/MarginContainer"]
+position = Vector2(807.5, 559.25)
+scale = Vector2(0.919922, 0.8745117)
+texture = ExtResource("2_16o3s")
+
+[node name="PersonaMenu" parent="." instance=ExtResource("2_mc2w6")]
+anchors_preset = -1
+anchor_left = 0.127
+anchor_top = 0.080000006
+anchor_right = 1.3390001
+anchor_bottom = 1.4580001
+offset_left = 776.696
+offset_top = 563.16
+offset_right = 856.4719
+offset_bottom = 563.21594

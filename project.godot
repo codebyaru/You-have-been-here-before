@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="You Have Been Here Before"
-run/main_scene="uid://dtulsfd3alpy0"
+run/main_scene="uid://clnac4xlws0xe"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 

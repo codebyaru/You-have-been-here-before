@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const DEBUG_AI := true
+const DEBUG_AI := false
 
 # -----------------------
 # CONFIG
@@ -24,8 +24,10 @@ signal died
 # STATE
 # -----------------------
 enum State { IDLE, FOLLOW, CHASE, ATTACK, ATTACK_RECOVERY, DEAD }
-var state: State = State.IDLE
-var previous_state: State = State.IDLE
+
+# FIX: Yahan se ": State" hata diya hai
+var state = State.IDLE
+var previous_state = State.IDLE
 
 var player: CharacterBody2D = null
 var target_enemy: CharacterBody2D = null
@@ -55,9 +57,10 @@ func _ready():
 	sprite.play("idle")
 	attack_area.monitoring = false
 	
-	health_bar.max_value = MAX_HEALTH
-	health_bar.value = MAX_HEALTH
-	health_bar.visible = false
+	if health_bar:
+		health_bar.max_value = MAX_HEALTH
+		health_bar.value = MAX_HEALTH
+		health_bar.visible = false
 	
 	if DEBUG_AI: print("[SHADOW] Ready")
 	
@@ -65,8 +68,6 @@ func _ready():
 
 func shadow():
 	pass
-
-
 
 # -----------------------
 func _find_initial_player():
@@ -198,7 +199,8 @@ func _follow_state():
 	var dist_x: float = abs(dx)
 	var dir: float = sign(dx)
 	
-	sprite.flip_h = dir < 0
+	if dir != 0:
+		sprite.flip_h = dir < 0
 	
 	# Player ke paas (50px) toh ruk jao
 	if dist_x < 50:
@@ -241,7 +243,8 @@ func _chase_state():
 	var dist_x: float = abs(dx)
 	var dir: float = sign(dx)
 	
-	sprite.flip_h = dir < 0
+	if dir != 0:
+		sprite.flip_h = dir < 0
 	
 	# ATTACK TRIGGER - Range mein aate hi attack shuru
 	if dist_x <= ATTACK_RANGE:
@@ -437,8 +440,9 @@ func take_damage(amount: int):
 	health -= amount
 	health = clamp(health, 0, MAX_HEALTH)
 	
-	health_bar.value = health
-	health_bar.visible = true
+	if health_bar:
+		health_bar.value = health
+		health_bar.visible = true
 	
 	if DEBUG_AI: print("[SHADOW] Took ", amount, " damage. Health: ", health)
 	
@@ -449,7 +453,7 @@ func die():
 	state = State.DEAD
 	attack_can_hit = false
 	velocity = Vector2.ZERO
-	health_bar.visible = false
+	if health_bar: health_bar.visible = false
 	
 	$CollisionShape2D.set_deferred("disabled", true)
 	attack_area.set_deferred("monitoring", false)
@@ -464,5 +468,4 @@ func die():
 		queue_free()
 	else:
 		await get_tree().create_timer(1.0).timeout
-	
 		queue_free()

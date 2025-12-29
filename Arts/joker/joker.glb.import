@@ -1,0 +1,65 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://da3gu4ghkciix"
+path="res://.godot/imported/joker.glb-5500aa7b27b160336870cfa4e06d389b.scn"
+
+[deps]
+
+source_file="res://Arts/joker/joker.glb"
+dest_files=["res://.godot/imported/joker.glb-5500aa7b27b160336870cfa4e06d389b.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/root_script=null
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
+nodes/use_node_type_suffixes=true
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
+_subresources={
+"materials": {
+"Eyes": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://Arts/joker/face.tres",
+"use_external/path": "uid://bvn8chv8y8quo"
+},
+"Face": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://Arts/joker/face.tres",
+"use_external/path": "uid://bvn8chv8y8quo"
+},
+"Neck": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://Arts/joker/white.tres",
+"use_external/path": "uid://cm3fpeotxh6yv"
+},
+"black": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://Arts/joker/black.tres",
+"use_external/path": "uid://cm02pwm05rb84"
+}
+}
+}
+gltf/naming_version=1
+gltf/embedded_image_handling=1

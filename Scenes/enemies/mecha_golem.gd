@@ -10,18 +10,20 @@ const JUMP_COOLDOWN_TIME := 0.6
 
 const ATTACK_RANGE := 40.0
 const ATTACK_DAMAGE := 10
-const ATTACK_TICK_RATE := 0.5  # Time between damage ticks
+const ATTACK_TICK_RATE := 0.5   # Time between damage ticks
 const ATTACK_COOLDOWN := 1.0
 
 const MAX_HEALTH = 200
-var REVERSE_FLIP = true
+var REVERSE_FLIP = false
 signal died
 
 # -----------------------
 # STATE MANAGEMENT
 # -----------------------
 enum State { IDLE, CHASE, ATTACK, JUMPING, PACING, ATTACK_RECOVERY, DEAD }
-var state: State = State.IDLE
+
+# FIX: Yahan se ": State" hata diya hai
+var state = State.IDLE
 
 var player: CharacterBody2D = null
 var health: int = MAX_HEALTH
@@ -234,7 +236,7 @@ func die():
 	
 	if sprite.sprite_frames.has_animation("death"):
 		sprite.play("death")
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(3.0).timeout
 	else:
 		await get_tree().create_timer(0.5).timeout
 	

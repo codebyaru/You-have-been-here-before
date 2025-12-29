@@ -10,10 +10,10 @@ const JUMP_VELOCITY := -320.0
 const JUMP_COOLDOWN_TIME := 0.6
 
 const ATTACK_RANGE := 40.0
-const ATTACK_DAMAGE := 10        # Damage wapas 10 kar diya (Henchman level)
-const ATTACK_TICK_RATE := 1    # Har 0.5 sec mein damage dega agar player range mein raha
-const ATTACK_COOLDOWN := 1    # Attack khatam hone ke baad 0.5 sec wait
-const ATTACK_HITBOX_FRAME := 0.3 # Animation ke 0.3 sec baad damage shuru hoga
+const ATTACK_DAMAGE := 10
+const ATTACK_TICK_RATE := 1.0   # Float kar diya better precision ke liye
+const ATTACK_COOLDOWN := 1.0
+const ATTACK_HITBOX_FRAME := 0.3 
 
 const MAX_HEALTH := 50
 
@@ -24,14 +24,16 @@ signal died
 # STATE
 # -----------------------
 enum State { IDLE, CHASE, ATTACK, ATTACK_RECOVERY, DEAD }
-var state: State = State.IDLE
+
+# FIX: Yaha se ": State" hata diya taaki Godot confuse na ho
+var state = State.IDLE  
 
 var player: CharacterBody2D = null
 var health: int = MAX_HEALTH
 
 var jump_cooldown: bool = false
 
-# --- COMBAT VARS (New Logic) ---
+# --- COMBAT VARS ---
 var attack_can_hit: bool = false
 var damage_tick_timer: float = 0.0 
 var recovery_timer: float = 0.0
@@ -50,9 +52,11 @@ func _ready():
 	sprite.play("idle")
 	attack_area.monitoring = false
 	
-	health_bar.max_value = MAX_HEALTH
-	health_bar.value = MAX_HEALTH
-	health_bar.visible = false
+	# Safety Check: Agar health_bar node nahi mila to crash nahi karega
+	if health_bar:
+		health_bar.max_value = MAX_HEALTH
+		health_bar.value = MAX_HEALTH
+		health_bar.visible = false
 	
 	if DEBUG_AI: print("[ENEMY] Henchman ready")
 
@@ -72,9 +76,9 @@ func _physics_process(delta: float) -> void:
 		State.CHASE: 
 			_chase_state()
 		State.ATTACK: 
-			_attack_state(delta)          # <-- DELTA PASS KIYA
+			_attack_state(delta)
 		State.ATTACK_RECOVERY: 
-			_attack_recovery_state(delta) # <-- DELTA PASS KIYA
+			_attack_recovery_state(delta)
 	
 	move_and_slide()
 
@@ -95,10 +99,11 @@ func _chase_state():
 	var dist_x: float = abs(dx)
 	var dir: float = sign(dx)
 	
-	sprite.flip_h = dir < 0
+	# Sprite flip fix (Taki enemy moon walk na kare)
+	if dir != 0:
+		sprite.flip_h = dir < 0
 	
 	# ATTACK TRIGGER
-	# Range mein aate hi attack shuru karo
 	if dist_x <= ATTACK_RANGE:
 		_start_attack()
 		return
@@ -116,7 +121,7 @@ func _chase_state():
 			_do_jump(dir)
 
 # -----------------------
-# NEW COMBAT LOGIC (Continuous Tick)
+# NEW COMBAT LOGIC
 # -----------------------
 func _start_attack():
 	state = State.ATTACK
@@ -125,40 +130,37 @@ func _start_attack():
 	
 	if DEBUG_AI: print("[ENEMY] Attack Start")
 	
-	# Delay ke baad Hitbox ON karo
+	# Delay logic
 	get_tree().create_timer(ATTACK_HITBOX_FRAME).timeout.connect(func():
+		# Check zaroori hai ki kya abhi bhi attack state mein hai
 		if state == State.ATTACK:
 			attack_can_hit = true
 			attack_area.monitoring = true
-			damage_tick_timer = 0.0 # Turant damage dene ke liye ready
+			damage_tick_timer = 0.0 
 			if DEBUG_AI: print("[ENEMY] Hitbox Active")
 	)
 	
-	# Animation khatam hone ka wait karo
 	await sprite.animation_finished
 	
-	# Agar abhi bhi zinda hai aur attack state mein hai
 	if state == State.ATTACK:
 		_end_attack()
 
 func _attack_state(delta: float):
-	velocity.x = 0 # Attack karte waqt move nahi karega
+	velocity.x = 0 
 	
-	# Logic: Agar hitbox active hai, toh tick rate ke hisaab se damage do
 	if attack_can_hit:
 		damage_tick_timer -= delta
 		
 		if damage_tick_timer <= 0:
-			# Check karo kon kon area mein hai
 			var bodies = attack_area.get_overlapping_bodies()
 			for body in bodies:
 				if body == player and body.has_method("take_damage"):
 					if DEBUG_AI: print("[ENEMY] Dealt ", ATTACK_DAMAGE, " damage")
 					body.take_damage(ATTACK_DAMAGE)
-					damage_tick_timer = ATTACK_TICK_RATE # Timer reset (0.5s wait)
+					damage_tick_timer = ATTACK_TICK_RATE 
 					break 
 	
-	# Cancel: Agar player bohot door chala gaya
+	# Player door bhaag gaya toh chase karo
 	if player:
 		var dist = abs(player.global_position.x - global_position.x)
 		if dist > ATTACK_RANGE * 1.5:
@@ -179,7 +181,7 @@ func _attack_recovery_state(delta: float):
 	
 	if recovery_timer <= 0:
 		if player and _get_distance_to_player() <= ATTACK_RANGE:
-			_start_attack() # Turant attack karo agar paas hai
+			_start_attack()
 		elif player:
 			state = State.CHASE
 		else:
@@ -205,7 +207,7 @@ func _do_jump(dir: float):
 # DETECTION
 # -----------------------
 func _on_detection_body_entered(body: Node2D) -> void:
-	if body.has_method("player"):
+	if body.has_method("player"): # Ensure player script has func player(): pass
 		player = body
 		if state == State.IDLE: state = State.CHASE
 
@@ -224,13 +226,9 @@ func take_damage(amount: int):
 	health -= amount
 	health = clamp(health, 0, MAX_HEALTH)
 	
-	health_bar.value = health
-	health_bar.visible = true
-	
-	# Hit Animation (Optional: Agar attack nahi kar raha toh flinch kare)
-	if state != State.ATTACK:
-		# sprite.play("hit") # Uncomment if hit anim exists
-		pass
+	if health_bar:
+		health_bar.value = health
+		health_bar.visible = true
 	
 	if health <= 0:
 		die()
@@ -238,9 +236,8 @@ func take_damage(amount: int):
 func die():
 	state = State.DEAD
 	velocity = Vector2.ZERO
-	health_bar.visible = false
+	if health_bar: health_bar.visible = false
 	
-	# Disable collisions
 	$CollisionShape2D.set_deferred("disabled", true)
 	attack_area.set_deferred("monitoring", false)
 	

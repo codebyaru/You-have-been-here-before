@@ -46,7 +46,9 @@ signal all_lives_lost
 # STATE MANAGEMENT
 # -----------------------
 enum State { IDLE, CHASE, ATTACK, JUMPING, PACING, ATTACK_RECOVERY, DEAD }
-var state: State = State.IDLE
+
+# FIX: Removed ": State" to prevent errors
+var state = State.IDLE
 
 var player: CharacterBody2D = null
 var health: int = MAX_HEALTH
@@ -210,7 +212,6 @@ func _try_cast_magic_attack():
 	sprite.play("idle") 
 	
 	# Component ko bolo attack karne ko
-	# (Component khud cooldown check karega, agar cooldown hai to kuch nahi hoga)
 	if magic_component:
 		magic_component.try_cast_stolen_magic(random_element)
 

@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2rynssn68ssn"]
+
+[ext_resource type="Script" uid="uid://chioxixbujhw" path="res://Scene/UI/Wiggle_polygon.gd" id="1_s7llp"]
+
+[node name="selecting" type="Node2D"]
+show_behind_parent = true
+position = Vector2(98, 43)
+
+[node name="red" type="Polygon2D" parent="."]
+position = Vector2(-122.10175, -63.800003)
+scale = Vector2(1.1725678, 1.4461539)
+polygon = PackedVector2Array(-11, 49, 215, 78, 209, 42, 2.92241, 13)
+script = ExtResource("1_s7llp")
+intensity = 10.0
+duration = 0.1
+
+[node name="blue" type="Polygon2D" parent="."]
+position = Vector2(-146.56766, -52.4)
+scale = Vector2(1.2139713, 1.4666667)
+color = Color(0.1254902, 0.2, 0.30588236, 1)
+polygon = PackedVector2Array(20, 63, 205, 51, 219, 3, 12, 28)
+script = ExtResource("1_s7llp")
+intensity = 10.0
+duration = 0.1

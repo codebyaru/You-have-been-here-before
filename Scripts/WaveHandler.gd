@@ -29,17 +29,17 @@ var level_waves := {
 	},
 	"lvl5": {
 		"enemy_scene": preload("res://Scenes/enemies/henchmen.tscn"),
-		"boss_scene": preload("res://Scenes/enemies/demon_slime.tscn"),
+		"boss_scene": preload("res://Scenes/enemies/Frost_Guardian.tscn"),
 		"waves": [5, 10, 15] 
 	},
 	"lvl7": {
 		"enemy_scene": preload("res://Scenes/enemies/henchmen.tscn"),
-		"boss_scene": preload("res://Scenes/enemies/demon_slime.tscn"),
+		"boss_scene": preload("res://Scenes/enemies/Minotaur.tscn"),
 		"waves": [10, 15, 20] 
 	},
 	"lvl9": {
 		"enemy_scene": preload("res://Scenes/enemies/henchmen.tscn"),
-		"boss_scene": preload("res://Scenes/enemies/demon_slime.tscn"),
+		"boss_scene": preload("res://Scenes/enemies/Undead_Excecutiner.tscn"),
 		"waves": [15, 20, 25] 
 	},
 }
@@ -175,7 +175,7 @@ func _finish_all_waves():
 	# 🎵 STOP COMBAT MUSIC WHEN WAVES END
 	AudioManager.music_player.stop()
 	print("[WAVE] Stopped combat music")
-	
+	Global.max_level = Global.current_level
 	# --- 2. PLAY NEW MAGIC DIALOGUE ---
 	# Agar dialogue wait karna hai to 'await' use kar sakte ho
 	await _play_dialogue("new_magic") 

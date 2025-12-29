@@ -421,4 +421,10 @@ position = Vector2(776, 321)
 [node name="Mahoraga" parent="." instance=ExtResource("4_y3h48")]
 position = Vector2(935, 380)
 
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.1254902, 0.2, 0.30588236, 1)
+
 [connection signal="body_entered" from="VOID" to="." method="_on_void_body_entered"]
