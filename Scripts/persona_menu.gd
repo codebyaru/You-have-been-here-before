@@ -26,3 +26,7 @@ func _show_menu():
 	
 	ui_color_overlay.visible = true
 	
+
+
+func _direct_enter_state() -> void:
+	pass # Replace with function body.

@@ -1,0 +1,176 @@
+[gd_scene load_steps=14 format=3 uid="uid://dkg5xpbvscsoa"]
+
+[ext_resource type="PackedScene" uid="uid://d2rynssn68ssn" path="res://Scene/selecting.tscn" id="1_bh3wg"]
+[ext_resource type="Script" uid="uid://blbkq1uglqmw1" path="res://addons/juicy-effect/Logic/Juicy_Player.gd" id="2_bumq8"]
+[ext_resource type="FontFile" uid="uid://bypcasp0kyo0b" path="res://Arts/Arsenal-Bold.ttf" id="2_d88yu"]
+[ext_resource type="Script" uid="uid://dbdnxd8dx1bc0" path="res://addons/juicy-effect/Effects/juicy_scale.gd" id="3_d88yu"]
+[ext_resource type="Script" uid="uid://d28g8pdwlpmx7" path="res://addons/juicy-effect/Effects/juicy_set_active.gd" id="4_qpq5g"]
+[ext_resource type="Script" uid="uid://i5nefh34fobd" path="res://addons/juicy-effect/Effects/juicy_set_order.gd" id="5_1hywd"]
+[ext_resource type="Script" uid="uid://fsf5s8xy3ma5" path="res://addons/juicy-effect/Effects/juicy_effect_playsound.gd" id="6_xgpvm"]
+[ext_resource type="AudioStream" uid="uid://7icxns1wk1dd" path="res://audio/select.wav" id="7_q5km7"]
+[ext_resource type="Script" uid="uid://cxorprcxbnuxf" path="res://addons/juicy-effect/Effects/juicy_position.gd" id="8_tkpvg"]
+
+[sub_resource type="Curve" id="Curve_lgpj0"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_187o1"]
+_limits = [0.0, 1.5, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.752759, 1.5), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_a8d6s"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_80bjr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="."]
+z_index = -1
+layout_mode = 1
+anchor_right = 9.325001
+anchor_bottom = 1.5600001
+offset_left = -43.0
+offset_top = -46.0
+offset_right = -43.0
+offset_bottom = -46.0
+pivot_offset = Vector2(150, 75)
+
+[node name="selecting" parent="Control" instance=ExtResource("1_bh3wg")]
+position = Vector2(348, 80)
+scale = Vector2(1.605, 2.39)
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 212.0
+offset_right = 238.0
+offset_bottom = 377.0
+scale = Vector2(0.845, 0.845)
+
+[node name="blackbox" type="Polygon2D" parent="Control/TextureRect"]
+show_behind_parent = true
+position = Vector2(-20.118347, -214.2012)
+scale = Vector2(1.735118, 1)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(64, 37, 362, 15, 361, 67, 325, 76, 336.24918, 147.92902, 72.97903, 146.74557)
+
+[node name="Label" type="Label" parent="Control/TextureRect"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_left = 157.39644
+offset_top = -165.68047
+offset_right = 565.68054
+offset_bottom = -22.485184
+theme_override_colors/font_shadow_color = Color(0.49411765, 0.003921569, 0.9137255, 0.4627451)
+theme_override_colors/font_outline_color = Color(0, 0.8, 0.77254903, 1)
+theme_override_constants/shadow_offset_y = 6
+theme_override_constants/outline_size = 9
+theme_override_constants/shadow_outline_size = 19
+theme_override_fonts/font = ExtResource("2_d88yu")
+theme_override_font_sizes/font_size = 50
+text = "HOW TO PLAY"
+
+[node name="white_box" type="Polygon2D" parent="Control"]
+show_behind_parent = true
+position = Vector2(-188.03653, 82.039894)
+scale = Vector2(2.9093964, 5.464007)
+polygon = PackedVector2Array(64, 37, 362, 15, 361, 67, 325, 76, 336.24918, 147.92902, 72.97903, 146.74557)
+
+[node name="blackbox" type="Polygon2D" parent="Control"]
+show_behind_parent = true
+position = Vector2(-196.1562, 85.31232)
+scale = Vector2(2.8461907, 5.2458453)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(64, 37, 362, 15, 361, 67, 325, 76, 336.24918, 147.92902, 72.97903, 146.74557)
+
+[node name="Label" type="Label" parent="Control"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_left = 73.0
+offset_top = 274.0
+offset_right = 723.0
+offset_bottom = 819.81116
+rotation = -0.099483766
+theme_override_colors/font_shadow_color = Color(0.49411765, 0.003921569, 0.9137255, 0.4627451)
+theme_override_colors/font_outline_color = Color(0, 0.8, 0.77254903, 1)
+theme_override_constants/shadow_offset_y = 6
+theme_override_constants/outline_size = 9
+theme_override_constants/shadow_outline_size = 19
+theme_override_fonts/font = ExtResource("2_d88yu")
+theme_override_font_sizes/font_size = 50
+text = "KHUD SEEKH LO MAI NAHI BATA RAHA"
+autowrap_mode = 3
+
+[node name="Focus" type="Node" parent="."]
+script = ExtResource("2_bumq8")
+
+[node name="scale" type="Node" parent="Focus"]
+script = ExtResource("3_d88yu")
+target_scale = Vector3(2.5, 2, 1)
+curve = SubResource("Curve_lgpj0")
+revert_on_exit = false
+duration = 0.1
+
+[node name="scale2" type="Node" parent="Focus" node_paths=PackedStringArray("target_node")]
+script = ExtResource("3_d88yu")
+target_node = NodePath("../../../../../../../../../../../../../../../../DockHSplitRight/DockVSplitRightL/DockSlotRightUL/Inspector/@EditorInspector@7039/@VBoxContainer@7031/@VBoxContainer@7038/@EditorInspectorSection@187731/@VBoxContainer@187732/@EditorPropertyNodePath@187743/@HBoxContainer@187733/@MenuButton@187741/@PopupMenu@187740/@PanelContainer@187735")
+target_scale = Vector3(1.2, 1.2, 1)
+curve = SubResource("Curve_187o1")
+revert_on_exit = false
+duration = 0.1
+
+[node name="set_active" type="Node" parent="Focus"]
+script = ExtResource("4_qpq5g")
+initial_state = 2
+action = 1
+also_set_process = true
+
+[node name="set_order" type="Node" parent="Focus"]
+script = ExtResource("5_1hywd")
+set_to = 1
+
+[node name="playSound" type="Node" parent="Focus"]
+script = ExtResource("6_xgpvm")
+audioClip = ExtResource("7_q5km7")
+
+[node name="Unfocus" type="Node" parent="."]
+script = ExtResource("2_bumq8")
+
+[node name="scale" type="Node" parent="Unfocus" node_paths=PackedStringArray("target_node")]
+script = ExtResource("3_d88yu")
+target_node = NodePath("../../../../../../../../../../../../../../../../DockHSplitRight/DockVSplitRightL/DockSlotRightUL/Inspector/@EditorInspector@7039/@VBoxContainer@7031/@VBoxContainer@7038/@EditorInspectorSection@187731/@VBoxContainer@187732/@EditorPropertyNodePath@187743/@HBoxContainer@187733/@MenuButton@187741/@PopupMenu@187740/@PanelContainer@187735")
+curve = SubResource("Curve_a8d6s")
+revert_on_exit = false
+duration = 0.1
+
+[node name="set_active" type="Node" parent="Unfocus"]
+script = ExtResource("4_qpq5g")
+action = 2
+also_set_process = true
+
+[node name="set_order" type="Node" parent="Unfocus"]
+script = ExtResource("5_1hywd")
+
+[node name="Appear" type="Node" parent="."]
+script = ExtResource("2_bumq8")
+
+[node name="Juicy_effect_position" type="Node" parent="Appear" node_paths=PackedStringArray("target_node")]
+script = ExtResource("8_tkpvg")
+target_node = NodePath("../../../../../../../../../../../../../../../../DockHSplitRight/DockVSplitRightL/DockSlotRightUL/Inspector/@EditorInspector@7039/@VBoxContainer@7031/@VBoxContainer@7038/@EditorInspectorSection@187731/@VBoxContainer@187732/@EditorPropertyNodePath@187743/@HBoxContainer@187733/@MenuButton@187741/@PopupMenu@187740/@PanelContainer@187735")
+mode = 1
+target_position = Vector3(50, 0, 0)
+curve = SubResource("Curve_80bjr")
+duration = 0.1
+
+[connection signal="draw" from="Control/TextureRect" to="Appear" method="Play"]
