@@ -1638,7 +1638,7 @@ script = ExtResource("37_xwh2u")
 
 [node name="start_game" type="Node" parent="UIColorOverlay/StateMachine"]
 script = ExtResource("38_1yh1h")
-game_scene_path = "uid://diiwfcw5t8aw"
+game_scene_path = "uid://daga5dyh1yiss"
 
 [node name="preloader" type="Node" parent="UIColorOverlay"]
 script = ExtResource("34_pia5f")

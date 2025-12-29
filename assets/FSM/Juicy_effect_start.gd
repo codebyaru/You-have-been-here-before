@@ -5,6 +5,7 @@ class_name Juicy_effect_start
 @export_file("*.tscn") var game_scene_path: String
 
 func Play():
+
 	# 1. Check agar path khali toh nahi hai
 	if game_scene_path == "":
 		print("[Error] Game Scene Path is empty in Inspector!")

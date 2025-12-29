@@ -2,7 +2,7 @@ extends MarginContainer
 
 # --- CONFIGURATION ---
 # IMPORTANT: Check this path! Change it to where your Main Menu scene is.
-const MAIN_MENU_PATH = "res://UI/main_menu.tscn"
+const MAIN_MENU_PATH = "res://Scene/persona_menu.tscn"
 
 # --- UI CONTAINERS ---
 @export var menu_screen: VBoxContainer
