@@ -363,6 +363,7 @@ size = Vector2(311.75, 44)
 
 [node name="Lvl10" type="Node2D"]
 script = ExtResource("1_lyd2k")
+next_scene_path = "uid://dx6qeeal57fqi"
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -396,7 +397,7 @@ frame_progress = 0.5365946
 polygon = PackedVector2Array(-1, 52, 1, 367, 1, 491, 1025, 497, 1432, 503, 1383, 45, 2, 52, -2, 24, 1019, 3, 1451, -8, 1559, 588, -74, 553, -54, 25, -7, 23)
 
 [node name="player" parent="." instance=ExtResource("5_bn8uw")]
-position = Vector2(940, 306)
+position = Vector2(58, 283)
 
 [node name="VOID" type="Area2D" parent="."]
 position = Vector2(-144, -17)

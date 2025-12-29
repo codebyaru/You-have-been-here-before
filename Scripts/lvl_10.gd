@@ -2,7 +2,7 @@ extends Node2D
 
 # Flag taaki dialogue sirf ek baar trigger ho
 var critical_dialogue_triggered := false
-
+@export_file("*.tscn") var next_scene_path: String
 func _ready() -> void:
 	AudioManager.play_music("res://audio/music/Sharperheart - Bittersweet.mp3")
 	Global.current_level_id = "lvl10"
@@ -65,18 +65,42 @@ func _on_dialogic_signal(arg: String):
 	match arg:
 		"said_yes":
 			print(" -> Advancing Level (Beacon Style)")
-			Global.loop_count+=1
-			Global.dialogue_playing = false # Release control strictly if needed, but switching scene anyway
+			Global.loop_count += 1
+			Global.dialogue_playing = false 
 			Global.proceed_to_next_level()
 			
 		"said_no":
 			print(" -> Triggering Ending Timeline")
-			# Dialogue playing remains true
+			
+			# 1. Ending Dialogue Start karo
 			Dialogic.start("ending")
 			
-		"timeline_end": # Agar tumhare dialogue ke end mein ye signal hai cleanup ke liye
+			# 🔥 CHECK: Abhi scene change mat karo!
+			# Signal connect karo jo wait karega dialogue khatam hone ka
+			if not Dialogic.timeline_ended.is_connected(_on_ending_finished):
+				Dialogic.timeline_ended.connect(_on_ending_finished)
+
+		"timeline_end": 
+			# Ye normal dialogues ke liye hai
 			Global.dialogue_playing = false
 
+# --- 🔥 NAYA FUNCTION ADD KARO ---
+# Ye tab chalega jab "ending" dialogue poora khatam ho jayega
+func _on_ending_finished():
+	print("Ending Dialogue Complete. Transitioning Scene...")
+	
+	# 1. Cleanup: Signal disconnect karna zaroori hai
+	if Dialogic.timeline_ended.is_connected(_on_ending_finished):
+		Dialogic.timeline_ended.disconnect(_on_ending_finished)
+	
+	Global.dialogue_playing = false
+	
+	# 2. Ab Scene Change karo
+	if next_scene_path:
+		AudioManager.stop_music()
+		TransitionScreen.transition_to(next_scene_path)
+	else:
+		print("❌ Error: Next Scene Path set nahi hai!")
 # --- VOID LOGIC (Existing) ---
 func _on_void_body_entered(body: Node2D) -> void:
 	if body.has_method("player"):

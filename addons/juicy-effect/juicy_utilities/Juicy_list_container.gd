@@ -33,8 +33,7 @@ func _generate_buttons():
 		
 		# 2. Text Change (Dynamic)
 		# Tumhare Global variable se level utha liya
-		new_btn.text = "Load Save: Level " + str(Global.max_level)
-		
+		new_btn.text = "Load Save"		
 		# 3. Visibility & Connection
 		# Note: Visible false rakha hai taaki 'list_appear' usse animate karke dikhaye
 		new_btn.visible = false 

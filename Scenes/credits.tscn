@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx6qeeal57fqi"]
+
+[ext_resource type="Script" uid="uid://db8k178hgvnqr" path="res://Scripts/credits.gd" id="1_r18jl"]
+
+[node name="Credits" type="Node2D" node_paths=PackedStringArray("credits_label")]
+script = ExtResource("1_r18jl")
+next_scene_path = "uid://clnac4xlws0xe"
+credits_label = NodePath("CanvasLayer/Label")
+move_distance = 300.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+custom_minimum_size = Vector2(400, 0)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "CREATED WITH ❤️ BY TEAM RED_BREAD_REDEMPTION For OSDC CODEJAM V6
+
+This game was crafted with sleepless nights, endless coffee, and a lot of passion by:
+
+Harsimran Singh
+
+Akshat Singh
+
+Arushi Jain
+
+Shrsth Mishra
+
+Thank you for playing and being a part of our journey!"
+horizontal_alignment = 1
+vertical_alignment = 1
