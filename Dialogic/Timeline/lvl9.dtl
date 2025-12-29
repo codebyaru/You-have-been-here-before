@@ -1,12 +1,12 @@
 join evil_max_hidden right
-evil_max_hidden: “Nothingness suits you.”\
-“No light. No path. No purpose.”\
-“Just endless… empty silence.”
+evil_max_hidden: “See? You and I… we’re not different.”\
+“The more you fight… the more you become ME.”\
+“This shadow… is your truth.”
 leave evil_max_hidden
 join Max left
-Max: “Even if I can’t see the way…”\
-“I’ll trust myself.”\
-“And keep moving.”
+Max: “If I must fight my darkness…”\
+“I’ll face it.”\
+“And I will NOT become you.”
 leave Max
 “Darkness whispers  Max… every shadow wants a piece of you. Corruption spreads — either you control it… or it consumes you.”
 [signal arg="fight_start"]
