@@ -14,7 +14,7 @@ const ATTACK_TICK_RATE := 0.5   # Time between damage ticks
 const ATTACK_COOLDOWN := 1.0
 
 const MAX_HEALTH = 200
-var REVERSE_FLIP = false
+var REVERSE_FLIP = true
 signal died
 
 # -----------------------
@@ -236,7 +236,7 @@ func die():
 	
 	if sprite.sprite_frames.has_animation("death"):
 		sprite.play("death")
-		await get_tree().create_timer(3.0).timeout
+		await get_tree().create_timer(1).timeoutd
 	else:
 		await get_tree().create_timer(0.5).timeout
 	

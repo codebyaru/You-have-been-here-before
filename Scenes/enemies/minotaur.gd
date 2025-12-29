@@ -18,7 +18,7 @@ const ATTACK_COOLDOWN := 1.0
 const KNOCKBACK_FORCE := Vector2(400.0, -250.0) 
 
 const MAX_HEALTH = 200
-var REVERSE_FLIP = true # Kept as true based on your latest paste
+var REVERSE_FLIP = false # Kept as true based on your latest paste
 signal died
 
 # -----------------------
@@ -248,9 +248,9 @@ func die():
 	
 	if sprite.sprite_frames.has_animation("death"):
 		sprite.play("death")
-		await get_tree().create_timer(3.0).timeout
+		await get_tree().create_timer(0.1).timeout
 	else:
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.1).timeout
 	
 	_spawn_dead_body()
 	emit_signal("died")
