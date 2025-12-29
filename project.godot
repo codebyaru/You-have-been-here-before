@@ -30,6 +30,7 @@ directories/dch_directory={
 "evil_max_hidden": "res://Dialogic/Timeline/evil_max_hidden.dch"
 }
 directories/dtl_directory={
+"Start_scenes": "res://Dialogic/Timeline/Start_scenes.dtl",
 "Wave_1": "res://Dialogic/Timeline/Wave_1.dtl",
 "Wave_2": "res://Dialogic/Timeline/Wave_2.dtl",
 "Wave_3": "res://Dialogic/Timeline/Wave_3.dtl",
