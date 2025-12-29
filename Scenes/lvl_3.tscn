@@ -1,41 +1,10 @@
 [gd_scene load_steps=11 format=3 uid="uid://cqxdnv3astxbx"]
 
+[ext_resource type="Script" uid="uid://bui1wc8tht1o8" path="res://Scenes/lvl_3.gd" id="1_5iekr"]
 [ext_resource type="Texture2D" uid="uid://dqy258cheh6ea" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/Final/Background_0.png" id="2_l5cp4"]
 [ext_resource type="Texture2D" uid="uid://di2vjhc21o7wk" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/Final/'Free' Moonlit Forest Tileset.png" id="3_gykqg"]
 [ext_resource type="PackedScene" uid="uid://bjgxmviup1qw5" path="res://Scenes/Beacon.tscn" id="4_v1efa"]
 [ext_resource type="PackedScene" uid="uid://d3uh5euxh2fmd" path="res://Scenes/player.tscn" id="5_j36wd"]
-
-[sub_resource type="GDScript" id="GDScript_l5cp4"]
-script/source = "extends Node2D
-
-
-# 47 -1 1025 491
-
-func _ready() -> void:
-	Global.current_level_id = \"lvl3\"
-	Global.current_level = 3
-	WaveHandler.all_waves_completed.connect(_on_waves_done)
-	Global.respawn_position = Vector2(14, 258)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta) -> void:
-	pass
-
-
-func _on_void_body_entered(body: Node2D) -> void:
-		if body.has_method(\"player\"):
-			print(\"Insatnt death\")
-			body.take_damage(body.max_health)
-		if body.has_method(\"enemy\"):
-			body.take_damage(body.MAX_HEALTH)
-
-func _on_waves_done(level_id):
-	if level_id == \"lvl3\":
-		print(\"[LEVEL 3] Combat complete\")
-		# unlock exit
-		# continue story
-"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l5cp4"]
 texture = ExtResource("3_gykqg")
@@ -392,7 +361,7 @@ sources/1 = SubResource("TileSetAtlasSource_4u2td")
 size = Vector2(149.5, 44)
 
 [node name="Lvl3" type="Node2D"]
-script = SubResource("GDScript_l5cp4")
+script = ExtResource("1_5iekr")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
