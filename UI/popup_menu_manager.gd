@@ -115,6 +115,7 @@ func _on_exit_pressed() -> void:
 	get_tree().paused = false 
 	
 	# Go to Main Menu
+	AudioManager.stop_music()
 	TransitionScreen.transition_to(MAIN_MENU_PATH)
 
 func _on_back_pressed() -> void:
