@@ -1,90 +1,122 @@
-\# You Have Been Here Before 🌀
+<div align="center">
 
+#  You Have Been Here Before
 
+**An OSDC CodeJam Project ft. Godot Engine**
 
-\*\*OSDC CodeJam PROJECT ft. Godot\*\* - A mysterious adventure game with progressive levels, powerful enemies, and immersive dialogic storytelling.
+![Godot Engine](https://img.shields.io/badge/Godot_4.x-%23478cbf?style=for-the-badge&logo=godot-engine&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Active_Development-success?style=for-the-badge)
+![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=for-the-badge)
 
+<br />
 
+> *"A mysterious adventure game where time loops, magic, and adaptation collide."*
 
-\[!\[Godot Engine](https://img.shields.io/badge/Godot-4.x-brightgreen)](https://godotengine.org)
+[View Demo](#) · [Report Bug](issues) · [Request Feature](issues)
 
-\[!\[License](https://img.shields.io/github/license/Harsimran-singh-7765/You-have-been-here-before)](LICENSE)
+</div>
 
+---
 
+##  About The Project
 
-\## 🎮 Features
+**You Have Been Here Before** is a 2D action-adventure game built for the **OSDC CodeJam**. It combines progressive level design with intense magical combat, featuring an adaptive boss AI and a rich narrative driven by the Dialogic system.
 
+The game explores themes of repetition and mastery, forcing players to adapt to enemies that learn from their attacks.
 
+###  Key Features
 
-\- \*\*10+ Progressive Levels\*\* - From basic mechanics to challenging boss fights
-
-\- \*\*Mahoraga Enemy\*\* - Advanced AI enemy with unique magic abilities
-
-\- \*\*Elemental Player Abilities\*\* - Fireball, Rock Throw, Water Ball, Wind Tornado
-
-\- \*\*Dialogic Timelines\*\* - Rich branching storylines 
-
-\- \*\*Dynamic UI\*\* - Health bars, persona menu, progress tracking
-
-\- \*\*Gemini-Generated Assets\*\* - High-quality AI artwork
-
-
-
-\## 🚀 Quick Start
-
-
-
-1\. \*\*Install Godot 4.x\*\* - \[Download here](https://godotengine.org/download)
-
-2\. \*\*Clone the repo\*\*
-
-3\. \*\*Open in Godot\*\* - Double-click `project.godot`
-
-4\. \*\*Press Play\*\* 🎮
-
-
-
-\## 🤝 Contributing
-
-
-
-1\. Fork the repo
-
-2\. Create feature branch: `git checkout -b feature/amazing-feature`
-
-3\. Commit changes: `git commit -m "Add amazing feature"`
-
-4\. Push: `git push origin feature/amazing-feature`
-
-5\. Open PR! 🚀
-
-
-
-\## 📱 Controls
-
-
-
-\- \*\*WASD\*\* / \*\*Arrow Keys\*\* - Movement
-
-\- \*\*Mouse\*\* - Aim
-
-\- \*\*1-4\*\* - Elemental abilities
-
-\- \*\*ESC\*\* - Pause/Settings
-
-
-
-
-
-\## 📄 License
-
-
-
-MIT License - See \[LICENSE](LICENSE) file.
-
-
+* **⚔️ Dynamic Combat System:** Master 4 elemental abilities — **Fireball**, **Rock Throw**, **Water Ball**, and **Wind Tornado**.
+* **🤖 The Mahoraga AI:** A highly advanced boss enemy that adapts to your playstyle and utilizes stolen magic.
+* **📜 Immersive Storytelling:** Branching narratives and deep lore powered by the **Dialogic** plugin.
+* **🎨 AI-Generated Assets:** Stunning visual assets and backgrounds generated using **Google Gemini**.
+* **📈 Progressive Difficulty:** Over **10+ Levels** ranging from tutorial mechanics to hardcore boss encounters.
+* **📊 Dynamic UI:** Real-time health bars, persona menus, and interactive overlays.
 
 ---
 
 
 
+## 🎮 Controls
+
+| Action | Input |
+| --- | --- |
+| **Jump** | <kbd>W</kbd> |
+| **Move Left / Right** | <kbd>A</kbd> / <kbd>D</kbd> |
+| **Dash** | <kbd>Shift</kbd> |
+| **Fire Ball** | <kbd>0</kbd> |
+| **Fire Spin** | <kbd>i</kbd> |
+| **Water Ball** | <kbd>p</kbd> |
+| **Wind Tornado** | <kbd>k</kbd> |
+| **Rock Throw** | <kbd>l</kbd> |
+| **Shadow Summon** | <kbd>h</kbd> |
+| **Attack Combo-I** | <kbd>Space</kbd> + <kbd>Shift</kbd> + <kbd>a/d</kbd> |...similar more
+
+| **Pause / Menu** | <kbd>ESC</kbd> |
+
+---
+
+##  Getting Started
+
+To get a local copy up and running, follow these simple steps.
+
+### Prerequisites
+
+* **Godot Engine 4.x** (Standard Version recommended)
+    * [Download Godot](https://godotengine.org/download)
+
+### Installation
+
+1.  **Clone the repository**
+    ```sh
+    git clone [https://github.com/Harsimran-singh-7765/You-have-been-here-before.git](https://github.com/Harsimran-singh-7765/You-have-been-here-before.git)
+    ```
+2.  **Open Godot Engine**
+3.  **Import the Project**
+    * Click `Import`
+    * Navigate to the cloned folder
+    * Select the `project.godot` file
+4.  **Launch the Game**
+    * Press the `Play` () button in the top right corner.
+
+---
+
+## 🛠️ Tech Stack & Tools
+
+* **Engine:** [Godot 4](https://godotengine.org/) (GDScript)
+* **Dialogue System:** [Dialogic 2.0](https://dialogic.pro/)
+* **Asset Generation:** Google Gemini AI
+* **Version Control:** Git & GitHub
+
+---
+
+##  Contributing
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1.  **Fork** the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  **Commit** your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  **Push** to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a **Pull Request**
+
+---
+
+##  License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+
+## Acknowledgments
+
+* **OSDC** for organizing the CodeJam V6.
+* The Godot Community for amazing tutorials and plugins.
+* Everyone who has "been here before."
+
+<div align="center">
+
+**Don't forget to leave a ⭐ if you like this project!**
+
+</div>
