@@ -1,7 +1,5 @@
 extends CharacterBody2D
 
-# ... (Baki saare CONSTANTS same rahenge, bas logic neeche change hai) ...
-
 # -----------------------
 # CONFIG & CONSTANTS
 # -----------------------
@@ -25,10 +23,8 @@ const RESPAWN_DELAY := 2.0
 const BASE_SPRITE_SCALE := Vector2(0.114286, 0.169643)
 const ATTACK_2_SCALE_MULT := 5.9
 
-# Adaptation logic
+# 🔥 NEW: Adaptation ab Global se sync hoga
 const ADAPTATION_THRESHOLD := 5 
-var adaptation_counts : Dictionary = {} 
-var adapted_elements : Array = [] 
 
 signal died
 signal respawned
@@ -75,8 +71,26 @@ func _ready():
 	attack_area.monitoring = false
 	_setup_health_bar()
 	_collect_raycasts()
+	
+	# 🔥 SYNC WITH GLOBAL MEMORY
+	_sync_with_global_memory()
+	
 	if updates_label: updates_label.modulate.a = 0 
-	if DEBUG_AI: print("[AI-INIT] 🔥 MAHORAGA ONLINE 🔥")
+	if DEBUG_AI: 
+		print("[AI-INIT] 🔥 MAHORAGA ONLINE 🔥")
+		print("[MEMORY] Adapted Elements: ", MahoragaMemory.adapted_elements)
+		print("[MEMORY] Current Lives: ", lives)
+
+func _sync_with_global_memory():
+	"""Global memory se adaptations load karo"""
+	# Lives global se sync karo
+	lives = MahoragaMemory.current_lives
+	
+	# Display current adaptations
+	if MahoragaMemory.adapted_elements.size() > 0:
+		var elements_str = ", ".join(MahoragaMemory.adapted_elements)
+		_show_adaptation_text("REMEMBERING: " + elements_str.to_upper(), Color.CYAN)
+		print("♻️ RESPAWNED WITH MEMORY: ", MahoragaMemory.adapted_elements)
 
 func _setup_health_bar():
 	health_bar.max_value = MAX_HEALTH
@@ -131,8 +145,6 @@ func _handle_movement_logic(delta: float):
 		return
 
 	# --- 1. SMART MAGIC LOGIC ---
-	# 🔥 UPDATE: Ab ye check nahi karega ki adapted_elements empty hai ya nahi
-	# Kyunki "VOID" hamesha available hai.
 	if not attack_lock and not in_air:
 		# Chance to cast magic (2% per frame ~ approx once per second)
 		if randf() < 0.02: 
@@ -180,13 +192,13 @@ func _handle_movement_logic(delta: float):
 # MAGIC EXECUTION HELPER
 # -----------------------
 func _try_cast_magic_attack():
-	# 🔥 UPDATE: Create a pool of available spells
-	# Default mein "void" hamesha rahega
+	"""Magic attack cast karo using global memory"""
+	# Default mein "void" hamesha available
 	var available_spells = ["void"]
 	
-	# Agar adapt kiya hai, toh wo elements bhi add karo
-	if adapted_elements.size() > 0:
-		available_spells.append_array(adapted_elements)
+	# 🔥 GLOBAL MEMORY se adapted elements load karo
+	if MahoragaMemory.adapted_elements.size() > 0:
+		available_spells.append_array(MahoragaMemory.adapted_elements)
 	
 	# Smart Decision: Randomly pick one
 	var chosen_spell = available_spells.pick_random()
@@ -198,6 +210,7 @@ func _try_cast_magic_attack():
 	# Component ko bolo attack karne ko
 	if magic_component:
 		magic_component.try_cast_stolen_magic(chosen_spell)
+		if DEBUG_AI: print("[MAGIC] 🪄 Casting: ", chosen_spell)
 
 # -----------------------
 # MELEE COMBAT LOGIC
@@ -205,9 +218,8 @@ func _try_cast_magic_attack():
 func _start_attack():
 	state = State.ATTACK
 	velocity.x = 0
-	# Melee attacks
 	var use_attack_2 = randf() < 0.5
-	var anim = "attack_2" if use_attack_2 else "attack_2" # Tumne dono same rakhe the code mein, check karlena
+	var anim = "attack_2"
 	sprite.play(anim)
 	
 	if anim == "attack_2": 
@@ -265,37 +277,53 @@ func _process_recovery(delta: float):
 		attack_started = false
 		state = State.CHASE if player else State.IDLE
 
-# ... (Baki saare Damage, Adaptation aur Helper functions same rahenge) ...
-# ... Copy Paste baaki ka code yahan se neeche agar missing hai ...
-
+# -----------------------
+# DAMAGE & ADAPTATION (WITH GLOBAL SYNC)
+# -----------------------
 func take_damage(amount: int, attack_type: String = "physical"):
 	if state == State.DEAD: return
 	var final_damage = amount
+	
 	if attack_type != "physical":
-		if attack_type in adapted_elements:
+		# 🔥 CHECK GLOBAL MEMORY FOR IMMUNITY
+		if MahoragaMemory.is_adapted_to(attack_type):
 			print("🛑 MAHORAGA IMMUNE TO: ", attack_type)
 			_play_immune_effect()
 			return 
-		if not adaptation_counts.has(attack_type): adaptation_counts[attack_type] = 0
-		adaptation_counts[attack_type] += 1
-		if adaptation_counts[attack_type] >= ADAPTATION_THRESHOLD: _adapt_to_element(attack_type)
+		
+		# Track adaptation progress globally
+		MahoragaMemory.increment_adaptation_count(attack_type)
+		var current_count = MahoragaMemory.get_adaptation_progress(attack_type)
+		
+		if current_count >= ADAPTATION_THRESHOLD:
+			_adapt_to_element(attack_type)
 	else:
+		# Physical adaptation (based on lives)
 		if lives == 2:
 			final_damage = int(amount * 0.5)
 			_show_adaptation_text("ADAPTING TO PHYSICAL ATKS", Color.GRAY)
 		elif lives == 1:
 			final_damage = int(amount * 0.2)
 			_show_adaptation_text("PHYSICAL ADAPTATION COMPLETE", Color.BLACK)
+	
 	health -= final_damage
 	health_bar.value = health
 	health_bar.visible = true 
 	_play_hurt_effect()
-	if health <= 0: die()
+	
+	if health <= 0: 
+		die()
 
 func _adapt_to_element(element: String):
-	if element in adapted_elements: return
-	adapted_elements.append(element)
+	"""Element ke liye adapt karo aur GLOBAL MEMORY mein save karo"""
+	if MahoragaMemory.is_adapted_to(element): 
+		return
+	
+	# 🔥 SAVE TO GLOBAL MEMORY
+	MahoragaMemory.add_adaptation(element)
+	
 	print("⚙️ WHEEL TURNS! ADAPTED TO: ", element)
+	
 	var msg_color = Color.WHITE
 	match element:
 		"fire": msg_color = Color.ORANGE
@@ -303,10 +331,13 @@ func _adapt_to_element(element: String):
 		"wind": msg_color = Color.GREEN
 		"rock": msg_color = Color.BROWN
 		"shadow": msg_color = Color.PURPLE
+	
 	_show_adaptation_text("ADAPTED TO " + element.to_upper(), msg_color)
+	
 	var tween = create_tween()
 	tween.tween_property(sprite, "modulate", Color(0.0, 0.8, 1.0), 0.3)
 	tween.tween_property(sprite, "modulate", Color.WHITE, 0.3)
+	
 	_trigger_repel_shockwave()
 
 func _show_adaptation_text(message: String, color: Color):
@@ -332,8 +363,12 @@ func _trigger_repel_shockwave():
 	if player:
 		var dir = (player.global_position - global_position).normalized()
 		var force = Vector2(sign(dir.x) * 800.0, -300.0)
-		if player.has_method("apply_knockback"): player.apply_knockback(force)
+		if player.has_method("apply_knockback"): 
+			player.apply_knockback(force)
 
+# -----------------------
+# JUMPING & PACING
+# -----------------------
 func _initiate_parabolic_jump(target_x: float):
 	jump_target_x = target_x
 	var hang_time = (abs(JUMP_VELOCITY) / GRAVITY) * 2.0
@@ -348,22 +383,28 @@ func _initiate_parabolic_jump(target_x: float):
 func _process_jumping(delta: float):
 	velocity.x = jump_forward_speed
 	if is_on_floor() and velocity.y >= 0:
-		if feet_raycast and not feet_raycast.is_colliding(): global_position.x += 20.0 * signf(velocity.x)
+		if feet_raycast and not feet_raycast.is_colliding(): 
+			global_position.x += 20.0 * signf(velocity.x)
 		velocity.x = 0
 		state = State.CHASE
-		get_tree().create_timer(JUMP_COOLDOWN_TIME).timeout.connect(func(): jump_cooldown = false)
+		get_tree().create_timer(JUMP_COOLDOWN_TIME).timeout.connect(func(): 
+			jump_cooldown = false
+		)
 
 func _process_pacing(delta: float):
 	pacing_timer -= delta
 	var retreat_dir = -signf(player.global_position.x - global_position.x) if player else 1.0
 	velocity.x = retreat_dir * (SPEED * 0.5)
 	sprite.play("run")
+	
 	if player:
 		var current_player_dir = signf(player.global_position.x - global_position.x)
 		if current_player_dir != -retreat_dir:
 			state = State.CHASE
 			return
-	if pacing_timer <= 0: state = State.CHASE
+	
+	if pacing_timer <= 0: 
+		state = State.CHASE
 
 func _prevent_stacking_on_player():
 	for i in get_slide_collision_count():
@@ -374,6 +415,9 @@ func _prevent_stacking_on_player():
 				var push_dir = 1.0 if global_position.x > player.global_position.x else -1.0
 				velocity.x = push_dir * 200.0
 
+# -----------------------
+# RAYCAST HELPERS
+# -----------------------
 func _check_any_wall_ahead(dir: float) -> RayCast2D:
 	for ray in wall_raycasts:
 		ray.target_position.x = abs(ray.target_position.x) * dir
@@ -394,52 +438,81 @@ func _scan_for_landing(dir: float) -> float:
 		var ray = ground_raycasts[i]
 		ray.target_position.x = abs(ray.target_position.x) * dir
 		ray.force_raycast_update()
-		if ray.is_colliding(): return ray.get_collision_point().x
+		if ray.is_colliding(): 
+			return ray.get_collision_point().x
 	return 0.0
 
 func _flip_rays(dir: float):
-	for ray in ground_raycasts: ray.target_position.x = abs(ray.target_position.x) * dir
-	for ray in wall_raycasts: ray.target_position.x = abs(ray.target_position.x) * dir
+	for ray in ground_raycasts: 
+		ray.target_position.x = abs(ray.target_position.x) * dir
+	for ray in wall_raycasts: 
+		ray.target_position.x = abs(ray.target_position.x) * dir
 
+# -----------------------
+# DEATH & RESPAWN
+# -----------------------
 func die():
 	state = State.DEAD
 	velocity = Vector2.ZERO
 	collision_layer = 0
 	collision_mask = 0
 	health_bar.visible = false 
+	
 	if sprite.sprite_frames.has_animation("death"):
 		sprite.play("death")
 		await sprite.animation_finished
 	else:
 		sprite.hide()
+	
 	emit_signal("died")
 	lives -= 1
+	
+	# 🔥 UPDATE GLOBAL LIVES
+	MahoragaMemory.current_lives = lives
+	
 	if lives > 0:
 		await get_tree().create_timer(RESPAWN_DELAY).timeout
 		respawn_with_fresh_instance()
 	else:
 		emit_signal("all_lives_lost")
+		# 🔥 OPTIONAL: Reset memory on final death
+		# MahoragaMemory.reset_all_adaptations()
 		queue_free()
 
 func respawn_with_fresh_instance():
+	"""Respawn with memory intact"""
 	var parent_node = get_parent()
 	var enemy_scene = load(scene_file_path)
+	
 	if parent_node and enemy_scene:
 		var new_enemy = enemy_scene.instantiate()
-		new_enemy.lives = lives
+		# Lives already in global memory, no need to pass manually
 		new_enemy.spawn_position = spawn_position
 		new_enemy.global_position = spawn_position
 		parent_node.add_child(new_enemy)
+		
+		print("♻️ RESPAWNING WITH MEMORY...")
 		queue_free()
 
+# -----------------------
+# IDLE & DETECTION
+# -----------------------
 func _process_idle():
 	velocity.x = move_toward(velocity.x, 0, SPEED)
 	sprite.play("idle")
-	if player: state = State.CHASE
+	if player: 
+		state = State.CHASE
 
 func _on_detection_body_entered(body):
-	if body.has_method("player"): player = body
+	if body.has_method("player"): 
+		player = body
+
 func _on_detection_body_exited(body):
-	if body == player: player = null
-func _on_attack_area_body_entered(body): pass
-func enemy(): pass
+	if body == player: 
+		player = null
+
+func _on_attack_area_body_entered(body): 
+	pass
+
+func enemy(): 
+	pass

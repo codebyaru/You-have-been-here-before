@@ -263,7 +263,6 @@ intro_video = NodePath("CanvasLayer/IntroVideo")
 ui_color_overlay = NodePath("UIColorOverlay")
 
 [node name="CanvasLayer2" parent="." instance=ExtResource("2_dua83")]
-visible = false
 
 [node name="Label" type="Label" parent="."]
 visible = false

@@ -39,8 +39,7 @@ func launch(p_source: Node, p_direction: Vector2):
 	else:
 		direction = p_direction
 	
-	# Visual update
-	rotation = direction.angle()  
+	
 
 func _validate_setup():
 	if not launched:

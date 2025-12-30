@@ -10,6 +10,7 @@ var critical_dialogue_triggered := false
 
 func _ready() -> void:
 	# 1. Level Setup
+	
 	Global.current_level_id = "lvl10"
 	Global.current_level = 10
 	Global.respawn_position = Vector2(14, 258)
@@ -76,6 +77,7 @@ func _on_dialogic_signal(arg: String):
 # --- 4. SUMMON BOSS ---
 func _summon_mahoraga():
 	AudioManager.play_music("res://audio/music/Sharperheart - Bittersweet.mp3")
+	Global.max_level = 10
 	if mahoraga_scene and boss_spawn_pos:
 		var boss = mahoraga_scene.instantiate()
 		boss.global_position = boss_spawn_pos.global_position

@@ -22,13 +22,13 @@
 [ext_resource type="StyleBox" uid="uid://cu532gfq0slo6" path="res://progress_bars/mana_bar.tres" id="18_p1odr"]
 [ext_resource type="Script" uid="uid://cb4u0v52xj5kt" path="res://progress_bars/mana_bar.gd" id="19_2ijsl"]
 [ext_resource type="Script" uid="uid://c6vg0jwo8mtsm" path="res://progress_bars/health_bar.gd" id="19_bi64h"]
-[ext_resource type="PackedScene" uid="uid://bn2f4pctp1x1i" path="res://abilities/player/fire_spin_projectile.tscn" id="19_l6n3p"]
 [ext_resource type="Script" uid="uid://covt74nalhceh" path="res://abilities/Projectile_launch_ability.gd" id="20_olqyp"]
-[ext_resource type="PackedScene" uid="uid://bcc6110lle5k0" path="res://abilities/player/Fire_ball.tscn" id="21_olqyp"]
+[ext_resource type="PackedScene" uid="uid://bn2f4pctp1x1i" path="res://abilities/player/fire_spin_projectile.tscn" id="23_wohnl"]
+[ext_resource type="PackedScene" uid="uid://bcc6110lle5k0" path="res://abilities/player/Fire_ball.tscn" id="25_36dho"]
 [ext_resource type="PackedScene" uid="uid://un3mvdf88msv" path="res://Scenes/ability_ui.tscn" id="26_0gysh"]
-[ext_resource type="PackedScene" uid="uid://b37qti58l6no1" path="res://abilities/player/Water_ball.tscn" id="26_83xs0"]
-[ext_resource type="PackedScene" uid="uid://crggh3deaddmx" path="res://abilities/player/Rock_throw.tscn" id="27_ypfnu"]
-[ext_resource type="PackedScene" uid="uid://dttt0faw6ytar" path="res://abilities/player/Wind_Tornado.tscn" id="28_xuaoq"]
+[ext_resource type="PackedScene" uid="uid://b37qti58l6no1" path="res://abilities/player/Water_ball.tscn" id="26_yh6i2"]
+[ext_resource type="PackedScene" uid="uid://crggh3deaddmx" path="res://abilities/player/Rock_throw.tscn" id="27_nv4vc"]
+[ext_resource type="PackedScene" uid="uid://dttt0faw6ytar" path="res://abilities/player/Wind_Tornado.tscn" id="28_8gxox"]
 [ext_resource type="Script" uid="uid://down3fiugsbn" path="res://abilities/SummonAbility.gd" id="29_xuaoq"]
 [ext_resource type="PackedScene" uid="uid://2iknqry00yf6" path="res://Scenes/enemies/shadow_soilder.tscn" id="30_wohnl"]
 [ext_resource type="PackedScene" uid="uid://bhpg4ufn8mey1" path="res://UI/PauseMenu.tscn" id="32_wohnl"]
@@ -990,32 +990,32 @@ height = 70.0
 
 [sub_resource type="Resource" id="Resource_olqyp"]
 script = ExtResource("20_olqyp")
-projectile_scene = ExtResource("19_l6n3p")
+projectile_scene = ExtResource("23_wohnl")
 instancing_offset = Vector2(30, -20)
 metadata/_custom_type_script = "uid://covt74nalhceh"
 
 [sub_resource type="Resource" id="Resource_wpjfl"]
 script = ExtResource("20_olqyp")
-projectile_scene = ExtResource("21_olqyp")
-instancing_offset = Vector2(30, -10)
+projectile_scene = ExtResource("25_36dho")
+instancing_offset = Vector2(20, -15)
 metadata/_custom_type_script = "uid://covt74nalhceh"
 
 [sub_resource type="Resource" id="Resource_wohnl"]
 script = ExtResource("20_olqyp")
-projectile_scene = ExtResource("26_83xs0")
-instancing_offset = Vector2(30, -15)
+projectile_scene = ExtResource("26_yh6i2")
+instancing_offset = Vector2(20, -15)
 metadata/_custom_type_script = "uid://covt74nalhceh"
 
 [sub_resource type="Resource" id="Resource_36dho"]
 script = ExtResource("20_olqyp")
-projectile_scene = ExtResource("27_ypfnu")
-instancing_offset = Vector2(20, -10)
+projectile_scene = ExtResource("27_nv4vc")
+instancing_offset = Vector2(20, -15)
 metadata/_custom_type_script = "uid://covt74nalhceh"
 
 [sub_resource type="Resource" id="Resource_yh6i2"]
 script = ExtResource("20_olqyp")
-projectile_scene = ExtResource("28_xuaoq")
-instancing_offset = Vector2(35, -5)
+projectile_scene = ExtResource("28_8gxox")
+instancing_offset = Vector2(30, -18)
 metadata/_custom_type_script = "uid://covt74nalhceh"
 
 [sub_resource type="Resource" id="Resource_nv4vc"]
