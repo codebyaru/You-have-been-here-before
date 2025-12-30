@@ -19,6 +19,7 @@
 
 [GAME MECHANICS EXPLAINED ft. mahoraga](https://www.loom.com/share/4ae73a51aa7c4bb39e5279f12e5f2b33)
 
+[DOCS - story,walkthrough](https://docs.google.com/document/d/1dSHs_ReW9_dtCWlkEw4hfm-hJAy0IdVCGyfrkXsMMEY/edit?usp=sharing)
 
 
 ---
