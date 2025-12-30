@@ -13,9 +13,13 @@
 
 > *"A mysterious adventure game where time loops, magic, and adaptation collide."*
 
-[View Demo](#) · [Report Bug](issues) · [Request Feature](issues)
 
-</div>
+
+[Demo Part 1](https://www.loom.com/share/71420b5266354b8db3ed4a2ef411adf6) · [Demo Part 2](https://www.loom.com/share/d94d4ca10a4b4d26a1c5a7c5972001b4) · [Demo Part 3](https://www.loom.com/share/208f54151ce141cc861407f62a5f65dd) 
+
+[GAME MECHANICS EXPLAINED ft. mahoraga](https://www.loom.com/share/4ae73a51aa7c4bb39e5279f12e5f2b33)
+
+
 
 ---
 
