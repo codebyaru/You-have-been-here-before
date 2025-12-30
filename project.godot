@@ -40,6 +40,7 @@ directories/dtl_directory={
 "boss_wave": "res://Dialogic/Timeline/boss_wave.dtl",
 "ending": "res://Dialogic/Timeline/ending.dtl",
 "lvl10": "res://Dialogic/Timeline/lvl10.dtl",
+"lvl10_start": "res://Dialogic/Timeline/lvl10_start.dtl",
 "lvl2": "res://Dialogic/Timeline/lvl2.dtl",
 "lvl3": "res://Dialogic/Timeline/lvl3.dtl",
 "lvl4": "res://Dialogic/Timeline/lvl4.dtl",
@@ -50,7 +51,6 @@ directories/dtl_directory={
 "lvl8": "res://Dialogic/Timeline/lvl8.dtl",
 "lvl8_start": "res://Dialogic/Timeline/lvl8_start.dtl",
 "lvl9": "res://Dialogic/Timeline/lvl9.dtl",
-"lvl9_start": "res://Dialogic/Timeline/lvl10_start.dtl",
 "new_magic": "res://Dialogic/Timeline/new_magic.dtl"
 }
 layout/style_directory={}
@@ -90,8 +90,10 @@ audio/channel_defaults={
 text/input_action="dialogic_default_action"
 glossary/default_case_sensitive=true
 layout/style_list=[]
-layout/default_style="Default"
-variables={}
+layout/default_style=""
+variables={
+"NewVar": 0
+}
 
 [editor_plugins]
 

@@ -1,119 +1,124 @@
 extends Node2D
 
-# Flag taaki dialogue sirf ek baar trigger ho
+# --- 1. INSPECTOR VARIABLES ---
+@export var mahoraga_scene: PackedScene 
+@export var boss_spawn_pos: Marker2D 
+@export_file("*.tscn") var next_scene_path: String 
+
+# Internal flag
 var critical_dialogue_triggered := false
-@export_file("*.tscn") var next_scene_path: String
+
 func _ready() -> void:
-	AudioManager.play_music("res://audio/music/Sharperheart - Bittersweet.mp3")
+	# 1. Level Setup
 	Global.current_level_id = "lvl10"
 	Global.current_level = 10
-	Dialogic.start("lvl9_start")
-	
-	WaveHandler.all_waves_completed.connect(_on_waves_done)
-	
-	# Dialogic Signals Connect karna zaroori hai
-	Dialogic.signal_event.connect(_on_dialogic_signal)
-	
-	
 	Global.respawn_position = Vector2(14, 258)
-	#DialogicController.start_dialogue("timeline_4")
-	#$Beacon.start_timer()
+	
+	# 2. 🔥 PAUSE & HIDE PLAYER (Cinematic Start)
+	if is_instance_valid(Global.player_ref):
+		Global.player_ref.visible = false            # Gayab karo
+		Global.player_ref.set_physics_process(false) # Hilna band
+		Global.player_ref.set_process(false)         # Input/Logic band
+		Global.player_ref.velocity = Vector2.ZERO    # Slide rok do
+	
+	# 3. Start Intro Dialogue
+	Dialogic.start("lvl10_start")
+	
+	# 4. Signals Connect
+	Dialogic.signal_event.connect(_on_dialogic_signal)
 
-# --- 🔥 CRITICAL HEALTH MONITORING ---
+# --- 2. CRITICAL HEALTH MONITORING ---
 func _process(_delta) -> void:
-	# 1. Check agar dialogue pehle se trigger nahi hua hai
-	# 2. Check agar Player exist karta hai
 	if not critical_dialogue_triggered and is_instance_valid(Global.player_ref):
-		
-		# 3. Check variable from player.gd
 		if Global.player_ref.is_critical_health:
 			_trigger_critical_sequence()
 
-# Lvl10.gd
-
-func _trigger_critical_sequence():
-	# ... (baaki logic) ...
-	print("[LVL10] Manually Freezing Entities...")
-	
-	# 1. Player ko Roko
-	if is_instance_valid(Global.player_ref):
-		Global.player_ref.set_physics_process(false) # Physics Band
-		Global.player_ref.set_process(false)         # Input Band
-		Global.player_ref.sprite.pause()             # Animation Band (Optional)
-		
-	# 2. Mahoraga/Enemies ko Roko
-	# Iske liye best hai ki saare enemies "enemies" group mein hon
-	get_tree().call_group("enemies", "set_physics_process", false)
-	get_tree().call_group("enemies", "set_process", false)
-	
-	# Agar Mahoraga alag hai aur group mein nahi hai:
-	var mahoraga = get_node_or_null("Mahoraga") # Path check karlena
-	if mahoraga:
-		mahoraga.set_physics_process(false)
-		mahoraga.sprite.pause()
-	print("[LVL10] ⚠️ Player Critical! Starting Final Choice...")
-	critical_dialogue_triggered = true
-	
-	# Player movement rokne ke liye
-	Global.dialogue_playing = true 
-	
-	# Start the dialogue
-	Dialogic.start("lvl10")
-
-# --- 🔥 SIGNAL HANDLER (YES / NO) ---
+# --- 3. SIGNAL HANDLER (MAIN LOGIC) ---
 func _on_dialogic_signal(arg: String):
 	print("[LVL10] Signal received: ", arg)
 	
 	match arg:
+		"final_fight":
+			print("🔥 Intro Finished. Summoning Mahoraga!")
+			
+			# 🔥 UNPAUSE PLAYER (Fight Mode ON)
+			if is_instance_valid(Global.player_ref):
+				Global.player_ref.visible = true
+				Global.player_ref.set_physics_process(true) # Hilna chalu
+				Global.player_ref.set_process(true)         # Input chalu
+				
+			_summon_mahoraga()
+			Global.dialogue_playing = false
+			
 		"said_yes":
-			print(" -> Advancing Level (Beacon Style)")
+			print(" -> Choice: YES (Loop)")
 			Global.loop_count += 1
 			Global.dialogue_playing = false 
 			Global.proceed_to_next_level()
 			
 		"said_no":
-			print(" -> Triggering Ending Timeline")
-			
-			# 1. Ending Dialogue Start karo
+			print(" -> Choice: NO (Ending)")
+			# Player is already hidden/paused from critical sequence logic
 			Dialogic.start("ending")
 			
-			# 🔥 CHECK: Abhi scene change mat karo!
-			# Signal connect karo jo wait karega dialogue khatam hone ka
 			if not Dialogic.timeline_ended.is_connected(_on_ending_finished):
 				Dialogic.timeline_ended.connect(_on_ending_finished)
 
-		"timeline_end": 
-			# Ye normal dialogues ke liye hai
+		"timeline_end":
+			# Safe Check: Agar koi normal dialogue khatam ho to player dikha do
+			# Note: Isse careful rehna, agar 'final_fight' signal use kar rahe ho to ye zaroori nahi hai
+			if is_instance_valid(Global.player_ref) and arg != "start_fight":
+				Global.player_ref.visible = true
+				Global.player_ref.set_physics_process(true)
+				Global.player_ref.set_process(true)
 			Global.dialogue_playing = false
 
-# --- 🔥 NAYA FUNCTION ADD KARO ---
-# Ye tab chalega jab "ending" dialogue poora khatam ho jayega
-func _on_ending_finished():
-	print("Ending Dialogue Complete. Transitioning Scene...")
+# --- 4. SUMMON BOSS ---
+func _summon_mahoraga():
+	AudioManager.play_music("res://audio/music/Sharperheart - Bittersweet.mp3")
+	if mahoraga_scene and boss_spawn_pos:
+		var boss = mahoraga_scene.instantiate()
+		boss.global_position = boss_spawn_pos.global_position
+		boss.add_to_group("enemies") 
+		add_child(boss)
+		print("✅ Mahoraga Summoned")
+	else:
+		push_error("[LVL10] ❌ Error: Mahoraga Scene/SpawnPos Missing!")
+
+# --- 5. FREEZE GAME (CRITICAL SEQUENCE) ---
+func _trigger_critical_sequence():
+	print("[LVL10] ⚠️ Triggering Critical Choice...")
+	critical_dialogue_triggered = true
+	Global.dialogue_playing = true 
 	
-	# 1. Cleanup: Signal disconnect karna zaroori hai
+	# Player Handling (Freeze Again)
+	if is_instance_valid(Global.player_ref):
+		Global.player_ref.set_physics_process(false)
+		Global.player_ref.set_process(false)
+		Global.player_ref.sprite.pause()
+		
+		# 🔥 Player Gayab (Dialogue Mode)
+		Global.player_ref.visible = false 
+		
+	# Enemies Handling
+	get_tree().call_group("enemies", "set_physics_process", false)
+	get_tree().call_group("enemies", "set_process", false)
+	
+	Dialogic.start("lvl10")
+
+# --- 6. ENDING TRANSITION ---
+func _on_ending_finished():
+	print("Ending sequence complete.")
 	if Dialogic.timeline_ended.is_connected(_on_ending_finished):
 		Dialogic.timeline_ended.disconnect(_on_ending_finished)
 	
+	AudioManager.stop_music()
 	Global.dialogue_playing = false
 	
-	# 2. Ab Scene Change karo
 	if next_scene_path:
-		AudioManager.stop_music()
 		TransitionScreen.transition_to(next_scene_path)
-	else:
-		print("❌ Error: Next Scene Path set nahi hai!")
-# --- VOID LOGIC (Existing) ---
-func _on_void_body_entered(body: Node2D) -> void:
-	if body.has_method("player"):
-		print("Instant death")
-		# "void" pass kiya taaki critical health trigger na ho
-		body.take_damage(body.max_health, "void") 
-	if body.has_method("enemy"):
-		body.take_damage(body.MAX_HEALTH)
-	if body.has_method("shadow"):
-		body.take_damage(body.MAX_HEALTH)
 
-func _on_waves_done(level_id):
-	if level_id == "lvl2":
-		print("[LEVEL 2] Combat complete")
+# --- 7. VOID LOGIC ---
+func _on_void_body_entered(body: Node2D) -> void:
+	if body.has_method("take_damage"):
+		body.take_damage(9999, "void")

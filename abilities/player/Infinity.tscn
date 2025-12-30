@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://dqv60uke7m8ib"]
+
+[ext_resource type="Script" uid="uid://bv6ruc031qvvt" path="res://abilities/projectile.gd" id="1_7xhcl"]
+[ext_resource type="SpriteFrames" uid="uid://ddxgvotfcdci0" path="res://abilities/SpiteFrames/FireBall.tres" id="2_j2xmn"]
+[ext_resource type="Script" uid="uid://diux2q55ceyao" path="res://abilities/replace_on_timeout.gd" id="3_1wy1m"]
+[ext_resource type="Script" uid="uid://b2dc5e22gftyx" path="res://abilities/replace_on_area_entered.gd" id="4_ue5c1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k5oii"]
+radius = 11.401754
+
+[node name="Infinity" type="Node2D"]
+script = ExtResource("1_7xhcl")
+speed = 200.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -4.7683716e-07)
+scale = Vector2(0.36601564, 0.36382812)
+sprite_frames = ExtResource("2_j2xmn")
+animation = &"Infity"
+autoplay = "Infity"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, 1)
+shape = SubResource("CircleShape2D_k5oii")
+
+[node name="ReplaceOnTimeout" type="Node" parent="." node_paths=PackedStringArray("replace_timer", "replace_target")]
+script = ExtResource("3_1wy1m")
+replace_timer = NodePath("Timer")
+replace_target = NodePath("..")
+replacement_scene_path = "uid://c2u806670nt1c"
+spawn_replacement = false
+replace_damage = 20
+replace_scale = 0.5
+
+[node name="Timer" type="Timer" parent="ReplaceOnTimeout"]
+wait_time = 1.25
+one_shot = true
+autostart = true
+
+[node name="ReplaceOnAreaEntered" type="Node" parent="." node_paths=PackedStringArray("enter_area", "replace_target")]
+script = ExtResource("4_ue5c1")
+enter_area = NodePath("../Area2D")
+damage_amount = 60
+element_type = "void"
+replace_target = NodePath("..")
+replacement_scene_path = "uid://c2u806670nt1c"
+spawn_replacement = false
+replace_damage = 20
+replace_scale = 0.5
+
+[connection signal="body_entered" from="Area2D" to="ReplaceOnAreaEntered" method="_on_area_2d_body_entered"]

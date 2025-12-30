@@ -1,4 +1,4 @@
-[gd_scene load_steps=334 format=3 uid="uid://bgghmpfc24dku"]
+[gd_scene load_steps=351 format=3 uid="uid://bgghmpfc24dku"]
 
 [ext_resource type="Script" uid="uid://coysfdgbbbech" path="res://Scenes/enemies/mahoraga.gd" id="1_utwww"]
 [ext_resource type="Texture2D" uid="uid://cnaoapvmwdvro" path="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/SLOT_!_TRYANA_SHIT/mahoraga/sprite_sheet (4).png" id="2_utwww"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://crggh3deaddmx" path="res://abilities/player/Rock_throw.tscn" id="16_iyn2a"]
 [ext_resource type="PackedScene" uid="uid://dttt0faw6ytar" path="res://abilities/player/Wind_Tornado.tscn" id="17_lvtkm"]
 [ext_resource type="PackedScene" uid="uid://2iknqry00yf6" path="res://Scenes/enemies/shadow_soilder.tscn" id="19_34tau"]
+[ext_resource type="PackedScene" uid="uid://dqv60uke7m8ib" path="res://abilities/player/Infinity.tscn" id="20_t01qd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_54amb"]
 atlas = ExtResource("2_utwww")
@@ -1076,6 +1077,66 @@ region = Rect2(1680, 1680, 560, 560)
 atlas = ExtResource("4_wvovp")
 region = Rect2(2240, 1680, 560, 560)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1lt8p"]
+atlas = ExtResource("4_wvovp")
+region = Rect2(2240, 1120, 560, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f07hr"]
+atlas = ExtResource("4_wvovp")
+region = Rect2(1680, 1120, 560, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pwul4"]
+atlas = ExtResource("4_wvovp")
+region = Rect2(1120, 1120, 560, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v16or"]
+atlas = ExtResource("4_wvovp")
+region = Rect2(560, 1120, 560, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0css7"]
+atlas = ExtResource("4_wvovp")
+region = Rect2(0, 1120, 560, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ho1u"]
+atlas = ExtResource("4_wvovp")
+region = Rect2(2240, 560, 560, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8bjxk"]
+atlas = ExtResource("4_wvovp")
+region = Rect2(1680, 560, 560, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0u4mh"]
+atlas = ExtResource("4_wvovp")
+region = Rect2(1120, 560, 560, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwmuq"]
+atlas = ExtResource("4_wvovp")
+region = Rect2(560, 560, 560, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5lnjy"]
+atlas = ExtResource("4_wvovp")
+region = Rect2(0, 560, 560, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k66tq"]
+atlas = ExtResource("4_wvovp")
+region = Rect2(2240, 0, 560, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xhog"]
+atlas = ExtResource("4_wvovp")
+region = Rect2(1680, 0, 560, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hk3cv"]
+atlas = ExtResource("4_wvovp")
+region = Rect2(1120, 0, 560, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6hub"]
+atlas = ExtResource("4_wvovp")
+region = Rect2(560, 0, 560, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqy8h"]
+atlas = ExtResource("4_wvovp")
+region = Rect2(0, 0, 560, 560)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_nbji1"]
 atlas = ExtResource("5_hq7ab")
 region = Rect2(0, 0, 560, 560)
@@ -2017,6 +2078,51 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mbg83")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1lt8p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f07hr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pwul4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v16or")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0css7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ho1u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8bjxk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0u4mh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwmuq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5lnjy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k66tq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xhog")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hk3cv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a6hub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqy8h")
 }],
 "loop": true,
 "name": &"jump",
@@ -2346,6 +2452,12 @@ summon_scene = ExtResource("19_34tau")
 spawn_offset = Vector2(30, -15)
 metadata/_custom_type_script = "uid://down3fiugsbn"
 
+[sub_resource type="Resource" id="Resource_pfoam"]
+script = ExtResource("13_1p1wx")
+projectile_scene = ExtResource("20_t01qd")
+instancing_offset = Vector2(30, -20)
+metadata/_custom_type_script = "uid://covt74nalhceh"
+
 [node name="Mahoraga" type="CharacterBody2D" node_paths=PackedStringArray("updates_label")]
 position = Vector2(-1, 0)
 collision_layer = 4
@@ -2360,7 +2472,7 @@ position = Vector2(-1.1920929e-07, -18)
 scale = Vector2(0.114285715, 0.16964285)
 sprite_frames = SubResource("SpriteFrames_vgqql")
 animation = &"idle"
-frame_progress = 0.6462034
+frame_progress = 0.33384946
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -2536,6 +2648,7 @@ ability_water_ball = SubResource("Resource_t01qd")
 ability_rock_throw = SubResource("Resource_iyn2a")
 ability_wind_tornado = SubResource("Resource_lvtkm")
 ability_shadow_summon = SubResource("Resource_34tau")
+ability_void_attack = SubResource("Resource_pfoam")
 user = NodePath("..")
 
 [connection signal="body_entered" from="attack_area" to="." method="_on_attack_area_body_entered"]

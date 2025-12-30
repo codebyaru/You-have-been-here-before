@@ -236,9 +236,9 @@ func die():
 	
 	if sprite.sprite_frames.has_animation("death"):
 		sprite.play("death")
-		await get_tree().create_timer(1).timeoutd
+		await get_tree().create_timer(1).timeout
 	else:
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(1).timeout
 	
 	_spawn_dead_body()
 	emit_signal("died")

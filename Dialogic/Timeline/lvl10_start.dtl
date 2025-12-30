@@ -1,4 +1,16 @@
-U CAN"T DIE AS YOUR SOUL WIL BE EATAN BY MAHORAGA\
- EARLIEAR MONSTERS WERE NOT POWERFULL ENOUGH TO EAT YOUR SOUL \
-SO U WERE ABLE TO REVIVE BY THE MAGIC IN THE AIR
-[signal arg="fight_start"]
+join evil_max_hidden right
+evil_max_hidden: "Do you feel that heavy pressure? You have entered the Time Dungeon."
+
+evil_max_hidden: "Until now, you could cheat death. The magic in the air revived you because the monsters were too weak to hold onto your spirit."
+
+evil_max_hidden: "But that safety ends here."
+
+evil_max_hidden: "Sleeping before you is the Divine General Mahoraga. He does not just kill... he devours souls."
+
+evil_max_hidden: "If you fall here, there is no revival. You will be erased from existence."
+
+evil_max_hidden: "However, if you wish to become the Strongest in the World... if you want to command Time itself..."
+
+evil_max_hidden: "You must face him. And you must win."
+leave evil_max_hidden
+[signal arg="final_fight"]

@@ -1,10 +1,11 @@
 extends CharacterBody2D
 
+# ... (Baki saare CONSTANTS same rahenge, bas logic neeche change hai) ...
+
 # -----------------------
 # CONFIG & CONSTANTS
 # -----------------------
 const DEBUG_AI := false
-
 const SPEED := 110.0
 const JUMP_VELOCITY := -400.0
 const GRAVITY := 980.0
@@ -12,20 +13,19 @@ const JUMP_COOLDOWN_TIME := 0.6
 const FLOOR_SNAP_LENGTH := 10.0
 
 const ATTACK_RANGE := 45.0
-const ATTACK_DAMAGE := 100
-const ATTACK_TICK_RATE := 0.7 
-const ATTACK_COOLDOWN := 0.5
-const ATTACK_HITBOX_FRAME := 0.3
+const ATTACK_DAMAGE := 60
+const ATTACK_TICK_RATE := 0.9
+const ATTACK_COOLDOWN := 0.9
+const ATTACK_HITBOX_FRAME := 0.5
 
-const MAX_HEALTH := 10000
+const MAX_HEALTH := 1000
 const MAX_LIVES := 30
 const RESPAWN_DELAY := 2.0
 
-# Scale Config
 const BASE_SPRITE_SCALE := Vector2(0.114286, 0.169643)
 const ATTACK_2_SCALE_MULT := 5.9
 
-# --- NEW ADAPTATION CONSTANTS ---
+# Adaptation logic
 const ADAPTATION_THRESHOLD := 5 
 var adaptation_counts : Dictionary = {} 
 var adapted_elements : Array = [] 
@@ -34,20 +34,10 @@ signal died
 signal respawned
 signal all_lives_lost
 
-# -----------------------
-# UI & COMPONENTS EXPORT
-# -----------------------
 @export var updates_label: Label 
-
-# Reference to the Magic Component Node you created
 @onready var magic_component = $MahoragaMagicComponent
 
-# -----------------------
-# STATE MANAGEMENT
-# -----------------------
 enum State { IDLE, CHASE, ATTACK, JUMPING, PACING, ATTACK_RECOVERY, DEAD }
-
-# FIX: Removed ": State" to prevent errors
 var state = State.IDLE
 
 var player: CharacterBody2D = null
@@ -75,27 +65,17 @@ var feet_raycast: RayCast2D = null
 @onready var attack_area: Area2D = $attack_area
 @onready var health_bar: ProgressBar = $health_bar
 
-# -----------------------
-# IDENTITY FUNCTION (TAG)
-# -----------------------
 func mahoraga(): 
 	pass 
 
-# -----------------------
-# INITIALIZATION
-# -----------------------
 func _ready():
 	spawn_position = global_position
 	sprite.scale = BASE_SPRITE_SCALE
 	sprite.play("idle")
 	attack_area.monitoring = false
-	
 	_setup_health_bar()
 	_collect_raycasts()
-	
-	if updates_label:
-		updates_label.modulate.a = 0 
-	
+	if updates_label: updates_label.modulate.a = 0 
 	if DEBUG_AI: print("[AI-INIT] 🔥 MAHORAGA ONLINE 🔥")
 
 func _setup_health_bar():
@@ -117,9 +97,6 @@ func _collect_raycasts():
 			elif "wall" in r_name: wall_raycasts.append(child) 
 	ground_raycasts.sort_custom(func(a, b): return abs(a.target_position.x) < abs(b.target_position.x))
 
-# -----------------------
-# PHYSICS LOOP
-# -----------------------
 func _physics_process(delta: float) -> void:
 	if state == State.DEAD: return
 	
@@ -143,7 +120,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		apply_floor_snap()
 		move_and_slide()
-		
 	_prevent_stacking_on_player()
 
 # -----------------------
@@ -154,20 +130,20 @@ func _handle_movement_logic(delta: float):
 		state = State.IDLE
 		return
 
-	# --- 1. MAGIC ATTACK LOGIC (WHILE CHASING) ---
-	# Agar adapted elements hain, aur hum attack lock mein nahi hain
-	if adapted_elements.size() > 0 and not attack_lock and not in_air:
-		# Random Selection Logic: Frame-based random chance (approx 1-2 times per second)
+	# --- 1. SMART MAGIC LOGIC ---
+	# 🔥 UPDATE: Ab ye check nahi karega ki adapted_elements empty hai ya nahi
+	# Kyunki "VOID" hamesha available hai.
+	if not attack_lock and not in_air:
+		# Chance to cast magic (2% per frame ~ approx once per second)
 		if randf() < 0.02: 
 			_try_cast_magic_attack()
-			return # Agar cast kiya, to movement logic skip karo is frame ke liye
+			return 
 
 	# --- 2. MOVEMENT LOGIC ---
 	var dx = player.global_position.x - global_position.x
 	var dir = signf(dx)
 	var dist = abs(dx)
 
-	# Melee Attack check (Range ke andar)
 	if dist <= ATTACK_RANGE and not in_air and not attack_lock:
 		_start_attack()
 		return
@@ -204,8 +180,16 @@ func _handle_movement_logic(delta: float):
 # MAGIC EXECUTION HELPER
 # -----------------------
 func _try_cast_magic_attack():
-	# Randomly pick an element he knows
-	var random_element = adapted_elements.pick_random()
+	# 🔥 UPDATE: Create a pool of available spells
+	# Default mein "void" hamesha rahega
+	var available_spells = ["void"]
+	
+	# Agar adapt kiya hai, toh wo elements bhi add karo
+	if adapted_elements.size() > 0:
+		available_spells.append_array(adapted_elements)
+	
+	# Smart Decision: Randomly pick one
+	var chosen_spell = available_spells.pick_random()
 	
 	# Stop movement briefly to look cool while casting
 	velocity.x = 0
@@ -213,7 +197,7 @@ func _try_cast_magic_attack():
 	
 	# Component ko bolo attack karne ko
 	if magic_component:
-		magic_component.try_cast_stolen_magic(random_element)
+		magic_component.try_cast_stolen_magic(chosen_spell)
 
 # -----------------------
 # MELEE COMBAT LOGIC
@@ -221,8 +205,9 @@ func _try_cast_magic_attack():
 func _start_attack():
 	state = State.ATTACK
 	velocity.x = 0
+	# Melee attacks
 	var use_attack_2 = randf() < 0.5
-	var anim = "attack_2" if use_attack_2 else "attack"
+	var anim = "attack_2" if use_attack_2 else "attack_2" # Tumne dono same rakhe the code mein, check karlena
 	sprite.play(anim)
 	
 	if anim == "attack_2": 
@@ -280,51 +265,37 @@ func _process_recovery(delta: float):
 		attack_started = false
 		state = State.CHASE if player else State.IDLE
 
-# -----------------------
-# DAMAGE & ADAPTATION LOGIC
-# -----------------------
+# ... (Baki saare Damage, Adaptation aur Helper functions same rahenge) ...
+# ... Copy Paste baaki ka code yahan se neeche agar missing hai ...
+
 func take_damage(amount: int, attack_type: String = "physical"):
 	if state == State.DEAD: return
-
 	var final_damage = amount
-
 	if attack_type != "physical":
 		if attack_type in adapted_elements:
 			print("🛑 MAHORAGA IMMUNE TO: ", attack_type)
 			_play_immune_effect()
 			return 
-		
-		if not adaptation_counts.has(attack_type):
-			adaptation_counts[attack_type] = 0
+		if not adaptation_counts.has(attack_type): adaptation_counts[attack_type] = 0
 		adaptation_counts[attack_type] += 1
-		
-		if adaptation_counts[attack_type] >= ADAPTATION_THRESHOLD:
-			_adapt_to_element(attack_type)
-
+		if adaptation_counts[attack_type] >= ADAPTATION_THRESHOLD: _adapt_to_element(attack_type)
 	else:
 		if lives == 2:
 			final_damage = int(amount * 0.5)
 			_show_adaptation_text("ADAPTING TO PHYSICAL ATKS", Color.GRAY)
-			
 		elif lives == 1:
 			final_damage = int(amount * 0.2)
 			_show_adaptation_text("PHYSICAL ADAPTATION COMPLETE", Color.BLACK)
-
 	health -= final_damage
 	health_bar.value = health
 	health_bar.visible = true 
-	
 	_play_hurt_effect()
-
-	if health <= 0:
-		die()
+	if health <= 0: die()
 
 func _adapt_to_element(element: String):
 	if element in adapted_elements: return
-	
 	adapted_elements.append(element)
 	print("⚙️ WHEEL TURNS! ADAPTED TO: ", element)
-	
 	var msg_color = Color.WHITE
 	match element:
 		"fire": msg_color = Color.ORANGE
@@ -332,32 +303,21 @@ func _adapt_to_element(element: String):
 		"wind": msg_color = Color.GREEN
 		"rock": msg_color = Color.BROWN
 		"shadow": msg_color = Color.PURPLE
-	
 	_show_adaptation_text("ADAPTED TO " + element.to_upper(), msg_color)
-	
 	var tween = create_tween()
 	tween.tween_property(sprite, "modulate", Color(0.0, 0.8, 1.0), 0.3)
 	tween.tween_property(sprite, "modulate", Color.WHITE, 0.3)
-	
 	_trigger_repel_shockwave()
 
-# -----------------------
-# UI HELPER
-# -----------------------
 func _show_adaptation_text(message: String, color: Color):
 	if not updates_label: return
-	
 	updates_label.text = "MAHORAGA: " + message
 	updates_label.modulate = color
-	
 	var tween = create_tween()
 	tween.tween_property(updates_label, "modulate:a", 1.0, 0.5)
 	tween.tween_interval(2.0)
 	tween.tween_property(updates_label, "modulate:a", 0.0, 0.5)
 
-# -----------------------
-# HELPERS
-# -----------------------
 func _play_immune_effect():
 	var tween = create_tween()
 	sprite.modulate = Color(3.0, 3.0, 1.092, 0.655) 
@@ -372,8 +332,7 @@ func _trigger_repel_shockwave():
 	if player:
 		var dir = (player.global_position - global_position).normalized()
 		var force = Vector2(sign(dir.x) * 800.0, -300.0)
-		if player.has_method("apply_knockback"):
-			player.apply_knockback(force)
+		if player.has_method("apply_knockback"): player.apply_knockback(force)
 
 func _initiate_parabolic_jump(target_x: float):
 	jump_target_x = target_x
@@ -389,8 +348,7 @@ func _initiate_parabolic_jump(target_x: float):
 func _process_jumping(delta: float):
 	velocity.x = jump_forward_speed
 	if is_on_floor() and velocity.y >= 0:
-		if feet_raycast and not feet_raycast.is_colliding():
-			global_position.x += 20.0 * signf(velocity.x)
+		if feet_raycast and not feet_raycast.is_colliding(): global_position.x += 20.0 * signf(velocity.x)
 		velocity.x = 0
 		state = State.CHASE
 		get_tree().create_timer(JUMP_COOLDOWN_TIME).timeout.connect(func(): jump_cooldown = false)

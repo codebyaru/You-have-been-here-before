@@ -1,9 +1,12 @@
+join  center
 evil_max_hidden: SO,U going to die again
 evil_max_hidden: want to make thing better
 evil_max_hidden: USE THE FORBIDDEN TIME MAGIC??? it will kill THIS MONTROSITY
 BUT IT WILL HAVE CONSEQUENCES.. WILL U STILL USE TIME MAGIC??? DO U WANT TO BE THE STRONGEST !!!!!
 - Yes
+	[background arg="res://We_HAVE_BEEN_HERE_BEFORE_ASSETS/time_attack.jpg" fade="0.0" transition="Swipe Diagonal Up Left"]
 	evil_max_hidden: WELL THEN BE READY FOR CONSWQUENCES BUT YES U ARE STRONGEST NOW
+	[background fade="0.0"]
 	[signal arg="said_yes"]
 - NO
 	TIME MAGIC CONDITINON SATISFIED\
