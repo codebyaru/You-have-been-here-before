@@ -7,11 +7,13 @@ func _ready() -> void:
 	AudioManager.play_music("res://audio/music/Sharperheart - Bittersweet.mp3")
 	Global.current_level_id = "lvl10"
 	Global.current_level = 10
+	Dialogic.start("lvl9_start")
 	
 	WaveHandler.all_waves_completed.connect(_on_waves_done)
 	
 	# Dialogic Signals Connect karna zaroori hai
 	Dialogic.signal_event.connect(_on_dialogic_signal)
+	
 	
 	Global.respawn_position = Vector2(14, 258)
 	#DialogicController.start_dialogue("timeline_4")

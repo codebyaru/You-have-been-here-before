@@ -50,6 +50,7 @@ directories/dtl_directory={
 "lvl8": "res://Dialogic/Timeline/lvl8.dtl",
 "lvl8_start": "res://Dialogic/Timeline/lvl8_start.dtl",
 "lvl9": "res://Dialogic/Timeline/lvl9.dtl",
+"lvl9_start": "res://Dialogic/Timeline/lvl10_start.dtl",
 "new_magic": "res://Dialogic/Timeline/new_magic.dtl"
 }
 layout/style_directory={}
