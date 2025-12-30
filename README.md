@@ -51,10 +51,9 @@ The game explores themes of repetition and mastery, forcing players to adapt to 
 | **Wind Tornado** | <kbd>k</kbd> |
 | **Rock Throw** | <kbd>l</kbd> |
 | **Shadow Summon** | <kbd>h</kbd> |
-| **Attack Combo-I** | <kbd>Space</kbd> + <kbd>Shift</kbd> + <kbd>a/d</kbd> |...similar more
-
+| **Attack Combo-I** | <kbd>Space</kbd> + <kbd>Shift</kbd> + <kbd>a/d</kbd> |
 | **Pause / Menu** | <kbd>ESC</kbd> |
-
+...more attack
 ---
 
 ##  Getting Started
