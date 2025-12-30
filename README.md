@@ -27,7 +27,7 @@ The game explores themes of repetition and mastery, forcing players to adapt to 
 
 ###  Key Features
 
-* **⚔️ Dynamic Combat System:** Master 4 elemental abilities — **Fireball**, **Rock Throw**, **Water Ball**, and **Wind Tornado**.
+* **⚔️ Dynamic Combat System:** Master 5 elemental abilities — **Fireball**, **Rock Throw**, **Water Ball**,"Shadow Summon", and **Wind Tornado**.
 * **🤖 The Mahoraga AI:** A highly advanced boss enemy that adapts to your playstyle and utilizes stolen magic.
 * **📜 Immersive Storytelling:** Branching narratives and deep lore powered by the **Dialogic** plugin.
 * **🎨 AI-Generated Assets:** Stunning visual assets and backgrounds generated using **Google Gemini**.
